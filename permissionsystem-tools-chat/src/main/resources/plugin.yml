@@ -1,0 +1,7 @@
+name: DKPermsChatExtension
+author: Dkrieger
+description: 
+version: ${project.version}
+
+main: ch.dkrieger.permissionsystem.bukkit.tools.chat.ChatExtension
+commands:

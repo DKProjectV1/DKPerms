@@ -1,0 +1,8 @@
+name: DKPermsTabListExtension
+author: Dkrieger
+description: 
+version: ${project.version}
+api-version: 1.13
+
+main: ch.dkrieger.permissionsystem.bukkit.tools.tablist.TabListExtension
+commands:

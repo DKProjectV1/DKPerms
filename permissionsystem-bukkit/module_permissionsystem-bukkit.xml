@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_permissionsystem-bukkit" default="compile.module.permissionsystem-bukkit">
+  <dirname property="module.permissionsystem-bukkit.basedir" file="${ant.file.module_permissionsystem-bukkit}"/>
+  
+  <property name="module.jdk.home.permissionsystem-bukkit" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.permissionsystem-bukkit" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.permissionsystem-bukkit" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.permissionsystem-bukkit" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="permissionsystem-bukkit.output.dir" value="${module.permissionsystem-bukkit.basedir}/target/classes"/>
+  <property name="permissionsystem-bukkit.testoutput.dir" value="${module.permissionsystem-bukkit.basedir}/target/test-classes"/>
+  
+  <path id="permissionsystem-bukkit.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="permissionsystem-bukkit.module.production.classpath">
+    <path refid="${module.jdk.classpath.permissionsystem-bukkit}"/>
+    <fileset dir="${basedir}/../dependency/spigot">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <fileset dir="${basedir}/../dependency/bukkit">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <pathelement location="${permissionsystem-lib.output.dir}"/>
+    <path refid="library.maven:_org.mongodb:mongo-java-driver:3.8.0.classpath"/>
+    <path refid="library.maven:_org.spigotmc:spigot-api:1.8.8-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_com.googlecode.json-simple:json-simple:1.1.2.classpath"/>
+    <path refid="library.maven:_junit:junit:4.10.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:17.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.maven:_org.avaje:ebean:2.8.1.classpath"/>
+    <path refid="library.maven:_javax.persistence:persistence-api:1.0.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.15.classpath"/>
+    <path refid="library.maven:_me.clip:placeholderapi:2.6.0.classpath"/>
+    <path refid="library.maven:_net.milkbowl.vault:vaultapi:1.6.classpath"/>
+    <path refid="library.maven:_org.bukkit:bukkit:1.9-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_net.md-5:bungeecord-chat:1.12-snapshot.classpath"/>
+    <path refid="library.maven:_de.dytanic.cloudnet:cloudnet-api-bridge:2.1.6.classpath"/>
+  </path>
+  
+  <path id="permissionsystem-bukkit.runtime.production.module.classpath">
+    <pathelement location="${permissionsystem-bukkit.output.dir}"/>
+    <fileset dir="${basedir}/../dependency/spigot">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <fileset dir="${basedir}/../dependency/bukkit">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <path refid="permissionsystem-lib.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.mongodb:mongo-java-driver:3.8.0.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:17.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.maven:_net.md-5:bungeecord-chat:1.12-snapshot.classpath"/>
+  </path>
+  
+  <path id="permissionsystem-bukkit.module.classpath">
+    <path refid="${module.jdk.classpath.permissionsystem-bukkit}"/>
+    <pathelement location="${permissionsystem-bukkit.output.dir}"/>
+    <fileset dir="${basedir}/../dependency/spigot">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <fileset dir="${basedir}/../dependency/bukkit">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <pathelement location="${permissionsystem-lib.testoutput.dir}"/>
+    <pathelement location="${permissionsystem-lib.output.dir}"/>
+    <path refid="library.maven:_org.mongodb:mongo-java-driver:3.8.0.classpath"/>
+    <path refid="library.maven:_org.spigotmc:spigot-api:1.8.8-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_com.googlecode.json-simple:json-simple:1.1.2.classpath"/>
+    <path refid="library.maven:_junit:junit:4.10.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:17.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.maven:_org.avaje:ebean:2.8.1.classpath"/>
+    <path refid="library.maven:_javax.persistence:persistence-api:1.0.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.15.classpath"/>
+    <path refid="library.maven:_me.clip:placeholderapi:2.6.0.classpath"/>
+    <path refid="library.maven:_net.milkbowl.vault:vaultapi:1.6.classpath"/>
+    <path refid="library.maven:_org.bukkit:bukkit:1.9-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_net.md-5:bungeecord-chat:1.12-snapshot.classpath"/>
+    <path refid="library.maven:_de.dytanic.cloudnet:cloudnet-api-bridge:2.1.6.classpath"/>
+  </path>
+  
+  <path id="permissionsystem-bukkit.runtime.module.classpath">
+    <pathelement location="${permissionsystem-bukkit.testoutput.dir}"/>
+    <pathelement location="${permissionsystem-bukkit.output.dir}"/>
+    <fileset dir="${basedir}/../dependency/spigot">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <fileset dir="${basedir}/../dependency/bukkit">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <path refid="permissionsystem-lib.runtime.module.classpath"/>
+    <path refid="library.maven:_org.mongodb:mongo-java-driver:3.8.0.classpath"/>
+    <path refid="library.maven:_org.spigotmc:spigot-api:1.8.8-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_com.googlecode.json-simple:json-simple:1.1.2.classpath"/>
+    <path refid="library.maven:_junit:junit:4.10.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:17.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.maven:_org.avaje:ebean:2.8.1.classpath"/>
+    <path refid="library.maven:_javax.persistence:persistence-api:1.0.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.15.classpath"/>
+    <path refid="library.maven:_me.clip:placeholderapi:2.6.0.classpath"/>
+    <path refid="library.maven:_net.milkbowl.vault:vaultapi:1.6.classpath"/>
+    <path refid="library.maven:_org.bukkit:bukkit:1.9-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_net.md-5:bungeecord-chat:1.12-snapshot.classpath"/>
+    <path refid="library.maven:_de.dytanic.cloudnet:cloudnet-api-bridge:2.1.6.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.permissionsystem-bukkit">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.permissionsystem-bukkit">
+    <patternset refid="excluded.from.module.permissionsystem-bukkit"/>
+  </patternset>
+  
+  <path id="permissionsystem-bukkit.module.sourcepath">
+    <dirset dir="${module.permissionsystem-bukkit.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="permissionsystem-bukkit.module.test.sourcepath">
+    <dirset dir="${module.permissionsystem-bukkit.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.permissionsystem-bukkit" depends="compile.module.permissionsystem-bukkit.production,compile.module.permissionsystem-bukkit.tests" description="Compile module permissionsystem-bukkit"/>
+  
+  <target name="compile.module.permissionsystem-bukkit.production" depends="register.custom.compilers,compile.module.permissionsystem-lib" description="Compile module permissionsystem-bukkit; production classes">
+    <mkdir dir="${permissionsystem-bukkit.output.dir}"/>
+    <javac2 destdir="${permissionsystem-bukkit.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.permissionsystem-bukkit}/javac">
+      <compilerarg line="${compiler.args.permissionsystem-bukkit}"/>
+      <bootclasspath refid="permissionsystem-bukkit.module.bootclasspath"/>
+      <classpath refid="permissionsystem-bukkit.module.production.classpath"/>
+      <src refid="permissionsystem-bukkit.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.permissionsystem-bukkit"/>
+    </javac2>
+    
+    <copy todir="${permissionsystem-bukkit.output.dir}">
+      <fileset dir="${module.permissionsystem-bukkit.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.permissionsystem-bukkit.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.permissionsystem-bukkit.tests" depends="register.custom.compilers,compile.module.permissionsystem-bukkit.production" description="compile module permissionsystem-bukkit; test classes" unless="skip.tests">
+    <mkdir dir="${permissionsystem-bukkit.testoutput.dir}"/>
+    <javac2 destdir="${permissionsystem-bukkit.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.permissionsystem-bukkit}/javac">
+      <compilerarg line="${compiler.args.permissionsystem-bukkit}"/>
+      <bootclasspath refid="permissionsystem-bukkit.module.bootclasspath"/>
+      <classpath refid="permissionsystem-bukkit.module.classpath"/>
+      <src refid="permissionsystem-bukkit.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.permissionsystem-bukkit"/>
+    </javac2>
+    
+    <copy todir="${permissionsystem-bukkit.testoutput.dir}">
+      <fileset dir="${module.permissionsystem-bukkit.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.permissionsystem-bukkit" description="cleanup module">
+    <delete dir="${permissionsystem-bukkit.output.dir}"/>
+    <delete dir="${permissionsystem-bukkit.testoutput.dir}"/>
+  </target>
+</project>

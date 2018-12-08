@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="permissionsystem" default="all">
+  
+  
+  <property file="permissionsystem.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-32.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_com.google.code.gson:gson:2.2.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.code.gson:gson:2.8.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.guava:guava:17.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/17.0/guava-17.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.guava:guava:20.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/20.0/guava-20.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.googlecode.json-simple:json-simple:1.1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/googlecode/json-simple/json-simple/1.1.2/json-simple-1.1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-lang:commons-lang:2.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_de.dytanic.cloudnet:cloudnet-api-bridge:2.1.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/de/dytanic/cloudnet/cloudnet-api-bridge/2.1.6/cloudnet-api-bridge-2.1.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.persistence:persistence-api:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_junit:junit:4.10.classpath">
+    <pathelement location="${path.variable.maven_repository}/junit/junit/4.10/junit-4.10.jar"/>
+  </path>
+  
+  <path id="library.maven:_me.clip:placeholderapi:2.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/me/clip/placeholderapi/2.6.0/placeholderapi-2.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.md-5:bungeecord-bootstrap:1.8-1.12.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/md-5/bungeecord-bootstrap/1.8-1.12/bungeecord-bootstrap-1.8-1.12.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.md-5:bungeecord-chat:1.12-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/md-5/bungeecord-chat/1.12-SNAPSHOT/bungeecord-chat-1.12-20180712.114550-97.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.milkbowl.vault:vaultapi:1.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/milkbowl/vault/VaultAPI/1.6/VaultAPI-1.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.avaje:ebean:2.8.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/avaje/ebean/2.8.1/ebean-2.8.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bukkit:bukkit:1.9-r0.1-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bukkit/bukkit/1.9-R0.1-SNAPSHOT/bukkit-1.9-R0.1-20160330.160319-146.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hamcrest:hamcrest-core:1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.mongodb:mongo-java-driver:3.8.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/mongodb/mongo-java-driver/3.8.0/mongo-java-driver-3.8.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.spigotmc:spigot-api:1.8.8-r0.1-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/spigotmc/spigot-api/1.8.8-R0.1-SNAPSHOT/spigot-api-1.8.8-R0.1-20160221.082514-43.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.yaml:snakeyaml:1.15.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/yaml/snakeyaml/1.15/snakeyaml-1.15.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/module_permissionsystem.xml"/>
+  
+  <import file="${basedir}/permissionsystem-lib/module_permissionsystem-lib.xml"/>
+  
+  <import file="${basedir}/permissionsystem-bukkit/module_permissionsystem-bukkit.xml"/>
+  
+  <import file="${basedir}/permissionsystem-bungeecord/module_permissionsystem-bungeecord.xml"/>
+  
+  <import file="${basedir}/permissionsystem-example/module_permissionsystem-example.xml"/>
+  
+  <import file="${basedir}/permissionsystem-tools-chat/module_permissionsystem-tools-chat.xml"/>
+  
+  <import file="${basedir}/permissionsystem-tools-dkbansconnection/module_permissionsystem-tools-dkbansconnection.xml"/>
+  
+  <import file="${basedir}/permissionsystem-tools-tablist/module_permissionsystem-tools-tablist.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.permissionsystem, clean.module.permissionsystem-lib, clean.module.permissionsystem-bukkit, clean.module.permissionsystem-bungeecord, clean.module.permissionsystem-example, clean.module.permissionsystem-tools-chat, clean.module.permissionsystem-tools-dkbansconnection, clean.module.permissionsystem-tools-tablist" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.permissionsystem, compile.module.permissionsystem-lib, compile.module.permissionsystem-bukkit, compile.module.permissionsystem-bungeecord, compile.module.permissionsystem-example, compile.module.permissionsystem-tools-chat, compile.module.permissionsystem-tools-dkbansconnection, compile.module.permissionsystem-tools-tablist" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.dkperms" value="E:/Plugins/aktuell"/>
+    <property name="artifact.output.dkpermschatextension" value="E:/Plugins/aktuell"/>
+    <property name="artifact.output.dkpermsdkbansconnection" value="E:/Plugins/aktuell"/>
+    <property name="artifact.output.dkpermstablistextension" value="E:/Plugins/aktuell"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.DKPerms.jar" value="${artifacts.temp.dir}/DKPerms.jar"/>
+    <property name="temp.jar.path.DKPermsChatExtension.jar" value="${artifacts.temp.dir}/DKPermsChatExtension.jar"/>
+    <property name="temp.jar.path.DKPermsDKBansConnection.jar" value="${artifacts.temp.dir}/DKPermsDKBansConnection.jar"/>
+    <property name="temp.jar.path.DKPermsTabListExtension.jar" value="${artifacts.temp.dir}/DKPermsTabListExtension.jar"/>
+  </target>
+  
+  <target name="artifact.dkperms" depends="init.artifacts, compile.module.permissionsystem-bukkit, compile.module.permissionsystem-bungeecord, compile.module.permissionsystem-lib" description="Build &#39;DKPerms&#39; artifact">
+    <property name="artifact.temp.output.dkperms" value="${artifacts.temp.dir}/DKPerms"/>
+    <mkdir dir="${artifact.temp.output.dkperms}"/>
+    <jar destfile="${temp.jar.path.DKPerms.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${permissionsystem-bukkit.output.dir}"/>
+      <zipfileset dir="${permissionsystem-bungeecord.output.dir}"/>
+      <zipfileset dir="${permissionsystem-lib.output.dir}"/>
+      <zipfileset src="${path.variable.maven_repository}/net/md-5/bungeecord-chat/1.12-SNAPSHOT/bungeecord-chat-1.12-20180621.1.2251-89.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.DKPerms.jar}" tofile="${artifact.temp.output.dkperms}/DKPerms.jar"/>
+  </target>
+  
+  <target name="artifact.dkpermschatextension" depends="init.artifacts, compile.module.permissionsystem-tools-chat" description="Build &#39;DKPermsChatExtension&#39; artifact">
+    <property name="artifact.temp.output.dkpermschatextension" value="${artifacts.temp.dir}/DKPermsChatExtension"/>
+    <mkdir dir="${artifact.temp.output.dkpermschatextension}"/>
+    <jar destfile="${temp.jar.path.DKPermsChatExtension.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${permissionsystem-tools-chat.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.DKPermsChatExtension.jar}" tofile="${artifact.temp.output.dkpermschatextension}/DKPermsChatExtension.jar"/>
+  </target>
+  
+  <target name="artifact.dkpermsdkbansconnection" depends="init.artifacts, compile.module.permissionsystem-tools-dkbansconnection" description="Build &#39;DKPermsDKBansConnection&#39; artifact">
+    <property name="artifact.temp.output.dkpermsdkbansconnection" value="${artifacts.temp.dir}/DKPermsDKBansConnection"/>
+    <mkdir dir="${artifact.temp.output.dkpermsdkbansconnection}"/>
+    <jar destfile="${temp.jar.path.DKPermsDKBansConnection.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${permissionsystem-tools-dkbansconnection.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.DKPermsDKBansConnection.jar}" tofile="${artifact.temp.output.dkpermsdkbansconnection}/DKPermsDKBansConnection.jar"/>
+  </target>
+  
+  <target name="artifact.dkpermstablistextension" depends="init.artifacts, compile.module.permissionsystem-tools-tablist" description="Build &#39;DKPermsTabListExtension&#39; artifact">
+    <property name="artifact.temp.output.dkpermstablistextension" value="${artifacts.temp.dir}/DKPermsTabListExtension"/>
+    <mkdir dir="${artifact.temp.output.dkpermstablistextension}"/>
+    <jar destfile="${temp.jar.path.DKPermsTabListExtension.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${permissionsystem-tools-tablist.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.DKPermsTabListExtension.jar}" tofile="${artifact.temp.output.dkpermstablistextension}/DKPermsTabListExtension.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.dkperms, artifact.dkpermschatextension, artifact.dkpermsdkbansconnection, artifact.dkpermstablistextension" description="Build all artifacts">
+    <mkdir dir="${artifact.output.dkperms}"/>
+    <copy todir="${artifact.output.dkperms}">
+      <fileset dir="${artifact.temp.output.dkperms}"/>
+    </copy>
+    <mkdir dir="${artifact.output.dkpermschatextension}"/>
+    <copy todir="${artifact.output.dkpermschatextension}">
+      <fileset dir="${artifact.temp.output.dkpermschatextension}"/>
+    </copy>
+    <mkdir dir="${artifact.output.dkpermsdkbansconnection}"/>
+    <copy todir="${artifact.output.dkpermsdkbansconnection}">
+      <fileset dir="${artifact.temp.output.dkpermsdkbansconnection}"/>
+    </copy>
+    <mkdir dir="${artifact.output.dkpermstablistextension}"/>
+    <copy todir="${artifact.output.dkpermstablistextension}">
+      <fileset dir="${artifact.temp.output.dkpermstablistextension}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

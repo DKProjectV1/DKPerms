@@ -1,0 +1,7 @@
+name: DKPermsDKBansConnection
+author: Dkrieger
+description: 
+version: ${project.version}
+
+main: ch.dkrieger.permissionsystem.tools.dkbansconnection.bungeecord.BungeeCordDKPermsDKBansConnection
+commands:

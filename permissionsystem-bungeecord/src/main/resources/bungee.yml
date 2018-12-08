@@ -1,0 +1,7 @@
+name: DKPerms
+author: Dkrieger
+description: 
+version: ${project.version}
+
+main: ch.dkrieger.permissionsystem.bungeecord.BungeeCordBootstrap
+commands:

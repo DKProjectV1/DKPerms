@@ -1,0 +1,7 @@
+name: DKPermsDKCoinsConnection
+author: Dkrieger
+description: 
+version: ${project.version}
+
+main: ch.dkrieger.permissionsystem.tools.dkcoinsconnection.bungeecord.BungeeCordDKPermsDKCoinsConnection
+commands:

@@ -1,0 +1,8 @@
+name: DKPermsDKCoinsConnection
+author: Dkrieger
+description: 
+version: ${project.version}
+api-version: 1.13
+
+main: ch.dkrieger.permissionsystem.tools.dkcoinsconnection.bukkit.BukkitDKPermsDKCoinsConnection
+commands:

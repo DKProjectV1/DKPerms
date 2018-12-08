@@ -1,0 +1,236 @@
+prefix: '&8» &9DKPerms &8| &f'
+error: '&cEs ist ein Fehler aufgetreten, bitte wenden Sie sich an einen Administrator.'
+synchronising:
+  starting: '&7Synchronisiere alle Permissions...'
+  finished: '&7Synchronisierte alle Permissions.'
+group:
+  notfound: '&cDie Gruppe &e[group] &cwurde nicht gefunden.'
+  alreadyexists: '&cDie Gruppe &e[group] &cgibt es bereits.'
+  created: '&7Die Gruppe &e[group] &7wurde erstellt.'
+  deleted: '&Die Gruppe &e[group] &7wurde gelöscht.'
+  renamed: '&7Die Gruppe &e[group] &7wurde zu &e[name] &7umbenannt.'
+  settingschanged: '&7Die Einstellung &e[setting] &7wurde in der Gruppe &e[group]
+    zu &e[value] &7gesetzt.'
+  list:
+    header: '&7Alle Gruppen&8:'
+    format: '&8» &7[color][name]'
+    hover: '&8» &7Klicke für weitere Informationen.'
+  info:
+    format: '&8» &e[id]&8: &7[value]'
+    name: Name
+    description: Beschreibung
+    uuid: UUID
+    defaults: Standart
+    team: Team
+    priority: Priority
+    prefix: Prefix
+    suffix: Suffix
+    display: Display
+    color: Farbe
+    tsgroupid: TsGroupID
+    joinpower: Joinpower
+  permission:
+    add:
+      global: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde zur Gruppe &e[group]
+        &7hinzugefügt.'
+      server: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde auf dem Server
+        &e[server] &7zur Gruppe &e[group] &7hinzugefügt.'
+      group: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde auf der Servergruppe
+        &e[servergroup] &7zur Gruppe &e[group] &7hinzugefügt.'
+    remove:
+      global: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde von der Gruppe
+        &e[group] &7entfernt.'
+      server: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde auf dem Server
+        &e[server] &7von der Gruppe &e[group] &7entfernt.'
+      group: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde auf der Servergruppe
+        &e[servergroup] &7von der Gruppe &e[group] &7entfernt.'
+    clear:
+      all: '&7Alle Permissions der Gruppe &e[group] &7wurden entfernt.'
+      global:
+        all: '&7Alle Globalen Permissions der Gruppe &e[group] &7wurden entfernt.'
+        world: '&7Alle Globalen Permissions auf der Welt &e[world] &7wurden in der
+          Gruppe &e[group] &entfernt.'
+      server:
+        all: '&7Alle Server Permissions der Gruppe &e[group] &7wurden entfernt.'
+        server: '&7Alle Permissions auf dem Server &e[server] der Gruppe &e[group]
+          &7wurden entfernt.'
+        world: '&7Alle Permissions auf der Welt &e[world] &7und dem Server &e[server]
+          &7der Gruppe &e[group] &7wurden entfernt.'
+      group:
+        all: '&7Alle Servergruppen Permissions der Gruppe &e[group] &7wurden entfernt.'
+        group: '&7Alle Permissions auf der Servergruppe &e[servergroup] der Gruppe
+          &e[group] &7wurden entfernt.'
+        world: '&7Alle Permissions auf der Welt &e[world] &7und der Servergruppe &e[servergroup]
+          &7der Gruppe &e[group] &7wurden entfernt.'
+  implementation:
+    list:
+      header: '&8» &eImplementationGroups'
+      format: ' &8- &7[color][name]&8@&7[timeout]'
+    set: '&7Die Gruppe &e[implementation] &7wurde der Gruppe &e[group] &7gesetzt.'
+    add: '&7Die Gruppe &e[implementation] &7wurde der Gruppe &e[group] &7hinzugefügt.'
+    remove: '&7Die Gruppe &e[implementation] &7wurde der Gruppe &e[group] &7entfernt.'
+    clear: '&7Alle Gruppen der Gruppe &e[group] &7wurden entfernt.'
+player:
+  notfound: '&cDer Spieler &e[player] &cwurde nicht gefunden.'
+  info:
+    format: '&8» &e[id]&8: &7[value]'
+    id: ID
+    name: Name
+    uuid: UUID
+  permission:
+    add:
+      global: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde dem Spieler
+        &e[player] &7hinzugefügt.'
+      server: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde auf dem Server
+        &e[server] &7dem Spieler &e[player] &7hinzugefügt.'
+      group: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde auf der Servergruppe
+        &e[servergroup] &7dem Spieler &e[player] &7hinzugefügt.'
+    remove:
+      global: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde von dem &7Spieler
+        &e[player] &7entfernt.'
+      server: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde auf dem Server
+        &e[server] &7dem Spieler &e[player] &7entfernt.'
+      group: '&7Die Permission &e[permission]&8(&e[world]&8) &7wurde auf der Servergruppe
+        &e[servergroup] &7&7dem Spieler &e[player] &7entfernt.'
+    clear:
+      all: '&7Alle Permissions &7wurden &7dem Spieler &e[player] entfernt.'
+      global:
+        all: '&7Alle Globalen Permissions &7wurden &7dem Spieler &e[player] entfernt.'
+        world: '&7Alle Globalen Permissions auf der Welt &e[world] &7wurden &7dem
+          Spieler &e[player] &entfernt.'
+      server:
+        all: '&7Alle Server Permissions &7wurden &7dem Spieler &e[player] entfernt.'
+        server: '&7Alle Permissions auf dem Server &e[server] &7wurden &7dem Spieler
+          &e[player] entfernt.'
+        world: '&7Alle Permissions auf der Welt &e[world] &7und dem Server &e[server]
+          &7wurden &7dem Spieler &e[player] entfernt.'
+      group:
+        all: '&7Alle Servergruppen Permissions &7wurden &7dem Spieler &e[player] entfernt.'
+        group: '&7Alle Permissions auf der Servergruppe &e[servergroup] wurden &7dem
+          Spieler &e[player].'
+        world: '&7Alle Permissions auf der Welt &e[world] &7und der Servergruppe &e[servergroup]
+          &7&7wurden &7dem Spieler &e[player] entfernt.'
+  group:
+    list:
+      header: '&8» &eGruppen'
+      format: ' &8- &7[color][name]&8@&7[timeout]'
+    set: '&7Die Gruppe &e[group] &7wurde dem Spieler &e[player] &7gesetzt.'
+    add: '&7Die Gruppe &e[group] &7wurde dem Spieler &e[player] &7hinzugefügt.'
+    remove: '&7Die Gruppe &e[group] &7wurde dem Spieler &e[player] &7entfernt.'
+    clear: '&7Alle Gruppen von dem Spieler &e[player] &7wurden entfernt.'
+permission:
+  list:
+    global:
+      header: '&8» &ePermissions:'
+      format: ' &8- &7[permission]&8@&7[timeout]'
+    world:
+      header: ' &8» &eWorldPermissions:'
+      world: '  &8» &e[world]'
+      format: '   &8- &7[permission]&8@&7[timeout]'
+    server:
+      header: '&8» &eServerPermissions:'
+      server: ' &8» &e[server]'
+      format: '  &8- &7[permission]&8@&7[timeout]'
+      world:
+        header: '   &8» &eWorldPermissions:'
+        world: '    &8» &e[world]'
+        format: '     &8- &7[permission]&8@&7[timeout]'
+    servergroup:
+      header: '&8» &eServerGroupPermissions'
+      servergroup: ' &8» &e[servergroup]'
+      format: '  &8- &7[permission]&8@&7[timeout]'
+      world:
+        header: '   &8» &eWorldPermissions:'
+        world: '    &8» &e[world]'
+        format: '     &8- &7[permission]&8@&7[timeout]'
+  import:
+    list:
+      header: '&7Verfügbare Imports &8(&7/perms import <type> {file}&8)'
+      list: '&8» &7[import]'
+    notfound: '&cDer Import &e[import] &cwurde nicht gefunden.'
+    requiredfile: '&cDieser Import benétigt ein File &8(&7/perms import [import] <file>&8).'
+    filenotfound: '&cDas File &e[file] &cwurde nicht gefunden.'
+    start: '&7Importiere alle Permissions von &e[import]&7...'
+    finish: '&Import beendet.'
+  help:
+    main:
+    - ''
+    - '&7/perms sync | Lade alle permissions neu.'
+    - '&7/perms import | Importiere permissions.'
+    - '&7/perms groups | Liste alle Gruppen.'
+    - '&7/perms group | Für Gruppen Informationen.'
+    - '&7/perms user | Für Spieler Informationen'
+    - ''
+    group:
+      above:
+      - ''
+      - '&8» &7/perms group <name> '
+      - ' &8- &7create'
+      - ' &8- &7delete'
+      - ' &8- &7rename <name>'
+      - ''
+      - ' &8- &7setdefault <true/false>'
+      - ' &8- &7setteam <true/false>'
+      - ' &8- &7setdescription <description>'
+      - ' &8- &7setpriority <priority>'
+      - <-joinpower-> &8- &7setjoinpower <joinpower>
+      - <-tsgroup-> &8- &7settsgroupid <tsgroupid>
+      - ' &8- &7setprefix <prefix>'
+      - ' &8- &7setsuffix <suffix>'
+      - ' &8- &7setdisplay <display>'
+      - ' &8- &7setcolor <color>'
+      - ''
+      below:
+      - ''
+      - ' &8- &7implementation set <group> {time} {unit}'
+      - ' &8- &7implementation add <group> {time} {unit}'
+      - ' &8- &7implementation remove <group>'
+      - ''
+    player:
+      above:
+      - ''
+      - '&8» &7/perms user <player> '
+      below:
+      - ''
+      - ' &8- &7group set <group> {time} {unit}'
+      - ' &8- &7group add <group> {time} {unit}'
+      - ' &8- &7group remove <group>'
+      - ''
+    permission:
+    - ' &8- &7add <permission> {time} {unit}'
+    - ' &8- &7add <permission> <world> {time}'
+    - <-advanced-> &8- &7add server <server> <permission> {time} {unit}
+    - <-advanced-> &8- &7add server <server> <permission> {time} {unit}
+    - <-advanced-> &8- &7add group <group> <permission> {time} {unit}
+    - <-advanced-> &8- &7add group <group> <permission> <world> {time} {unit}
+    - ' &8- &7remove <permission> {world}'
+    - <-advanced-> &8- &7remove server <server> <permission> {world}
+    - <-advanced-> &8- &7remove group <group> <permission> {world}
+    - ' &8- &7clearall'
+    - ' &8- &7clear {world}'
+    - <-advanced-> &8-&7 clear server <server> {world}
+    - <-advanced-> &8-&7 clear group <group> {world}
+rank:
+  list:
+    my: '&7Dein Rang'
+    other: '&7Ränge von [player]'
+    format: '&8» [color][name]&8@&7[timeout]'
+  nopermissions:
+    for:
+      rank: '&cDu hast keine Berechtigung die Gruppen &e[group] zu setzen, hinzufügen
+        oder entfernen.'
+      player: '&cDu hast keine Berechtigung Ränge von &7[player] &czu ändern.'
+  help:
+  - ''
+  - '&7/rank <player> set <rank> '
+  - '&7/rank <player> add <rank> '
+  - '&7/rank <player> remove <rank> '
+  - ''
+team:
+  list:
+    header: ''
+    between: ''
+    footer: ''
+    format:
+      group: '&8» &7[color][name] &8| &7[description]'
+      player: ' &8- &7[color][player]'
