@@ -17,7 +17,7 @@ public class GenerellExample {
 
     public GenerellExample() {
         //Get a player from database
-        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer("Dkrieger");
+        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer("Davide Wietlisbach");
 
         player.getHighestGroup(); //get the highest permission group
         player.getPlayerDesign(); //get the design from the highest group

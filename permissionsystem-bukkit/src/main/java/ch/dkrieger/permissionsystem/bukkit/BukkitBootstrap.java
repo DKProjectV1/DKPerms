@@ -73,8 +73,8 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
                 Bukkit.getPluginManager().registerEvents(new SpigotCloudNetV3UpdateExecutor(),this);
                 PermissionUpdater.getInstance().setExecutor(this.updateExecutor);
             }else if(this.updateExecutor instanceof SpigotPluginMessageUpdateExecutor){
-                Bukkit.getMessenger().registerOutgoingPluginChannel(this,"dkperms");
-                Bukkit.getMessenger().registerIncomingPluginChannel(this,"dkperms",(SpigotPluginMessageUpdateExecutor)this.updateExecutor);
+                Bukkit.getMessenger().registerOutgoingPluginChannel(this,"dkperms:dkperms");
+                Bukkit.getMessenger().registerIncomingPluginChannel(this,"dkperms:dkperms",(SpigotPluginMessageUpdateExecutor)this.updateExecutor);
             }
             hook();
             for(Player player : Bukkit.getOnlinePlayers()){

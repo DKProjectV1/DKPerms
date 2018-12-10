@@ -21,7 +21,7 @@ public class CommandDKPerms extends PermissionCommand {
     }
     @Override
     public void execute(PermissionCommandSender sender, String[] args) {
-        sender.sendMessage(Messages.PREFIX+"§7PermissionSystem v§c"+PermissionSystem.getInstance().getVersion()+" §7by §cDkrieger");
+        sender.sendMessage(Messages.PREFIX+"§7PermissionSystem v§c"+PermissionSystem.getInstance().getVersion()+" §7by §cDavide Wietlisbach");
     }
     @Override
     public List<String> tabcomplete(PermissionCommandSender sender, String[] args) {

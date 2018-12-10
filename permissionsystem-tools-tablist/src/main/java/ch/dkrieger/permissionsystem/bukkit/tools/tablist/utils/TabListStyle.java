@@ -1,10 +1,6 @@
-package ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils.tablist;
+package ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils;
 
-import ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils.Reflection;
 import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
-import com.sun.org.apache.regexp.internal.RE;
-import net.minecraft.server.v1_13_R1.ArgumentScoreboardTeam;
-import net.minecraft.server.v1_13_R1.PacketPlayOutScoreboardTeam;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -14,13 +10,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static ch.dkrieger.permissionsystem.bukkit.utils.Reflection.*;
+
 /*
  *
- *  * Copyright (c) 2018 Davide Wietlisbach on 09.07.18 17:08
+ *  * Copyright (c) 2018 Davide Wietlisbach on 09.12.18 16:14
  *
  */
 
-public class TabListStyle extends Reflection {
+public class TabListStyle {
 
 	private static Map<Player, LinkedList<String>> alreadyinuse = new LinkedHashMap<>();
 
@@ -28,31 +26,48 @@ public class TabListStyle extends Reflection {
         setStyle(prefix,suffix,priority,player.getName(),receiver);
 	}
 	public static void setStyle(String prefix,String suffix,String priority, String playername,Player receiver) {
-
-
         String team_name = priority+playername.charAt(0)+playername.charAt(1);
         team_name = getFreeString(receiver,team_name);
         try{
-            Constructor< ? > constructor = reflectNMSClazz("PacketPlayOutScoreboardTeam").getConstructor();
+            Constructor< ? > constructor = getMinecraftClass("PacketPlayOutScoreboardTeam").getConstructor();
             Object packet = constructor.newInstance();
             List< String > contents = new LinkedList<>();
             contents.add(playername);
-            try {
-                setField(packet,"a",team_name);
+            setField(packet,"a",team_name);
+            if(hasField(packet.getClass(),"j")){
+                setField(packet,"e","always");
+                setField(packet,"f","always");
+                setField(packet,"h",contents);
+                if(getField(packet.getClass(),"b").getType() == String.class){
+                    /*
+                    Minecraft 1.9 - 1.12
+                    */
+                    setField(packet,"b",team_name);
+                    setField(packet,"c",prefix);
+                    setField(packet,"d",suffix);
+                    setField(packet,"g",-1);
+                }else{
+                    /*
+                    Minecraft >1.13
+                    */
+                    Constructor< ? > component = getMinecraftClass("ChatComponentText").getConstructor(String.class);
+                    setField(packet,"b",component.newInstance(team_name));
+                    setField(packet,"c",component.newInstance(prefix));
+                    setField(packet,"d",component.newInstance(suffix));
+                    setField(packet,"g",getMinecraftClass("EnumChatFormat").getField("BLACK").get(null));
+                }
+                setField(packet,"i",0);
+                setField(packet,"j",0);
+            }else{
+                /*
+                Minecraft 1.8
+                 */
                 setField(packet,"b",team_name);
                 setField(packet,"c",prefix);
                 setField(packet,"d",suffix);
                 setField(packet,"e","ALWAYS");
                 setField(packet,"h",0);
                 setField(packet,"g",contents);
-            }catch(Exception exception){
-                setField(packet,"a",team_name);
-                setField(packet,"b",team_name);
-                setField(packet,"c",prefix);
-                setField(packet,"d",suffix);
-                setField(packet,"e","ALWAYS");
-                setField(packet,"i",0);
-                setField(packet,"h",contents);
             }
             sendPacket(receiver, packet);
         }catch(Exception exception){

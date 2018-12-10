@@ -5,13 +5,18 @@ import ch.dkrieger.permissionsystem.lib.command.PermissionCommand;
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommandSender;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.pl3x.bukkit.chatapi.ComponentSender;
+import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.*;
+
+import static ch.dkrieger.permissionsystem.bukkit.utils.Reflection.*;
+
 /*
  *
  *  * Copyright (c) 2018 Davide Wietlisbach on 23.06.18 15:43
@@ -96,7 +101,23 @@ public class BukkitCommandManager implements PermissionCommandManager {
         public void sendMessage(TextComponent component) {
             if(sender instanceof Player){
                 try{
-                    ComponentSender.sendMessage((Player)sender,component);
+                    Class<?> IChatBaseComponent = getMinecraftClass("IChatBaseComponent");
+                    Class<?> ChatSerializer = null;
+                    if(getVersion().equalsIgnoreCase("v1_8_R1")) ChatSerializer = getMinecraftClass("ChatSerializer");
+                    else ChatSerializer = getMinecraftClass(IChatBaseComponent,"ChatSerializer");
+                    Method a = ChatSerializer.getMethod("a", new Class[] { String.class });
+                    Object componentO = a.invoke(null,new Object[] { ComponentSerializer.toString(component)});
+                    Constructor< ? > constructor = reflectNMSClazz("PacketPlayOutChat").getConstructor();
+                    Object packet = constructor.newInstance();
+                    setField(packet,"a",componentO);
+                    if(getField(packet.getClass(),"b").getType() == Byte.TYPE){
+                        setField(packet,"b",(byte)0);
+                    }else{
+                        Method typeA = getMinecraftClass("ChatMessageType").getMethod("a", new Class[] { byte.class });
+                        Object type = typeA.invoke(null,new Object[] { (byte)0});
+                        setField(packet,"b",type);
+                    }
+                    sendPacket((Player) sender,packet);
                 }catch (Exception exception){
                     sender.sendMessage(component.getText());
                 }

@@ -67,7 +67,7 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
                 return;
             }
             for(Player player : Bukkit.getOnlinePlayers()){
-                player.sendPluginMessage(BukkitBootstrap.getInstance(),"dkperms",b.toByteArray());
+                player.sendPluginMessage(BukkitBootstrap.getInstance(),"dkperms:dkperms",b.toByteArray());
                 return;
             }
         }catch (IOException exception){
@@ -78,7 +78,7 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] bytes) {
         if(!Config.SYNCHRONISE_CHANNEL) return;
-        if(channel.equalsIgnoreCase("dkperms")){
+        if(channel.equalsIgnoreCase("dkperms:dkperms")){
             ByteArrayInputStream b = new ByteArrayInputStream(bytes);
             DataInputStream in = new DataInputStream(b);
 

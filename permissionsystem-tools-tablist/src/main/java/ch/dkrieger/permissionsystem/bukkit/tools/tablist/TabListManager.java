@@ -1,6 +1,6 @@
 package ch.dkrieger.permissionsystem.bukkit.tools.tablist;
 
-import ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils.tablist.TabListStyle;
+import ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils.TabListStyle;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;

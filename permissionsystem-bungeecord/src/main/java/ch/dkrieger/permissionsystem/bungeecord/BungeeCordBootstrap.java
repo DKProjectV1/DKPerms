@@ -59,7 +59,7 @@ public class BungeeCordBootstrap extends Plugin implements DKPermsPlatform, Perm
                 PermissionUpdater.getInstance().setExecutor(this.updateExecutor);
                 BungeeCord.getInstance().getPluginManager().registerListener(this,new BungeeCordCloudNetV3UpdateExecutor());
             }else if(this.updateExecutor instanceof BungeeCordPluginMessageUpdateExecutor){
-                BungeeCord.getInstance().registerChannel("dkperms");
+                BungeeCord.getInstance().registerChannel("dkperms:dkperms");
                 BungeeCord.getInstance().getPluginManager().registerListener(this,(BungeeCordPluginMessageUpdateExecutor)this.updateExecutor);
                 BungeeCord.getInstance().getScheduler().schedule(this,(BungeeCordPluginMessageUpdateExecutor)this.updateExecutor
                 ,5L,TimeUnit.MINUTES);

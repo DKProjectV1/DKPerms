@@ -1,4 +1,4 @@
-package ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils;
+package ch.dkrieger.permissionsystem.bukkit.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,11 +11,6 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
- *
- *  * Copyright (c) 2018 Davide Wietlisbach on 09.07.18 17:08
- *
- */
 
 /**
  * An utility class that simplifies reflection in Bukkit plugins.
@@ -32,7 +27,7 @@ public class Reflection {
     private static Pattern MATCH_VARIABLE = Pattern.compile("\\{([^\\}]+)\\}");
     public static Field MODIFIERES = getField( Field.class, "modifiers" );
 
-    public String getVersion() {
+    public static String getVersion() {
         return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     }
     private static String expandVariables(String name) {
@@ -151,7 +146,7 @@ public class Reflection {
     public static Class<?> getCraftBukkitClass(String name) {
         return getCanonicalClass(OBC_PREFIX + "." + name);
     }
-    //reflect Mc classes created by Dkrieger
+    //reflect Mc classes created by Davide Wietlisbach
     public static Class<?> reflectNMSClazz(String name){
         String version = Bukkit.getServer().getClass().getPackage().getName().split( "\\." )[ 3 ];
         try{
@@ -172,7 +167,7 @@ public class Reflection {
         }
         return null;
     }
-    //set a simple Filed cretaed by Dkrieger
+    //set a simple Filed cretaed by Davide Wietlisbach
     public static void setField(Object change, String name, Object to) throws Exception {
         Field field = change.getClass().getDeclaredField(name);
         field.setAccessible(true);
@@ -201,6 +196,15 @@ public class Reflection {
             e.printStackTrace();
         }
         return null;
+    }
+    public static boolean hasField(Class<?> clazz, String name){
+        try {
+            Field field = clazz.getDeclaredField(name);
+            field.setAccessible(true);
+            if(Modifier.isFinal(field.getModifiers())) MODIFIERES.set( field, field.getModifiers() & ~Modifier.FINAL );
+            return true;
+        }catch (Exception e ) {}
+        return false;
     }
     // Common method
     private static <T> FieldAccessor<T> getField(Class<?> target, String name, Class<T> fieldType, int index) {
@@ -287,6 +291,15 @@ public class Reflection {
         return getCanonicalClass(NMS_PREFIX + "." + name);
     }
 
+    public static Class<?> getMinecraftClass(Class<?> original, String subclass) {
+        Class[] array;
+        int j = (array = original.getDeclaredClasses()).length;
+        for (int i = 0; i < j; i++) {
+            Class<?> clazz = array[i];
+            if (clazz.getSimpleName().equals(subclass)) return clazz;
+        }
+        return null;
+    }
     /**
      * Search for the first publicly and privately defined method of the given name and parameter count.
      *
