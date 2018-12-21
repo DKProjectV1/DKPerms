@@ -30,7 +30,7 @@ public class TabListManager {
 	public void updatePlayer(Player player){
 		setTab(player);
 	}
-	public void setTab(Player player, Player reciver){
+	public void setTab(Player player, Player receiver){
 		if(PermissionPlayerManager.getInstance() == null) return;
 		PermissionPlayer permplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId());
 		if(permplayer == null) return;
@@ -44,7 +44,7 @@ public class TabListManager {
 		if(prefix.equalsIgnoreCase("-1")) prefix = "";
 		if(suffix.equalsIgnoreCase("-1")) suffix = "";
 
-		TabListStyle.setStyle(prefix, suffix, priority, player, reciver);
+		TabListStyle.setStyle(prefix, suffix, priority, player,receiver);
 	}
 	public void setTab(Player player) {
 		for(Player players : Bukkit.getOnlinePlayers()) setTab(player, players);

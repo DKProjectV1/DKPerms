@@ -2,6 +2,7 @@ package ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils;
 
 import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -54,7 +55,14 @@ public class TabListStyle {
                     setField(packet,"b",component.newInstance(team_name));
                     setField(packet,"c",component.newInstance(prefix));
                     setField(packet,"d",component.newInstance(suffix));
-                    setField(packet,"g",getMinecraftClass("EnumChatFormat").getField("BLACK").get(null));
+
+                    String color = "GRAY";
+                    if(prefix.length() >= 2 && prefix.charAt(prefix.length()-2) == '§'){
+                        System.out.println("getting color");
+                        ChatColor chatColor = ChatColor.getByChar(prefix.charAt(prefix.length()-1));
+                        if(chatColor != null) color = chatColor.name().toUpperCase();
+                    }
+                    setField(packet,"g",getMinecraftClass("EnumChatFormat").getField(color).get(null));
                 }
                 setField(packet,"i",0);
                 setField(packet,"j",0);

@@ -37,7 +37,7 @@ public class BukkitDKPermsDKCoinsConnection extends JavaPlugin implements Listen
     }
     @EventHandler
     public void onColorSet(BukkitCoinPlayerColorSetEvent event){
-        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUniqueId());
+        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUUID());
         PermissionGroup group = null;
         if(player != null) group = player.getHighestGroup();
         else group = PermissionGroupManager.getInstance().getHighestDefaultGroup();

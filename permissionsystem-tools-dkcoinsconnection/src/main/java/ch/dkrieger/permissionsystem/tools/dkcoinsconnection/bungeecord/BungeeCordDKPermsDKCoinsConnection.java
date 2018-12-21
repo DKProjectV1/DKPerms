@@ -39,7 +39,7 @@ public class BungeeCordDKPermsDKCoinsConnection extends Plugin implements Listen
     }
     @EventHandler
     public void onColorSet(ProxiedCoinPlayerColorSetEvent event){
-        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUniqueId());
+        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUUID());
         PermissionGroup group = null;
         if(player != null) group = player.getHighestGroup();
         else group = PermissionGroupManager.getInstance().getHighestDefaultGroup();
