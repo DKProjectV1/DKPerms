@@ -23,6 +23,7 @@ public class DKPermissable extends PermissibleBase {
 	public DKPermissable(Player player) {
 		super(player);
 		this.uuid = player.getUniqueId();
+		clearPermissions();
 	}	
 	@Override
 	public boolean hasPermission(Permission perm) {

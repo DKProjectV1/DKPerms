@@ -6,9 +6,10 @@ package ch.dkrieger.permissionsystem.tools.dkbansconnection.bukkit;
  *
  */
 
-import ch.dkrieger.bansystem.spigot.event.SpigotCoinPlayerColorSetEvent;
-import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
-import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
+import ch.dkrieger.bansystem.bukkit.event.BukkitNetworkPlayerColorSetEvent;
+import ch.dkrieger.bansystem.lib.BanSystem;
+import ch.dkrieger.bansystem.lib.player.NetworkPlayer;
+import ch.dkrieger.permissionsystem.bukkit.event.BukkitPermissionPlayerUpdateEvent;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.tools.dkbansconnection.DKBansPlayerStorage;
@@ -39,12 +40,15 @@ public class BukkitDKPermsDKBansConnection extends JavaPlugin implements Listene
         },8L);
     }
     @EventHandler
-    public void onColorSet(SpigotCoinPlayerColorSetEvent event){
-        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUniqueId());
-        PermissionGroup group = null;
-        if(player != null) group = player.getHighestGroup();
-        else group = PermissionGroupManager.getInstance().getHighestDefaultGroup();
-        if(group != null && !(group.getPlayerDesign().getColor().equalsIgnoreCase("-1")))
-            event.setColor(group.getPlayerDesign().getColor());
+    public void onColorSet(BukkitNetworkPlayerColorSetEvent event){
+        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getUUID());
+        if(player != null) event.setColor(player.getColor());
+    }
+    @EventHandler
+    public void onUpdate(BukkitPermissionPlayerUpdateEvent event){
+        Bukkit.getScheduler().runTaskAsynchronously(this,()->{
+            NetworkPlayer player = BanSystem.getInstance().getPlayerManager().getPlayer(event.getUUID());
+            if(player != null) player.setColor(event.getPlayer().getColor());
+        });
     }
 }

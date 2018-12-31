@@ -58,7 +58,6 @@ public class TabListStyle {
 
                     String color = "GRAY";
                     if(prefix.length() >= 2 && prefix.charAt(prefix.length()-2) == '§'){
-                        System.out.println("getting color");
                         ChatColor chatColor = ChatColor.getByChar(prefix.charAt(prefix.length()-1));
                         if(chatColor != null) color = chatColor.name().toUpperCase();
                     }

@@ -6,12 +6,10 @@ package ch.dkrieger.permissionsystem.tools.dkbansconnection.bungeecord;
  *
  */
 
-import ch.dkrieger.bansystem.bungeecord.api.event.ProxiedNetworkPlayerColorSetEvent;
+import ch.dkrieger.bansystem.bungeecord.event.ProxiedNetworkPlayerColorSetEvent;
+import ch.dkrieger.bansystem.lib.BanSystem;
 import ch.dkrieger.bansystem.lib.player.NetworkPlayer;
-import ch.dkrieger.bansystem.lib.player.NetworkPlayerManager;
 import ch.dkrieger.permissionsystem.bungeecord.event.ProxiedPermissionPlayerUpdateEvent;
-import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
-import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.tools.dkbansconnection.DKBansPlayerStorage;
@@ -45,18 +43,14 @@ public class BungeeCordDKPermsDKBansConnection extends Plugin implements Listene
     }
     @EventHandler
     public void onColorSet(ProxiedNetworkPlayerColorSetEvent event){
-        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUniqueId());
-        PermissionGroup group = null;
-        if(player != null) group = player.getHighestGroup();
-        else group = PermissionGroupManager.getInstance().getHighestDefaultGroup();
-        if(group != null && !(group.getPlayerDesign().getColor().equalsIgnoreCase("-1")))
-            event.setColor(group.getPlayerDesign().getColor());
+        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getUUID());
+        if(player != null) event.setColor(player.getColor());
     }
     @EventHandler
     public void onUpdate(ProxiedPermissionPlayerUpdateEvent event){
         BungeeCord.getInstance().getScheduler().runAsync(this,()->{
-            NetworkPlayer player = NetworkPlayerManager.getInstance().getNetworkPlayer(event.getUUID());
-            if(player != null) NetworkPlayerManager.getInstance().setSetting(player.getUUID(),"color",event.getPlayer().getColor());
+            NetworkPlayer player = BanSystem.getInstance().getPlayerManager().getPlayer(event.getUUID());
+            if(player != null) player.setColor(event.getPlayer().getColor());
         });
     }
 }
