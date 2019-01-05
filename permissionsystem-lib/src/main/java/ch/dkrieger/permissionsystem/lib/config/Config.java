@@ -43,6 +43,9 @@ public class Config extends SimpleConfig {
 
     public static char SERVERGROUP_SPLIT;
 
+    public static boolean PLAYER_DISPLAYNAME_ENABLED;
+    public static String PLAYER_DISPLAYNAME_FORMAT;
+
     public static Boolean DEBUG_ENABLED;
     public static PermissionSystem.PermissionDebugLevel DEBUG_LEVEL;
 
@@ -91,6 +94,8 @@ public class Config extends SimpleConfig {
         }catch (Exception exception){
             DEBUG_LEVEL = PermissionSystem.PermissionDebugLevel.NORMAL;
         }
+        PLAYER_DISPLAYNAME_ENABLED = getBooleanValue("player.displayname.enabled");
+        PLAYER_DISPLAYNAME_FORMAT = getStringValue("player.displayname.format");
     }
     @Override
     public void registerDefaults() {
@@ -122,5 +127,8 @@ public class Config extends SimpleConfig {
 
         addValue("debug.enabled",true);
         addValue("debug.level","normal");
+
+        addValue("player.displayname.enabled",true);
+        addValue("player.displayname.format","[color][player]");
     }
 }

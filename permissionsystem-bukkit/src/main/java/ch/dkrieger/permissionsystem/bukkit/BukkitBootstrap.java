@@ -16,8 +16,11 @@ import ch.dkrieger.permissionsystem.bukkit.updater.cloudnet.SpigotCloudNetV3Upda
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommandManager;
 import ch.dkrieger.permissionsystem.lib.command.defaults.CommandPermission;
+import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.importation.defaults.CloudNetV2PermissionImport;
 import ch.dkrieger.permissionsystem.lib.platform.DKPermsPlatform;
+import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
+import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.task.PermissionTaskManager;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateExecutor;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
@@ -35,6 +38,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, PermissionTaskManager {
@@ -143,6 +147,21 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
     }
     public static BukkitBootstrap getInstance() {
         return instance;
+    }
+    public void updateDisplayName(UUID uuid){
+        updateDisplayName(Bukkit.getPlayer(uuid), PermissionPlayerManager.getInstance().getPermissionPlayer(uuid));
+    }
+    public void updateDisplayName(Player player){
+        updateDisplayName(player, PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId()));
+    }
+    public void updateDisplayName(Player player, PermissionPlayer networkPlayer){
+        if(player == null|| networkPlayer== null) return;
+        if(Config.PLAYER_DISPLAYNAME_ENABLED) player.setDisplayName(Config.PLAYER_DISPLAYNAME_FORMAT
+                .replace("[display]",networkPlayer.getPlayerDesign().getDisplay())
+                .replace("[prefix]",networkPlayer.getPlayerDesign().getPrefix())
+                .replace("[suffix]",networkPlayer.getPlayerDesign().getSuffix())
+                .replace("[player]",player.getName())
+                .replace("[color]",networkPlayer.getColor()));
     }
     private void checkCloudNet(){
         Plugin plugin = getServer().getPluginManager().getPlugin("CloudNetAPI");

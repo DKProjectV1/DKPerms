@@ -15,6 +15,7 @@ import ch.dkrieger.permissionsystem.lib.utils.Messages;
 import de.dytanic.cloudnet.ext.bridge.bukkit.event.BukkitChannelMessageReceiveEvent;
 import de.dytanic.cloudnet.wrapper.Wrapper;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -45,6 +46,7 @@ public class SpigotCloudNetV3UpdateExecutor implements Listener{
                     final PermissionGroup group = PermissionGroupManager.getInstance().getGroup(uuid);
                     PermissionUpdater.getInstance().onPermissionGroupDelete(event.getData().get("uuid",UUID.class));
                     Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupDeleteEvent(group,false));
+                    for(Player players : Bukkit.getOnlinePlayers()) BukkitBootstrap.getInstance().updateDisplayName(players);
                 }else if(event.getMessage().equalsIgnoreCase("update")){
                     Boolean online = false;
                     UUID uuid = event.getData().get("uuid",UUID.class);
@@ -54,8 +56,10 @@ public class SpigotCloudNetV3UpdateExecutor implements Listener{
                     PermissionUpdater.getInstance().onPermissionUpdate(type,uuid,online);
                     if(type == PermissionType.PLAYER){
                         Bukkit.getPluginManager().callEvent(new BukkitPermissionPlayerUpdateEvent(uuid,data,false,online));
+                        BukkitBootstrap.getInstance().updateDisplayName(uuid);
                     }else{
                         Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupUpdateEvent(uuid,data,false));
+                        for(Player players : Bukkit.getOnlinePlayers()) BukkitBootstrap.getInstance().updateDisplayName(players);
                     }
                 }else System.out.println(Messages.SYSTEM_PREFIX+"Updater: Invalid update message.");
             });

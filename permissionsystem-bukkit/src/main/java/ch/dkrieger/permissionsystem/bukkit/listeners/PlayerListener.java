@@ -9,6 +9,7 @@ package ch.dkrieger.permissionsystem.bukkit.listeners;
 import ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap;
 import ch.dkrieger.permissionsystem.bukkit.DKPermissable;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
+import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
@@ -43,9 +44,8 @@ public class PlayerListener implements Listener{
         try {
             Class<?> clazz = reflectCraftClazz(".entity.CraftHumanEntity");
             Field field = null;
-            if(clazz != null){
-                field = clazz.getDeclaredField("perm");
-            }else field = Class.forName("net.glowstone.entity.GlowHumanEntity").getDeclaredField("permissions");
+            if(clazz != null) field = clazz.getDeclaredField("perm");
+            else field = Class.forName("net.glowstone.entity.GlowHumanEntity").getDeclaredField("permissions");
             field.setAccessible(true);
             field.set(event.getPlayer(),new DKPermissable(event.getPlayer()));
         }catch (Exception exception) {
@@ -56,6 +56,9 @@ public class PlayerListener implements Listener{
                 PermissionSystem.getInstance().syncGroups();
             });
         }
+        Bukkit.getScheduler().runTaskLater(BukkitBootstrap.getInstance(),()->{
+            BukkitBootstrap.getInstance().updateDisplayName(event.getPlayer());
+        },6);
     }
     public static Class<?> reflectCraftClazz(String suffix){
         try{

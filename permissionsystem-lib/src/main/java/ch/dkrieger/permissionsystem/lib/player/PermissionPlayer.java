@@ -52,7 +52,7 @@ public class PermissionPlayer extends PermissionAdapter {
     public PlayerDesign getPlayerDesign(){
         PermissionGroup group = getHighestGroup();
         if(group != null) return group.getPlayerDesign();
-        return null;
+        return PermissionGroupManager.getInstance().getHighestDefaultGroup().getPlayerDesign();
     }
     public Boolean isInGroup(String group){
         return isInGroup(PermissionGroupManager.getInstance().getGroup(group));

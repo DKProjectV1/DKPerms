@@ -7,6 +7,7 @@ package ch.dkrieger.permissionsystem.tools.dkbansconnection.bungeecord;
  */
 
 import ch.dkrieger.bansystem.bungeecord.event.ProxiedNetworkPlayerColorSetEvent;
+import ch.dkrieger.bansystem.bungeecord.event.ProxiedNetworkPlayerOfflinePermissionCheckEvent;
 import ch.dkrieger.bansystem.lib.BanSystem;
 import ch.dkrieger.bansystem.lib.player.NetworkPlayer;
 import ch.dkrieger.permissionsystem.bungeecord.event.ProxiedPermissionPlayerUpdateEvent;
@@ -52,5 +53,10 @@ public class BungeeCordDKPermsDKBansConnection extends Plugin implements Listene
             NetworkPlayer player = BanSystem.getInstance().getPlayerManager().getPlayer(event.getUUID());
             if(player != null) player.setColor(event.getPlayer().getColor());
         });
+    }
+    @EventHandler
+    public void onOfflinePermissionCheck(ProxiedNetworkPlayerOfflinePermissionCheckEvent event){
+        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getUUID());
+        if(player != null) event.setHasPermission(player.hasPermission(event.getPermission()));
     }
 }

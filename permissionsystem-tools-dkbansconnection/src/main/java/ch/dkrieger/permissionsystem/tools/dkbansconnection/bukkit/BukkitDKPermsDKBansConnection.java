@@ -7,6 +7,7 @@ package ch.dkrieger.permissionsystem.tools.dkbansconnection.bukkit;
  */
 
 import ch.dkrieger.bansystem.bukkit.event.BukkitNetworkPlayerColorSetEvent;
+import ch.dkrieger.bansystem.bukkit.event.BukkitNetworkPlayerOfflinePermissionCheckEvent;
 import ch.dkrieger.bansystem.lib.BanSystem;
 import ch.dkrieger.bansystem.lib.player.NetworkPlayer;
 import ch.dkrieger.permissionsystem.bukkit.event.BukkitPermissionPlayerUpdateEvent;
@@ -50,5 +51,10 @@ public class BukkitDKPermsDKBansConnection extends JavaPlugin implements Listene
             NetworkPlayer player = BanSystem.getInstance().getPlayerManager().getPlayer(event.getUUID());
             if(player != null) player.setColor(event.getPlayer().getColor());
         });
+    }
+    @EventHandler
+    public void onOfflinePermissionCheck(BukkitNetworkPlayerOfflinePermissionCheckEvent event){
+        PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getUUID());
+        if(player != null) event.setHasPermission(player.hasPermission(event.getPermission()));
     }
 }
