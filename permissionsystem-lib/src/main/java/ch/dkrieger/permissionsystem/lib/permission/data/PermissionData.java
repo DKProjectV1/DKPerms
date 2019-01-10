@@ -1,12 +1,12 @@
 package ch.dkrieger.permissionsystem.lib.permission.data;
 
 import ch.dkrieger.permissionsystem.lib.permission.PermissionEntity;
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
+import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /*
  *
@@ -19,8 +19,8 @@ public class PermissionData extends SimplePermissionData {
     private Map<String,SimplePermissionData> serverPermissions, groupPermissions;
 
     public PermissionData() {
-        this.serverPermissions = new LinkedHashMap<>();
-        this.groupPermissions = new LinkedHashMap<>();
+        this.serverPermissions = new ConcurrentHashMap<>();
+        this.groupPermissions = new ConcurrentHashMap<>();
     }
     public Map<String, SimplePermissionData> getServerPermissions() {
         return serverPermissions;
@@ -31,7 +31,7 @@ public class PermissionData extends SimplePermissionData {
     public List<PermissionEntity> getAllPermissions(String server, String world){
         List<PermissionEntity> permissions = new LinkedList<>(getAllPermissions(world));
         if(server != null){
-            String group = NetworkUtil.getGroup(server);
+            String group = GeneralUtil.getGroup(server);
             if(this.serverPermissions.containsKey(server)){
                 permissions.addAll(this.serverPermissions.get(server).getAllPermissions(world));
             }

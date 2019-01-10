@@ -14,7 +14,7 @@ import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
+import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -22,7 +22,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class CommandRank extends PermissionCommand{
 
@@ -57,7 +56,7 @@ public class CommandRank extends PermissionCommand{
                 return;
             }
             sender.sendMessage(Messages.PREFIX+Messages.RANK_LIST_OTHER.replace("[player]",player.getColor()+player.getName()));
-            for(PermissionGroupEntity entity : player.getSortedGroupEntitys()){
+            for(PermissionGroupEntity entity : player.getSortedGroupEntities()){
                 PermissionGroup group = entity.getGroup();
                 if(group == null) continue;
                 sender.sendMessage(Messages.RANK_LIST_FORMAT.replace("[color]",group.getPlayerDesign().getColor())
@@ -103,7 +102,7 @@ public class CommandRank extends PermissionCommand{
                 if(args[1].equalsIgnoreCase("demote")){
                     if(sender.hasPermission("dkperms.rank.demote")){
                         CommandPermission.DurationResult duration = new CommandPermission.DurationResult(-1L,null);
-                        if(args.length >= 3 && NetworkUtil.isNumber(args[2])){
+                        if(args.length >= 3 && GeneralUtil.isNumber(args[2])){
                             if(args.length >= 4) duration = CommandPermission.getDuration(Long.valueOf(args[2]),args[3]);
                             else duration = CommandPermission.getDuration(Long.valueOf(args[2]),"");
                         }
@@ -123,7 +122,7 @@ public class CommandRank extends PermissionCommand{
                 }else if(args[1].equalsIgnoreCase("promote")){
                     if(sender.hasPermission("dkperms.rank.promote")){
                         CommandPermission.DurationResult duration = new CommandPermission.DurationResult(-1L,null);
-                        if(args.length >= 3 && NetworkUtil.isNumber(args[2])){
+                        if(args.length >= 3 && GeneralUtil.isNumber(args[2])){
                             if(args.length >= 4) duration = CommandPermission.getDuration(Long.valueOf(args[2]),args[3]);
                             else duration = CommandPermission.getDuration(Long.valueOf(args[2]),"");
                         }
@@ -152,7 +151,7 @@ public class CommandRank extends PermissionCommand{
                         return;
                     }
                     CommandPermission.DurationResult duration = new CommandPermission.DurationResult(-1L,null);
-                    if(args.length >= 4 && NetworkUtil.isNumber(args[3])){
+                    if(args.length >= 4 && GeneralUtil.isNumber(args[3])){
                         if(args.length >= 5) duration = CommandPermission.getDuration(Long.valueOf(args[3]),args[4]);
                         else duration = CommandPermission.getDuration(Long.valueOf(args[3]),"");
                     }
@@ -175,7 +174,7 @@ public class CommandRank extends PermissionCommand{
         }
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(sender.getUUID());
         sender.sendMessage(Messages.PREFIX+Messages.RANK_LIST_MY);
-        for(PermissionGroupEntity entity : player.getSortedGroupEntitys()){
+        for(PermissionGroupEntity entity : player.getSortedGroupEntities()){
             PermissionGroup group = entity.getGroup();
             if(group == null) continue;
             sender.sendMessage(Messages.RANK_LIST_FORMAT.replace("[color]",group.getPlayerDesign().getColor())

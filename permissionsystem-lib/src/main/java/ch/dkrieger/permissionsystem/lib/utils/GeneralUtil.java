@@ -7,10 +7,7 @@ import com.sun.management.OperatingSystemMXBean;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /*
  *
@@ -18,7 +15,7 @@ import java.util.Random;
  *
  */
 
-public class NetworkUtil {
+public class GeneralUtil {
 
     public static final Random RANDOM = new Random();
     public static final Gson GSON = new Gson();
@@ -61,5 +58,38 @@ public class NetworkUtil {
     public static boolean hasTimeOut(Long timeout){
         if(timeout <= 0) return false;
         return System.currentTimeMillis() > timeout;
+    }
+
+    public static <U> U iterateOne(Iterable<U> list, GeneralUtil.AcceptAble<U> acceptAble) {
+        Iterator<U> iterator = list.iterator();
+        U result = null;
+        while(iterator.hasNext() && (result=iterator.next()) != null) if(acceptAble.accept(result)) return result;
+        return null;
+    }
+    public static <U> void iterateForEach(Iterable<U> list, GeneralUtil.ForEach<U> forEach){
+        Iterator<U> iterator = list.iterator();
+        U result = null;
+        while(iterator.hasNext() && (result=iterator.next()) != null) forEach.forEach(result);
+    }
+    public static <U> void iterateAcceptedForEach(Iterable<U> list, GeneralUtil.AcceptAble<U> acceptAble, GeneralUtil.ForEach<U> forEach) {
+        Iterator<U> iterator = list.iterator();
+        U result = null;
+        while(iterator.hasNext() && (result=iterator.next()) != null) if(acceptAble.accept(result)) forEach.forEach(result);
+    }
+    public static <U> List<U> iterateAcceptedReturn(Iterable<U> list, GeneralUtil.AcceptAble<U> acceptAble){
+        List<U> result = new ArrayList<>();
+        iterateAcceptedForEach(list,acceptAble,result::add);
+        return result;
+    }
+    public static <U> void iterateAndRemove(Iterable<U> list, GeneralUtil.AcceptAble<U> acceptAble){
+        Iterator<U> iterator = list.iterator();
+        U result = null;
+        while(iterator.hasNext() && (result=iterator.next()) != null) if(acceptAble.accept(result)) iterator.remove();
+    }
+    public interface AcceptAble<T> {
+        boolean accept(T object);
+    }
+    public interface ForEach<T> {
+        void forEach(T object);
     }
 }

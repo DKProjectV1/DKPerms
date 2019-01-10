@@ -21,14 +21,13 @@ import ch.dkrieger.permissionsystem.lib.permission.data.SimplePermissionData;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
+import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 import net.md_5.bungee.api.chat.*;
 
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class CommandPermission extends PermissionCommand {
@@ -57,7 +56,7 @@ public class CommandPermission extends PermissionCommand {
                return;
            }else if(args[0].equalsIgnoreCase("import") && args.length == 1){
                sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_IMPORT_LIST_HEADER);
-               for(PermissionImport imp : PermissionImportManager.getInstance().getAvalibalImports()){
+               for(PermissionImport imp : PermissionImportManager.getInstance().getAvailableImports()){
                    sender.sendMessage(Messages.PERMISSION_IMPORT_LIST.replace("[import]",imp.getName()));
                }
                sender.sendMessage("");
@@ -223,7 +222,7 @@ public class CommandPermission extends PermissionCommand {
                                     return;
                                 }
                             }else if(args[2].equalsIgnoreCase("setpriority")){
-                                if(NetworkUtil.isNumber(args[3])){
+                                if(GeneralUtil.isNumber(args[3])){
                                     group.setPriority(Integer.valueOf(args[3]));
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                             .replace("[group]",group.getColor()+group.getName())
@@ -255,7 +254,7 @@ public class CommandPermission extends PermissionCommand {
                                         .replace("[setting]","Color").replace("[value]",args[3]));
                                 return;
                             }else if(args[2].equalsIgnoreCase("setjoinpower")){
-                                if(NetworkUtil.isNumber(args[3])){
+                                if(GeneralUtil.isNumber(args[3])){
                                     group.setJoinPower(Integer.valueOf(args[3]));
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                             .replace("[group]",group.getColor()+group.getName())
@@ -263,7 +262,7 @@ public class CommandPermission extends PermissionCommand {
                                     return;
                                 }
                             }else if(args[2].equalsIgnoreCase("settsgroup")){
-                                if(NetworkUtil.isNumber(args[3])){
+                                if(GeneralUtil.isNumber(args[3])){
                                     group.setTsGroupID(Integer.valueOf(args[3]));
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                             .replace("[group]",group.getColor()+group.getName())
@@ -275,12 +274,12 @@ public class CommandPermission extends PermissionCommand {
                                     String world = null;
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 7){
-                                        if(NetworkUtil.isNumber(args[6])){
+                                        if(GeneralUtil.isNumber(args[6])){
                                             if(args.length >= 8) duration = getDuration(Long.valueOf(args[6]),args[7]);
                                             else duration = getDuration(Long.valueOf(args[6]),"");
                                         }else{
                                             world = args[6];
-                                            if(args.length >= 8 && NetworkUtil.isNumber(args[7])){
+                                            if(args.length >= 8 && GeneralUtil.isNumber(args[7])){
                                                 if(args.length >= 9) duration = getDuration(Long.valueOf(args[7]),args[8]);
                                                 else duration = getDuration(Long.valueOf(args[7]),"");
                                             }
@@ -295,12 +294,12 @@ public class CommandPermission extends PermissionCommand {
                                     String world = null;
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 7){
-                                        if(NetworkUtil.isNumber(args[6])){
+                                        if(GeneralUtil.isNumber(args[6])){
                                             if(args.length >= 8) duration = getDuration(Long.valueOf(args[6]),args[7]);
                                             else duration = getDuration(Long.valueOf(args[6]),"");
                                         }else{
                                             world = args[6];
-                                            if(args.length >= 8 && NetworkUtil.isNumber(args[7])) duration = getDuration(Long.valueOf(args[7]),"");
+                                            if(args.length >= 8 && GeneralUtil.isNumber(args[7])) duration = getDuration(Long.valueOf(args[7]),"");
                                             else if(args.length >= 9) duration = getDuration(Long.valueOf(args[7]),args[8]);
                                         }
                                     }
@@ -313,12 +312,12 @@ public class CommandPermission extends PermissionCommand {
                                     String world = null;
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 5){
-                                        if(NetworkUtil.isNumber(args[4])){
+                                        if(GeneralUtil.isNumber(args[4])){
                                             if(args.length >= 6) duration = getDuration(Long.valueOf(args[4]),args[5]);
                                             else duration = getDuration(Long.valueOf(args[4]),"");
                                         }else{
                                             world = args[4];
-                                            if(args.length >= 6 && NetworkUtil.isNumber(args[5])){
+                                            if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
                                                 if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
                                                 else duration = getDuration(Long.valueOf(args[5]),"");
                                             }
@@ -364,7 +363,7 @@ public class CommandPermission extends PermissionCommand {
                                     return;
                                 }else if(args[3].equalsIgnoreCase("set")){
                                     DurationResult duration = new DurationResult(-1L,null);
-                                    if(args.length >= 6 && NetworkUtil.isNumber(args[5])){
+                                    if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
                                         if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
                                         else duration = getDuration(Long.valueOf(args[5]),"");
                                     }
@@ -373,7 +372,7 @@ public class CommandPermission extends PermissionCommand {
                                     group.setGroup(implementation,duration.getDuration(),duration.getUnit());
                                 }else if(args[3].equalsIgnoreCase("add")){
                                     DurationResult duration = new DurationResult(-1L,null);
-                                    if(args.length >= 6 && NetworkUtil.isNumber(args[5])){
+                                    if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
                                         if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
                                         else duration = getDuration(Long.valueOf(args[5]),"");
                                     }
@@ -533,12 +532,12 @@ public class CommandPermission extends PermissionCommand {
                                     String world = null;
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 7){
-                                        if(NetworkUtil.isNumber(args[6])){
+                                        if(GeneralUtil.isNumber(args[6])){
                                             if(args.length >= 8) duration = getDuration(Long.valueOf(args[6]),args[7]);
                                             else duration = getDuration(Long.valueOf(args[6]),"");
                                         }else{
                                             world = args[6];
-                                            if(args.length >= 8 && NetworkUtil.isNumber(args[7])){
+                                            if(args.length >= 8 && GeneralUtil.isNumber(args[7])){
                                                 if(args.length >= 9) duration = getDuration(Long.valueOf(args[7]),args[8]);
                                                 else duration = getDuration(Long.valueOf(args[7]),"");
                                             }
@@ -553,12 +552,12 @@ public class CommandPermission extends PermissionCommand {
                                     String world = null;
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 7){
-                                        if(NetworkUtil.isNumber(args[6])){
+                                        if(GeneralUtil.isNumber(args[6])){
                                             if(args.length >= 8) duration = getDuration(Long.valueOf(args[6]),args[7]);
                                             else duration = getDuration(Long.valueOf(args[6]),"");
                                         }else{
                                             world = args[6];
-                                            if(args.length >= 8 && NetworkUtil.isNumber(args[7])) duration = getDuration(Long.valueOf(args[7]),"");
+                                            if(args.length >= 8 && GeneralUtil.isNumber(args[7])) duration = getDuration(Long.valueOf(args[7]),"");
                                             else if(args.length >= 9) duration = getDuration(Long.valueOf(args[7]),args[8]);
                                         }
                                     }
@@ -571,12 +570,12 @@ public class CommandPermission extends PermissionCommand {
                                     String world = null;
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 5){
-                                        if(NetworkUtil.isNumber(args[4])){
+                                        if(GeneralUtil.isNumber(args[4])){
                                             if(args.length >= 6) duration = getDuration(Long.valueOf(args[4]),args[5]);
                                             else duration = getDuration(Long.valueOf(args[4]),"");
                                         }else{
                                             world = args[4];
-                                            if(args.length >= 6 && NetworkUtil.isNumber(args[5])){
+                                            if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
                                                 if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
                                                 else duration = getDuration(Long.valueOf(args[5]),"");
                                             }
@@ -622,7 +621,7 @@ public class CommandPermission extends PermissionCommand {
                                     return;
                                 }else if(args[3].equalsIgnoreCase("set")){
                                     DurationResult duration = new DurationResult(-1L,null);
-                                    if(args.length >= 6 && NetworkUtil.isNumber(args[5])){
+                                    if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
                                         if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
                                         else duration = getDuration(Long.valueOf(args[5]),"");
                                     }
@@ -632,7 +631,7 @@ public class CommandPermission extends PermissionCommand {
                                     return;
                                 }else if(args[3].equalsIgnoreCase("add")){
                                     DurationResult duration = new DurationResult(-1L,null);
-                                    if(args.length >= 6 && NetworkUtil.isNumber(args[5])){
+                                    if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
                                         if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
                                         else duration = getDuration(Long.valueOf(args[5]),"");
                                     }
@@ -718,7 +717,7 @@ public class CommandPermission extends PermissionCommand {
             }
         }
         int page = 1;
-        if(args.length >= 1 && NetworkUtil.isNumber(args[0])) page = Integer.valueOf(args[0]);
+        if(args.length >= 1 && GeneralUtil.isNumber(args[0])) page = Integer.valueOf(args[0]);
         sendHelp(sender,HelpType.MAIN);
     }
     private void sendPermissionData(PermissionCommandSender sender, PermissionData data){

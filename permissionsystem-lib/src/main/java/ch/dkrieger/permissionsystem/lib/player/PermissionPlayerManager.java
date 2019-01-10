@@ -5,9 +5,9 @@ import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.entity.PermissionEntityProvider;
 import ch.dkrieger.permissionsystem.lib.permission.PermissionProvider;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /*
  *
@@ -25,7 +25,7 @@ public class PermissionPlayerManager {
         if(storage == null) throw new IllegalArgumentException("Storage can't be null.");
         instance = this;
         this.storage = storage;
-        this.players = new LinkedHashMap<>();
+        this.players =  new ConcurrentHashMap<>();
     }
     public Map<UUID, PermissionPlayer> getLoadedPlayers() {
         return this.players;

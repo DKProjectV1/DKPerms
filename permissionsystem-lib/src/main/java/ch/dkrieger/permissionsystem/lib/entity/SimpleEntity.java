@@ -6,7 +6,7 @@ package ch.dkrieger.permissionsystem.lib.entity;
  *
  */
 
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
+import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 
 import java.text.SimpleDateFormat;
 
@@ -25,6 +25,6 @@ public class SimpleEntity {
         return new SimpleDateFormat("dd.MM.yyyy kk:mm").format(timeout);
     }
     public Boolean hasTimeOut(){
-        return NetworkUtil.hasTimeOut(this.timeout);
+        return GeneralUtil.hasTimeOut(this.timeout);
     }
 }

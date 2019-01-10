@@ -1,9 +1,6 @@
 package ch.dkrieger.permissionsystem.lib.group;
 
 import ch.dkrieger.permissionsystem.lib.entity.SimpleEntity;
-import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
-import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
 
 import java.util.UUID;
 

@@ -6,10 +6,10 @@ package ch.dkrieger.permissionsystem.lib.importation;
  *
  */
 
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PermissionImportManager {
 
@@ -18,12 +18,12 @@ public class PermissionImportManager {
 
     public PermissionImportManager() {
         instance = this;
-        this.imports = new LinkedHashMap<>();
+        this.imports =  new ConcurrentHashMap<>();
     }
     public Map<String, PermissionImport> getImports() {
         return imports;
     }
-    public List<PermissionImport> getAvalibalImports(){
+    public List<PermissionImport> getAvailableImports(){
         List<PermissionImport> list = new LinkedList<>();
         for(PermissionImport imp  :this.imports.values()) if(imp.isAvailable()) list.add(imp);
         return list;

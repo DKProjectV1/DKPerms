@@ -8,10 +8,9 @@ import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.permission.PermissionProvider;
 import ch.dkrieger.permissionsystem.lib.permission.data.PermissionData;
 import ch.dkrieger.permissionsystem.lib.permission.data.SimplePermissionData;
-import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
+import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -69,18 +68,19 @@ public class PermissionAdapter {
         for(Integer priority : grouplist.keySet()) list.addAll(grouplist.get(priority));
         return list;
     }
-    public List<PermissionGroupEntity> getSortedGroupEntitys() {
-        Map<Integer,List<PermissionGroupEntity>> grouplist = new TreeMap<>();
-        for(PermissionGroupEntity entity: this.groups){
-            if(!entity.hasTimeOut()){
-                PermissionGroup group = entity.getGroup();
-                if(group == null) continue;
-                if(!grouplist.containsKey(group.getPriority())) grouplist.put(group.getPriority(),new LinkedList<>());
-                grouplist.get(group.getPriority()).add(entity);
+    public List<PermissionGroupEntity> getSortedGroupEntities() {
+        Map<Integer,List<PermissionGroupEntity>> groupList = new TreeMap<>();
+
+        GeneralUtil.iterateAcceptedForEach(this.groups, object -> !object.hasTimeOut(), object -> {
+            PermissionGroup group = object.getGroup();
+            if(group != null){
+                if(!groupList.containsKey(group.getPriority())) groupList.put(group.getPriority(),new LinkedList<>());
+                groupList.get(group.getPriority()).add(object);
             }
-        }
+        });
+
         List<PermissionGroupEntity> list = new LinkedList<>();
-        for(Integer priority : grouplist.keySet()) list.addAll(grouplist.get(priority));
+        GeneralUtil.iterateForEach(groupList.keySet(), object -> list.addAll(groupList.get(object)));
         return list;
     }
     public List<PermissionEntity> getPermissions(){
@@ -99,19 +99,19 @@ public class PermissionAdapter {
         checked.add(this.uuid);
         List<PermissionEntity> permissions = new LinkedList<>(this.permissiondata.getAllPermissions(server,world));
         try{
-            for(PermissionGroupEntity entity : this.groups){
-                if(checked.contains(entity.getGroupUUID())) continue;
-                checked.add(entity.getGroupUUID());
-                if(!entity.hasTimeOut()){
-                    PermissionGroup group = entity.getGroup();
+
+            GeneralUtil.iterateAcceptedForEach(this.groups, object -> !checked.contains(object.getGroupUUID()), object -> {
+                checked.add(object.getGroupUUID());
+                if(!object.hasTimeOut()){
+                    PermissionGroup group = object.getGroup();
                     if(group != null) permissions.addAll(group.getAllPermissions(server,world,checked));
                 }
-            }
-            for(PermissionGroup group : PermissionGroupManager.getInstance().getDefaultGroups()){
-                if(checked.contains(group.getUUID())) continue;
-                checked.add(group.getUUID());
-                permissions.addAll(group.getAllPermissions(server,world,checked));
-            }
+            });
+
+            GeneralUtil.iterateAcceptedForEach(PermissionGroupManager.getInstance().getDefaultGroups(), object -> !(checked.contains(object.getUUID())), object -> {
+                checked.add(object.getUUID());
+                permissions.addAll(object.getAllPermissions(server,world,checked));
+            });
         }catch (Exception exception){}
         return permissions;
     }
@@ -125,9 +125,13 @@ public class PermissionAdapter {
         PermissionSystem.getInstance().debug(PermissionSystem.PermissionDebugLevel.HIGH
                 ,"checking permission "+permission+"["+server+"/"+world+"] for "+getName());
         Boolean has = false;
+        permission = permission.toLowerCase();
         if(server != null) server = server.toLowerCase();
         if(world != null) world = world.toLowerCase();
-        for(PermissionEntity permissions : getAllPermissions(server,world)){
+
+        Iterator<PermissionEntity> iterator = getAllPermissions(server,world).iterator();
+        PermissionEntity permissions;
+        while(iterator.hasNext() && (permissions=iterator.next()) != null){
             if(!permissions.hasTimeOut()){
                 if(permissions.getPermission().equalsIgnoreCase("*")){
                     has = true;
@@ -141,8 +145,8 @@ public class PermissionAdapter {
                     perm = perm.replaceFirst("-","");
                 }
                 if(perm.endsWith(".*")){
-                    perm = perm.replace(".*","");
-                    if(permission.startsWith(perm)) hasthis = true;
+                    perm = perm.replace("*","");//dkbans.   dkbans.test
+                    if(permission.startsWith(perm.toLowerCase())) hasthis = true;
                 }else if(perm.equalsIgnoreCase(permission)) hasthis = true;
                 if(hasthis) has = hasthis;
                 if(negative && hasthis) return false;

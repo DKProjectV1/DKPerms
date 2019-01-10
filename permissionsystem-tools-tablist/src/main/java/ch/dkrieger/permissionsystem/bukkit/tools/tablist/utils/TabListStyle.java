@@ -1,6 +1,6 @@
 package ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils;
 
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
+import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -88,8 +88,8 @@ public class TabListStyle {
         for(Player t : Bukkit.getOnlinePlayers()) setStyle(prefix, suffix, priority, playername, t);
     }
 	private static String getFreeString(Player player,String priority){
-	    String value = priority+ NetworkUtil.getRandomString(10);
-		if(alreadyinuse.containsKey(player)) while(alreadyinuse.get(player).contains(value)) value = NetworkUtil.getRandomString(10);
+	    String value = priority+ GeneralUtil.getRandomString(10);
+		if(alreadyinuse.containsKey(player)) while(alreadyinuse.get(player).contains(value)) value = GeneralUtil.getRandomString(10);
 		else alreadyinuse.put(player, new LinkedList<>());
         if(value.length() > 16) value = value.substring(0,16);
         alreadyinuse.get(player).add(value);

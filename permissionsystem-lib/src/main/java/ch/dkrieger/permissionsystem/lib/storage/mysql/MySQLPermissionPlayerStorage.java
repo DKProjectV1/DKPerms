@@ -1,12 +1,11 @@
 package ch.dkrieger.permissionsystem.lib.storage.mysql;
 
-import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerStorage;
 import ch.dkrieger.permissionsystem.lib.storage.mysql.query.QueryBuilder;
 import ch.dkrieger.permissionsystem.lib.storage.mysql.query.SelectQuery;
 import ch.dkrieger.permissionsystem.lib.storage.mysql.table.TableManager;
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
+import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,7 +69,7 @@ public class MySQLPermissionPlayerStorage implements PermissionPlayerStorage{
             if(result == null) return;
             try {
                 while(result.next()){
-                    builder.append(TableManager.getInstance().getPlayerTable().update().set("name", NetworkUtil.getRandomString(16))
+                    builder.append(TableManager.getInstance().getPlayerTable().update().set("name", GeneralUtil.getRandomString(16))
                             .where("id",result.getInt("id")));
                 }
             }finally{

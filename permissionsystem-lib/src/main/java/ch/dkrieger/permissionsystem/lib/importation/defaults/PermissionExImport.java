@@ -12,10 +12,9 @@ import ch.dkrieger.permissionsystem.lib.config.SimpleConfig;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.importation.PermissionImport;
-import ch.dkrieger.permissionsystem.lib.platform.DKPermsPlatform;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
-import ch.dkrieger.permissionsystem.lib.utils.NetworkUtil;
+import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 
 import java.io.File;
 import java.util.*;
@@ -90,7 +89,7 @@ public class PermissionExImport implements PermissionImport{
                 UUID uuid0 = UUID.fromString(uuid);
                 PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(uuid0);
                 String name = config.getStringValue("users."+uuid+".options.name");
-                if(name == null || name.equalsIgnoreCase("")) name = NetworkUtil.getRandomString(14);
+                if(name == null || name.equalsIgnoreCase("")) name = GeneralUtil.getRandomString(14);
                 if(player == null) player = PermissionPlayerManager.getInstance().createPermissionPlayer(uuid0,name);
                 if(config.contains("users."+uuid+".group")){
                     for(String group : config.getStringListValue("users."+uuid+".group")){
