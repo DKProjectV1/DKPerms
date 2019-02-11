@@ -40,12 +40,12 @@ public class PermissionGroupManager {
             if(!grouplist.containsKey(group.getPriority())) grouplist.put(group.getPriority(),new LinkedList<>());
             grouplist.get(group.getPriority()).add(group);
         }
-        List<PermissionGroup> list = new LinkedList<>();
+        List<PermissionGroup> list = new ArrayList<>();
         for(Integer priority : grouplist.keySet()) list.addAll(grouplist.get(priority));
         return list;
     }
     public List<PermissionGroup> getDefaultGroups(){
-        List<PermissionGroup> groups = new LinkedList<>();
+        List<PermissionGroup> groups = new ArrayList<>();
         for(PermissionGroup group : this.groups) if(group.isDefault()) groups.add(group);
         return groups;
     }
@@ -56,7 +56,7 @@ public class PermissionGroupManager {
         return null;
     }
     public List<PermissionPlayer> getPlayers(PermissionGroup group){
-        List<PermissionPlayer> players = new LinkedList<>();
+        List<PermissionPlayer> players = new ArrayList<>();
         for(UUID uuid : this.storage.getPlayers(group)){
             players.add(PermissionPlayerManager.getInstance().getPermissionPlayer(uuid));
         }
@@ -126,7 +126,7 @@ public class PermissionGroupManager {
     }
     public void loadPermissions(PermissionGroup group){
         group.setPermissionData(PermissionProvider.getInstance().getStorage().getPermissions(PermissionType.GROUP,group.getUUID()));
-        group.setGroups(PermissionEntityProvider.getInstance().getStorage().getPermissionEntitys(PermissionType.GROUP,group.getUUID()));
+        group.setGroups(PermissionEntityProvider.getInstance().getStorage().getPermissionEntities(PermissionType.GROUP,group.getUUID()));
     }
     public static PermissionGroupManager getInstance() {
         return instance;

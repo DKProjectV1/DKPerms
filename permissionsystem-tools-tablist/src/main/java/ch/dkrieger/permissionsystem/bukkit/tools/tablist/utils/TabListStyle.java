@@ -1,5 +1,6 @@
 package ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils;
 
+import ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap;
 import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,14 +27,26 @@ public class TabListStyle {
 	public static void setStyle(String prefix,String suffix,String priority,Player player,Player receiver) {
         setStyle(prefix,suffix,priority,player.getName(),receiver);
 	}
-	public static void setStyle(String prefix,String suffix,String priority, String playername,Player receiver) {
-        String team_name = priority+playername.charAt(0)+playername.charAt(1);
+	public static void setStyle(String prefix,String suffix,String priority, String playerName,Player receiver) {
+        String team_name = priority+playerName.charAt(0)+playerName.charAt(1);
+
+        if(BukkitBootstrap.getInstance().getPlaceHolderAPI() != null){
+            Player player = Bukkit.getPlayer(playerName);
+            if(player != null){
+                prefix = BukkitBootstrap.getInstance().getPlaceHolderAPI().set(player,prefix);
+                suffix = BukkitBootstrap.getInstance().getPlaceHolderAPI().set(player,suffix);
+            }
+        }
+
+        if(prefix.length() > 16) prefix = prefix.substring(0,16);
+        if(suffix.length() > 16) suffix = suffix.substring(0,16);
+
         team_name = getFreeString(receiver,team_name);
         try{
             Constructor< ? > constructor = getMinecraftClass("PacketPlayOutScoreboardTeam").getConstructor();
             Object packet = constructor.newInstance();
             List< String > contents = new LinkedList<>();
-            contents.add(playername);
+            contents.add(playerName);
             setField(packet,"a",team_name);
             if(hasField(packet.getClass(),"j")){
                 setField(packet,"e","always");

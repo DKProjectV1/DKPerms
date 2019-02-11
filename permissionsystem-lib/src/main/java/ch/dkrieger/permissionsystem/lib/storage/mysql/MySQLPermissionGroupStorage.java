@@ -16,6 +16,7 @@ import ch.dkrieger.permissionsystem.lib.storage.mysql.table.TableManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -72,7 +73,7 @@ public class MySQLPermissionGroupStorage implements PermissionGroupStorage{
     }
     @Override
     public List<UUID> getPlayers(PermissionGroup group) {
-        List<UUID> players = new LinkedList<>();
+        List<UUID> players = new ArrayList<>();
         try {
             SelectQuery query = TableManager.getInstance().getEntityTable().select().where("permissiontype", PermissionType.PLAYER)
                     .where("groupuuid",group.getUUID());

@@ -30,7 +30,7 @@ public class PermissionAdapter {
     protected List<PermissionGroupEntity> groups;
 
     public PermissionAdapter(String name, UUID uuid, PermissionType type) {
-        this(name,uuid,type,new PermissionData(),new LinkedList<>());
+        this(name,uuid,type,new PermissionData(),new ArrayList<>());
     }
     public PermissionAdapter(String name, UUID uuid, PermissionType type, PermissionData permissiondata, List<PermissionGroupEntity> groups) {
         this.name = name;
@@ -60,11 +60,11 @@ public class PermissionAdapter {
             if(!entity.hasTimeOut()){
                 PermissionGroup group = entity.getGroup();
                 if(group == null) continue;
-                if(!grouplist.containsKey(group.getPriority())) grouplist.put(group.getPriority(),new LinkedList<>());
+                if(!grouplist.containsKey(group.getPriority())) grouplist.put(group.getPriority(),new ArrayList<>());
                 grouplist.get(group.getPriority()).add(group);
             }
         }
-        List<PermissionGroup> list = new LinkedList<>();
+        List<PermissionGroup> list = new ArrayList<>();
         for(Integer priority : grouplist.keySet()) list.addAll(grouplist.get(priority));
         return list;
     }
@@ -74,12 +74,12 @@ public class PermissionAdapter {
         GeneralUtil.iterateAcceptedForEach(this.groups, object -> !object.hasTimeOut(), object -> {
             PermissionGroup group = object.getGroup();
             if(group != null){
-                if(!groupList.containsKey(group.getPriority())) groupList.put(group.getPriority(),new LinkedList<>());
+                if(!groupList.containsKey(group.getPriority())) groupList.put(group.getPriority(),new ArrayList<>());
                 groupList.get(group.getPriority()).add(object);
             }
         });
 
-        List<PermissionGroupEntity> list = new LinkedList<>();
+        List<PermissionGroupEntity> list = new ArrayList<>();
         GeneralUtil.iterateForEach(groupList.keySet(), object -> list.addAll(groupList.get(object)));
         return list;
     }
@@ -93,13 +93,12 @@ public class PermissionAdapter {
         return this.permissiondata.getAllPermissions(server, world);
     }
     public List<PermissionEntity> getAllPermissions(String server, String world){
-        return getAllPermissions(server, world,new LinkedList<>());
+        return getAllPermissions(server, world,new ArrayList<>());
     }
     public List<PermissionEntity> getAllPermissions(String server, String world, List<UUID> checked){
         checked.add(this.uuid);
-        List<PermissionEntity> permissions = new LinkedList<>(this.permissiondata.getAllPermissions(server,world));
+        List<PermissionEntity> permissions = new ArrayList<>(this.permissiondata.getAllPermissions(server,world));
         try{
-
             GeneralUtil.iterateAcceptedForEach(this.groups, object -> !checked.contains(object.getGroupUUID()), object -> {
                 checked.add(object.getGroupUUID());
                 if(!object.hasTimeOut()){
@@ -107,7 +106,6 @@ public class PermissionAdapter {
                     if(group != null) permissions.addAll(group.getAllPermissions(server,world,checked));
                 }
             });
-
             GeneralUtil.iterateAcceptedForEach(PermissionGroupManager.getInstance().getDefaultGroups(), object -> !(checked.contains(object.getUUID())), object -> {
                 checked.add(object.getUUID());
                 permissions.addAll(object.getAllPermissions(server,world,checked));
@@ -174,7 +172,7 @@ public class PermissionAdapter {
         if(world == null) this.permissiondata.getPermissions().add(new PermissionEntity(timeout,permission));
         else{
             if(!this.permissiondata.getWorldPermissions().containsKey(world))
-                this.permissiondata.getWorldPermissions().put(world,new LinkedList<>());
+                this.permissiondata.getWorldPermissions().put(world,new ArrayList<>());
             this.permissiondata.getWorldPermissions().get(world).add(new PermissionEntity(timeout,permission));
         }
         PermissionProvider.getInstance().getStorage().addPermission(this.type,this.uuid,permission,world,timeout);
@@ -201,7 +199,7 @@ public class PermissionAdapter {
                 .add(new PermissionEntity(timeout,permission));
         else{
             if(!this.permissiondata.getServerPermissions().get(server).getWorldPermissions().containsKey(world))
-                this.permissiondata.getServerPermissions().get(server).getWorldPermissions().put(world,new LinkedList<>());
+                this.permissiondata.getServerPermissions().get(server).getWorldPermissions().put(world,new ArrayList<>());
             this.permissiondata.getServerPermissions().get(server).getWorldPermissions().get(world).add(new PermissionEntity(timeout,permission));
         }
         PermissionProvider.getInstance().getStorage().addServerPermission(this.type,this.uuid,server,permission,world,timeout);
@@ -228,7 +226,7 @@ public class PermissionAdapter {
                 .add(new PermissionEntity(timeout,permission));
         else{
             if(!this.permissiondata.getGroupPermissions().get(group).getWorldPermissions().containsKey(world))
-                this.permissiondata.getGroupPermissions().get(group).getWorldPermissions().put(world,new LinkedList<>());
+                this.permissiondata.getGroupPermissions().get(group).getWorldPermissions().put(world,new ArrayList<>());
             this.permissiondata.getGroupPermissions().get(group).getWorldPermissions().get(world).add(new PermissionEntity(timeout,permission));
         }
         PermissionProvider.getInstance().getStorage().addServerGroupPermission(this.type,this.uuid,group,permission,world,timeout);
@@ -359,7 +357,7 @@ public class PermissionAdapter {
                 ,PermissionUpdateData.addGroup(group,duration,unit));
     }
     public void removeGroup(PermissionGroup group){
-        for(PermissionGroupEntity entity : new LinkedList<>(this.groups)) if(entity.getGroupUUID().equals(group.getUUID())) this.groups.remove(entity);
+        for(PermissionGroupEntity entity : new ArrayList<>(this.groups)) if(entity.getGroupUUID().equals(group.getUUID())) this.groups.remove(entity);
         PermissionEntityProvider.getInstance().getStorage().removeEntity(this.type,this.uuid,group.getUUID());
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.removeGroup(group));

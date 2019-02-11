@@ -23,6 +23,7 @@ public class PermissionDocument {
 
     private JsonObject datas;
 
+
     public PermissionDocument(String name){
         this.datas = new JsonObject();
         setName(name);

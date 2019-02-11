@@ -230,19 +230,32 @@ public class CommandPermission extends PermissionCommand {
                                     return;
                                 }
                             }else if(args[2].equalsIgnoreCase("setprefix")){
-                                group.setPrefix(args[3]);
+                                String message = "";
+                                for(int i= 3;i<args.length;i++){
+                                    message +=args[i]+" ";
+                                }
+                                group.setPrefix(message.substring(0,message.length()-1));
+
                                 sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                         .replace("[group]",group.getColor()+group.getName())
                                         .replace("[setting]","Prefix").replace("[value]",args[3]));
                                 return;
                             }else if(args[2].equalsIgnoreCase("setsuffix")){
-                                group.setSuffix(args[3]);
+                                String message = "";
+                                for(int i= 3;i<args.length;i++){
+                                    message +=args[i]+" ";
+                                }
+                                group.setSuffix(message.substring(0,message.length()-1));
                                 sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                         .replace("[group]",group.getColor()+group.getName())
                                         .replace("[setting]","Suffix").replace("[value]",args[3]));
                                 return;
                             }else if(args[2].equalsIgnoreCase("setdisplay")){
-                                group.setDisplay(args[3]);
+                                String message = "";
+                                for(int i= 3;i<args.length;i++){
+                                    message +=args[i]+" ";
+                                }
+                                group.setDisplay(message.substring(0,message.length()-1));
                                 sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                         .replace("[group]",group.getColor()+group.getName())
                                         .replace("[setting]","Display").replace("[value]",args[3]));

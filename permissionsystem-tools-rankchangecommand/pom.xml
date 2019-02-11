@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ /*
-  ~  * Copyright (c) 2018 Davide Wietlisbach on 06.07.18 10:37
+  ~  * Copyright (c) 2018 Davide Wietlisbach on 11.02.19 11:34
   ~  */
   -->
 
@@ -15,28 +15,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ch.dkrieger.permissionsystem.tools.tablist</groupId>
-    <artifactId>permissionsystem-tools-tablist</artifactId>
-    <version>1.1.9</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <repositories>
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
+    <groupId>ch.dkrieger.permissionsystem.tools.rankchangecommand</groupId>
+    <artifactId>permissionsystem-tools-rankchangecommand</artifactId>
 
     <dependencies>
         <dependency>
@@ -45,15 +25,25 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>ch.dkrieger.permissionsystem.bungeecord</groupId>
+            <artifactId>permissionsystem-bungeecord</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>ch.dkrieger.permissionsystem.bukkit</groupId>
             <artifactId>permissionsystem-bukkit</artifactId>
-            <version>1.1.9</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-bootstrap</artifactId>
+            <version>1.8-1.12</version>
         </dependency>
     </dependencies>
 

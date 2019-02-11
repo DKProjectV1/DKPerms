@@ -1,0 +1,7 @@
+name: DKPermsRankChangeCommand
+author: Davide Wietlisbach
+description:
+version: ${project.version}
+
+main: ch.dkrieger.permissionsystem.rankchangecommand.bungeecord.BungeeCordRankChangeCommandExtension
+commands:

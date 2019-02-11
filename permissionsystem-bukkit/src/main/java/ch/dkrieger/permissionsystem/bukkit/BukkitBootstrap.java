@@ -50,6 +50,8 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
     private boolean cloudNetV2, cloudNetV3;
     private List<WaitingRunnable> waitingRunnables;
 
+    private PlaceHolderAPIHook placeHolderAPI;
+
     @Override
     public void onLoad() {
         instance = this;
@@ -133,6 +135,11 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
     public String getServerName() {
         return server.toLowerCase();
     }
+
+    public PlaceHolderAPIHook getPlaceHolderAPI() {
+        return placeHolderAPI;
+    }
+
     public void runTaskAsync(Runnable runnable) {
         if(isEnabled()) Bukkit.getScheduler().runTaskAsynchronously(this,runnable);
         else this.waitingRunnables.add(new WaitingRunnable(runnable,0L,WaitingRunnableType.ASYNC));
@@ -183,7 +190,7 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
     private void hook(){
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
             System.out.println(Messages.SYSTEM_PREFIX+"PlaceHolderAPI found");
-            new PlaceHolderAPIHook(this).hook();
+            this.placeHolderAPI = new PlaceHolderAPIHook(this);
         }
         if(Bukkit.getPluginManager().isPluginEnabled("Vault")){
             System.out.println(Messages.SYSTEM_PREFIX+"Vault found");

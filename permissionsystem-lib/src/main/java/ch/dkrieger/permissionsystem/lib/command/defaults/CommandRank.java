@@ -74,7 +74,7 @@ public class CommandRank extends PermissionCommand{
             if(args.length >= 2){
                 PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(args[0]);
                 if(player == null){
-                    sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_PLAYER_NOTFOUND);
+                    sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_PLAYER_NOTFOUND.replace("[player]",args[0]));
                     return;
                 }
                 if(!sender.hasPermission("dkperms.rank.change.all")){

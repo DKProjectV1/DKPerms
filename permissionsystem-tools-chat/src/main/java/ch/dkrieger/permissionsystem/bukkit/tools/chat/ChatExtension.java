@@ -6,12 +6,14 @@ package ch.dkrieger.permissionsystem.bukkit.tools.chat;
  *
  */
 
+import ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.player.PlayerDesign;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -42,6 +44,11 @@ public class ChatExtension extends JavaPlugin implements Listener{
         if(prefix.equalsIgnoreCase("-1")) prefix = "";
         if(suffix.equalsIgnoreCase("-1")) suffix = "";
         if(display.equalsIgnoreCase("-1")) display = "";
+
+        if(BukkitBootstrap.getInstance().getPlaceHolderAPI() != null){
+            BukkitBootstrap.getInstance().getPlaceHolderAPI().set(event.getPlayer(),prefix);
+        }
+
         if(event.getPlayer().hasPermission("dkperms.chat.color"))
             event.setMessage(ChatColor.translateAlternateColorCodes('&',event.getMessage()));
         event.setFormat(this.format.replace("[display]",display).replace("[prefix]",prefix)

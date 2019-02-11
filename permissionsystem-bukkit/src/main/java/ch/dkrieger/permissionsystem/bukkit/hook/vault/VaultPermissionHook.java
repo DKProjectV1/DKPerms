@@ -18,6 +18,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.ServicePriority;
 
+import java.util.List;
+
 public class VaultPermissionHook extends Permission {
 
     public VaultPermissionHook(Plugin plugin) {
@@ -129,10 +131,10 @@ public class VaultPermissionHook extends Permission {
     }
     @Override
     public String[] getGroups() {
-        String list = "";
-        for(PermissionGroup group : PermissionGroupManager.getInstance().getGroups()) list += group.getName()+";";
-        if(list.length() > 0) list = list.substring(0,list.length()-1);
-        return list.split(";");
+        List<PermissionGroup> groups = PermissionGroupManager.getInstance().getGroups();
+        String[] names = new String[groups.size()];
+        for(int i = 0;i<groups.size();i++) names[i] = groups.get(i).getName();
+        return names;
     }
     @Override
     public boolean hasGroupSupport() {

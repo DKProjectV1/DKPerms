@@ -38,8 +38,8 @@ public class TabListManager {
 		if(group == null) return;
 		PlayerDesign design = group.getPlayerDesign();
 		if(design == null) return;
-		String prefix = ChatColor.translateAlternateColorCodes('&',design.getPrefix()).replace("_"," ");
-		String suffix = ChatColor.translateAlternateColorCodes('&',design.getSuffix()).replace("_"," ");
+		String prefix = ChatColor.translateAlternateColorCodes('&',design.getPrefix());
+		String suffix = ChatColor.translateAlternateColorCodes('&',design.getSuffix());
 		String priority = ""+getPriority(group.getPriority());
 		if(prefix.equalsIgnoreCase("-1")) prefix = "";
 		if(suffix.equalsIgnoreCase("-1")) suffix = "";

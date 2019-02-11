@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class MySQLPermissionEntityStorage implements PermissionEntityStorage{
 
     @Override
-    public List<PermissionGroupEntity> getPermissionEntitys(PermissionType type, UUID uuid) {
+    public List<PermissionGroupEntity> getPermissionEntities(PermissionType type, UUID uuid) {
         List<PermissionGroupEntity> list = new LinkedList<>();
         try {
             SelectQuery query = TableManager.getInstance().getEntityTable().select()

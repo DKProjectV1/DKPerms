@@ -12,6 +12,7 @@ import ch.dkrieger.permissionsystem.lib.entity.PermissionEntityStorage;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
 import ch.dkrieger.permissionsystem.lib.permission.PermissionEntity;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -25,8 +26,8 @@ public class YamlPermissionEntityStorage implements PermissionEntityStorage{
         this.players = players;
     }
     @Override
-    public List<PermissionGroupEntity> getPermissionEntitys(PermissionType type, UUID uuid) {
-        List<PermissionGroupEntity> list = new LinkedList<>();
+    public List<PermissionGroupEntity> getPermissionEntities(PermissionType type, UUID uuid) {
+        List<PermissionGroupEntity> list = new ArrayList<>();
         if(type == PermissionType.GROUP){
             List<String> data = this.groups.getStringListValue("groups."+uuid+".implementation");
             if(data != null){

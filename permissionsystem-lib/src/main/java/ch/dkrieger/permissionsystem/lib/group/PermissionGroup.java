@@ -107,21 +107,16 @@ public class PermissionGroup extends PermissionAdapter{
     }
     public void setPrefix(String prefix){
         prefix = PermissionSystem.getInstance().getPlatform().translateColorCodes(prefix);
-        if(prefix.length() > 16) prefix = prefix.substring(16);
-        prefix = prefix.replace("_"," ");
         this.playerdesign.setPrefix(prefix);
         setSetting("prefix",prefix);
     }
     public void setSuffix(String suffix){
         suffix = PermissionSystem.getInstance().getPlatform().translateColorCodes(suffix);
-        if(suffix.length() > 16) suffix = suffix.substring(16);
-        suffix = suffix.replace("_"," ");
         this.playerdesign.setSuffix(suffix);
         setSetting("suffix",suffix);
     }
     public void setDisplay(String display){
         display = PermissionSystem.getInstance().getPlatform().translateColorCodes(display);
-        display = display.replace("_"," ");
         this.playerdesign.setDisplay(display);
         setSetting("display",display);
     }

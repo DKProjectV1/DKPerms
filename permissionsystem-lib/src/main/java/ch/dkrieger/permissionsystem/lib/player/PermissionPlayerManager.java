@@ -44,7 +44,7 @@ public class PermissionPlayerManager {
             PermissionPlayer player = this.storage.getPermissionPlayer(name);
             if(player != null){
                 player.setPermissionData(PermissionProvider.getInstance().getStorage().getPermissions(PermissionType.PLAYER,player.getUUID()));
-                player.setGroups(PermissionEntityProvider.getInstance().getStorage().getPermissionEntitys(PermissionType.PLAYER,player.getUUID()));
+                player.setGroups(PermissionEntityProvider.getInstance().getStorage().getPermissionEntities(PermissionType.PLAYER,player.getUUID()));
                 this.players.put(player.getUUID(),player);
                 PermissionSystem.getInstance().debug(PermissionSystem.PermissionInfoLevel.INFO, PermissionSystem.PermissionDebugLevel.NORMAL,"Loaded player "+player.getName()+" in "+(System.currentTimeMillis()-timestamp)+"ms");
             }
@@ -59,7 +59,7 @@ public class PermissionPlayerManager {
         PermissionPlayer player = this.storage.getPermissionPlayer(uuid);
         if(player != null){
             player.setPermissionData(PermissionProvider.getInstance().getStorage().getPermissions(PermissionType.PLAYER,uuid));
-            player.setGroups(PermissionEntityProvider.getInstance().getStorage().getPermissionEntitys(PermissionType.PLAYER,uuid));
+            player.setGroups(PermissionEntityProvider.getInstance().getStorage().getPermissionEntities(PermissionType.PLAYER,uuid));
             this.players.put(uuid,player);
             PermissionSystem.getInstance().debug(PermissionSystem.PermissionInfoLevel.INFO,PermissionSystem.PermissionDebugLevel.NORMAL,"Loaded player "+player.getName()+" in "+(System.currentTimeMillis()-timestamp)+"ms");
         }

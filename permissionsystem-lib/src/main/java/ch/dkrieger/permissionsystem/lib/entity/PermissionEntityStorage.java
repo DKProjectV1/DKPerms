@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public interface PermissionEntityStorage {
 
-    public List<PermissionGroupEntity> getPermissionEntitys(PermissionType type, UUID uuid);
+    public List<PermissionGroupEntity> getPermissionEntities(PermissionType type, UUID uuid);
 
     public void setEntity(PermissionType type, UUID uuid, UUID group, Long timeout);
 

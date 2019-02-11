@@ -13,7 +13,7 @@
     <groupId>ch.dkrieger.permissionsystem</groupId>
     <artifactId>PermissionSystem</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.7</version>
+    <version>1.1.9</version>
 
     <build>
         <plugins>
@@ -50,6 +50,7 @@
         <module>permissionsystem-example</module>
         <module>permissionsystem-tools-dkcoinsconnection</module>
         <module>permissionsystem-tools-rankchangemessage</module>
+        <module>permissionsystem-tools-rankchangecommand</module>
     </modules>
 
     <repositories>
