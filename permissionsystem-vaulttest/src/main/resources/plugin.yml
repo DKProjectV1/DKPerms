@@ -1,9 +1,9 @@
-name: DKPerms
+name: VaultTest
 author: Davide Wietlisbach
 description: 
 version: ${project.version}
 api-version: 1.13
-softdepend: [Vault]
+depend: [DKPerms]
 
-main: ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap
+main: test.VaultTest
 commands:

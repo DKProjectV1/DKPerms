@@ -139,6 +139,9 @@ public class VaultChatHook extends Chat{
     public void setGroupInfoString(String s, String s1, String s2, String s3) {
 
     }
+
+
+
     public PermissionPlayer getPlayer(String name){
         return PermissionPlayerManager.getInstance().getPermissionPlayer(name);
     }

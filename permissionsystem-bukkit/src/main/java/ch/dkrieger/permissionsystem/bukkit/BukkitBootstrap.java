@@ -66,6 +66,7 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
+        hook();
         Bukkit.getScheduler().runTaskLater(this,()->{
             checkCloudNet();
             if(cloudNetV2){
@@ -82,7 +83,6 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
                 Bukkit.getMessenger().registerOutgoingPluginChannel(this,"dkperms:dkperms");
                 Bukkit.getMessenger().registerIncomingPluginChannel(this,"dkperms:dkperms",(SpigotPluginMessageUpdateExecutor)this.updateExecutor);
             }
-            hook();
             for(Player player : Bukkit.getOnlinePlayers()){
                 try {
                     Class<?> clazz = PlayerListener.reflectCraftClazz(".entity.CraftHumanEntity");

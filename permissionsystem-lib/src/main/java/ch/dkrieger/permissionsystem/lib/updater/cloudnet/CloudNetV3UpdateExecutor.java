@@ -5,7 +5,7 @@ import ch.dkrieger.permissionsystem.lib.command.defaults.CommandTeam;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateExecutor;
-import de.dytanic.cloudnet.common.document.Document;
+import de.dytanic.cloudnet.common.document.gson.JsonDocument;
 import de.dytanic.cloudnet.wrapper.Wrapper;
 
 import java.util.UUID;
@@ -21,18 +21,18 @@ public class CloudNetV3UpdateExecutor implements PermissionUpdateExecutor{
     @Override
     public void executePermissionGroupCreate(UUID uuid) {
         Wrapper.getInstance().sendChannelMessage("dkperms","group_create"
-                ,new Document().append("uuid",uuid));
+                ,new JsonDocument().append("uuid",uuid));
     }
     @Override
     public void executePermissionGroupDelete(PermissionGroup group) {
         Wrapper.getInstance().sendChannelMessage("dkperms","group_delete"
-                ,new Document().append("uuid",group.getUUID()));
+                ,new JsonDocument().append("uuid",group.getUUID()));
         CommandTeam.forceupdate();
     }
     @Override
     public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data) {
         Wrapper.getInstance().sendChannelMessage("dkperms","update"
-                ,new Document().append("type",type).append("uuid",uuid).append("data",data));
+                ,new JsonDocument().append("type",type).append("uuid",uuid).append("data",data));
         CommandTeam.forceupdate();
     }
 }

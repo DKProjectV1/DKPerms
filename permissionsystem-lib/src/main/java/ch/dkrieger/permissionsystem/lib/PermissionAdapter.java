@@ -160,7 +160,7 @@ public class PermissionAdapter {
         addPermission(permission,-1L,TimeUnit.SECONDS);
     }
     public void addPermission(String permission, String world){
-        addPermission(permission,-1L,TimeUnit.SECONDS);
+        addPermission(permission,world,-1L,TimeUnit.SECONDS);
     }
     public void addPermission(String permission, Long duration, TimeUnit unit){
         addPermission(permission,null,duration,unit);

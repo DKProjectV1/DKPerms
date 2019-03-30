@@ -13,7 +13,7 @@
     <groupId>ch.dkrieger.permissionsystem</groupId>
     <artifactId>PermissionSystem</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.9</version>
+    <version>1.2.0</version>
 
     <build>
         <plugins>
@@ -51,6 +51,7 @@
         <module>permissionsystem-tools-dkcoinsconnection</module>
         <module>permissionsystem-tools-rankchangemessage</module>
         <module>permissionsystem-tools-rankchangecommand</module>
+        <module>permissionsystem-vaulttest</module>
     </modules>
 
     <repositories>
@@ -79,18 +80,33 @@
             <artifactId>bungeecord-config</artifactId>
             <version>LATEST</version>
         </dependency>
+
         <dependency>
             <groupId>de.dytanic.cloudnet</groupId>
             <artifactId>cloudnet-api-bridge</artifactId>
             <version>2.1.6</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-all</artifactId>
-            <version>3.0.0-BETA</version>
+            <artifactId>cloudnet-driver</artifactId>
+            <version>3.0.0-PRE-2</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>de.dytanic.cloudnet</groupId>
+            <artifactId>cloudnet-wrapper-jvm</artifactId>
+            <version>3.0.0-PRE-2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.dytanic.cloudnet</groupId>
+            <artifactId>cloudnet-bridge</artifactId>
+            <version>3.0.0-PRE-2</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
