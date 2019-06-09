@@ -9,14 +9,11 @@ import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
-import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
-import de.dytanic.cloudnet.bridge.event.proxied.ProxiedCustomChannelMessageReceiveEvent;
 import de.dytanic.cloudnet.bridge.event.proxied.ProxiedSubChannelMessageEvent;
 import net.md_5.bungee.BungeeCord;
-import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 

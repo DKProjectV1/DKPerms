@@ -8,7 +8,6 @@ package ch.dkrieger.permissionsystem.lib.config;
 
 import ch.dkrieger.permissionsystem.lib.platform.DKPermsPlatform;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
@@ -74,7 +73,7 @@ public abstract class SimpleConfig {
         this.config.set(path,value);
     }
     public void addValue(String path, Object value){
-        if(!this.config.contains(path) )this.config.set(path,value);
+        if(!this.config.contains(path))this.config.set(path,value);
     }
     public String getStringValue(String path){
         return this.config.getString(path);

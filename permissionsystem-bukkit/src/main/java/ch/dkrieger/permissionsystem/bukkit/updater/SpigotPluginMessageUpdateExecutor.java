@@ -34,13 +34,13 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
     public void executePermissionGroupCreate(UUID uuid) {
         sendToBungeeCord(new PermissionDocument("group_create").append("uuid",uuid));
         Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupCreateEvent(uuid,true));
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
     }
     @Override
     public void executePermissionGroupDelete(PermissionGroup group) {
         sendToBungeeCord(new PermissionDocument("group_delete").append("uuid",group.getUUID()));
         Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupDeleteEvent(group,true));
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
         for(Player players : Bukkit.getOnlinePlayers()) BukkitBootstrap.getInstance().updateDisplayName(players);
     }
     @Override
@@ -55,7 +55,7 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
             Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupUpdateEvent(uuid,data,true));
             for(Player players : Bukkit.getOnlinePlayers()) BukkitBootstrap.getInstance().updateDisplayName(players);
         }
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
     }
     public void sendToBungeeCord(PermissionDocument dokument){
         if(Bukkit.getOnlineMode()) return;

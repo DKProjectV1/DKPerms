@@ -5,10 +5,9 @@ import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
-import ch.dkrieger.permissionsystem.lib.permission.PermissionEntity;
-import ch.dkrieger.permissionsystem.lib.permission.data.PermissionData;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /*
@@ -54,7 +53,7 @@ public class PermissionPlayer extends PermissionAdapter {
         if(group != null) return group.getPlayerDesign();
         return PermissionGroupManager.getInstance().getHighestDefaultGroup().getPlayerDesign();
     }
-    public Boolean isInGroup(String group){
+    public boolean isInGroup(String group){
         return isInGroup(PermissionGroupManager.getInstance().getGroup(group));
     }
     public Boolean isInGroup(PermissionGroup group){

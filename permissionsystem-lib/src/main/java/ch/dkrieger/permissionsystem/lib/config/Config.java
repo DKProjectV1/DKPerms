@@ -7,7 +7,6 @@ package ch.dkrieger.permissionsystem.lib.config;
  */
 
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
-import ch.dkrieger.permissionsystem.lib.command.defaults.CommandPermission;
 import ch.dkrieger.permissionsystem.lib.platform.DKPermsPlatform;
 import ch.dkrieger.permissionsystem.lib.storage.StorageType;
 

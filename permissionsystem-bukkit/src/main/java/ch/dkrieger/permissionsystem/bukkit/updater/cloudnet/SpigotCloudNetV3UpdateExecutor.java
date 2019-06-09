@@ -32,6 +32,7 @@ public class SpigotCloudNetV3UpdateExecutor implements Listener{
     public SpigotCloudNetV3UpdateExecutor() {
         BukkitBootstrap.getInstance().setServerName(Wrapper.getInstance().getServiceId().getName());
     }
+
     @EventHandler
     public void onMessageReceive(BukkitChannelMessageReceiveEvent event){
         if(!Config.SYNCHRONISE_CHANNEL) return;

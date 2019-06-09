@@ -9,16 +9,12 @@ package ch.dkrieger.permissionsystem.bukkit.tools.tablist;
 import ch.dkrieger.permissionsystem.bukkit.event.BukkitPermissionGroupDeleteEvent;
 import ch.dkrieger.permissionsystem.bukkit.event.BukkitPermissionGroupUpdateEvent;
 import ch.dkrieger.permissionsystem.bukkit.event.BukkitPermissionPlayerUpdateEvent;
-import ch.dkrieger.permissionsystem.bukkit.tools.tablist.utils.TabListStyle;
-import ch.dkrieger.permissionsystem.lib.command.defaults.CommandPermission;
-import ch.dkrieger.permissionsystem.lib.utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TabListExtension extends JavaPlugin implements Listener{

@@ -13,9 +13,9 @@ import java.util.UUID;
 
 public interface PermissionUpdateExecutor {
 
-    public void executePermissionGroupCreate(UUID uuid);
+    void executePermissionGroupCreate(UUID uuid);
 
-    public void executePermissionGroupDelete(PermissionGroup group);
+    void executePermissionGroupDelete(PermissionGroup group);
 
-    public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data);
+    void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data);
 }

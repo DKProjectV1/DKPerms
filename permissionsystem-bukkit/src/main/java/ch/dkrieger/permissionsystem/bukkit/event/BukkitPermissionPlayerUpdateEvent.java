@@ -8,7 +8,6 @@ package ch.dkrieger.permissionsystem.bukkit.event;
 
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
-import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -25,6 +24,7 @@ public class BukkitPermissionPlayerUpdateEvent extends Event {
     private final Boolean online;
 
     public BukkitPermissionPlayerUpdateEvent(UUID uuid, PermissionUpdateData data, Boolean onthisserver, Boolean online) {
+        super(true);
         this.uuid = uuid;
         this.data = data;
         this.onthisserver = onthisserver;

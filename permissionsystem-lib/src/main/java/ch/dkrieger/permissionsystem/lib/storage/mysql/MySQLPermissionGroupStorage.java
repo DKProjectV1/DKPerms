@@ -6,7 +6,6 @@ package ch.dkrieger.permissionsystem.lib.storage.mysql;
  *
  */
 
-import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupStorage;

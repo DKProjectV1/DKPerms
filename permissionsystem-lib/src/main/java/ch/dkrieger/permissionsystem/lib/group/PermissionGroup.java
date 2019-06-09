@@ -4,13 +4,9 @@ import ch.dkrieger.permissionsystem.lib.PermissionAdapter;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.permission.PermissionEntity;
-import ch.dkrieger.permissionsystem.lib.permission.PermissionStorage;
 import ch.dkrieger.permissionsystem.lib.permission.data.SimplePermissionData;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
-import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.player.PlayerDesign;
-import ch.dkrieger.permissionsystem.lib.storage.mysql.table.TableManager;
-import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
 

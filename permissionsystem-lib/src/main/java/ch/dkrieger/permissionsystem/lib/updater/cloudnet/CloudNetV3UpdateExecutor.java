@@ -23,16 +23,18 @@ public class CloudNetV3UpdateExecutor implements PermissionUpdateExecutor{
         Wrapper.getInstance().sendChannelMessage("dkperms","group_create"
                 ,new JsonDocument().append("uuid",uuid));
     }
+
     @Override
     public void executePermissionGroupDelete(PermissionGroup group) {
         Wrapper.getInstance().sendChannelMessage("dkperms","group_delete"
                 ,new JsonDocument().append("uuid",group.getUUID()));
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
     }
+
     @Override
     public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data) {
         Wrapper.getInstance().sendChannelMessage("dkperms","update"
                 ,new JsonDocument().append("type",type).append("uuid",uuid).append("data",data));
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
     }
 }

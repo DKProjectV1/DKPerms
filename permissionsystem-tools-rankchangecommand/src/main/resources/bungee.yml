@@ -2,6 +2,7 @@ name: DKPermsRankChangeCommand
 author: Davide Wietlisbach
 description:
 version: ${project.version}
+depends: [DKPerms]
 
 main: ch.dkrieger.permissionsystem.rankchangecommand.bungeecord.BungeeCordRankChangeCommandExtension
 commands:

@@ -2,7 +2,6 @@ package ch.dkrieger.permissionsystem.lib.storage.mysql.query;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

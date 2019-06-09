@@ -3,10 +3,7 @@ package ch.dkrieger.permissionsystem.lib.utils;
 import ch.dkrieger.permissionsystem.lib.config.Config;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
-import com.sun.management.OperatingSystemMXBean;
 
-import java.lang.management.ManagementFactory;
-import java.net.InetAddress;
 import java.util.*;
 
 /*

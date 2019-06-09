@@ -1,9 +1,9 @@
 name: DKPerms
 author: Davide Wietlisbach
-description: 
 version: ${project.version}
 api-version: 1.13
-softdepend: [Vault]
+softdepend: [Vault, PlaceholderAPI]
+loadbefore: [EZRanksPr]
 
 main: ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap
 commands:

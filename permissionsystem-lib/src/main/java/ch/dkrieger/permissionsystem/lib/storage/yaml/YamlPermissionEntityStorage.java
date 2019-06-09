@@ -10,7 +10,6 @@ import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.config.SimpleConfig;
 import ch.dkrieger.permissionsystem.lib.entity.PermissionEntityStorage;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
-import ch.dkrieger.permissionsystem.lib.permission.PermissionEntity;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

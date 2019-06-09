@@ -6,7 +6,6 @@ package ch.dkrieger.permissionsystem.lib.storage.mysql;
  *
  */
 
-import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.entity.PermissionEntityStorage;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
@@ -19,7 +18,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class MySQLPermissionEntityStorage implements PermissionEntityStorage{
 

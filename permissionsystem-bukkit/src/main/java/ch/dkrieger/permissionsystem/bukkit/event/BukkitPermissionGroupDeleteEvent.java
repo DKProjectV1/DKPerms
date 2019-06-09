@@ -1,7 +1,6 @@
 package ch.dkrieger.permissionsystem.bukkit.event;
 
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
-import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -19,6 +18,7 @@ public class BukkitPermissionGroupDeleteEvent extends Event {
     private final Boolean onthisserver;
 
     public BukkitPermissionGroupDeleteEvent(PermissionGroup group, Boolean onthisserver) {
+        super(true);
         this.group = group;
         this.onthisserver = onthisserver;
     }

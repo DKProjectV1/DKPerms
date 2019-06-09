@@ -1,13 +1,16 @@
 package ch.dkrieger.permissionsystem.bukkit;
 
-import ch.dkrieger.permissionsystem.lib.command.PermissionCommandManager;
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommand;
+import ch.dkrieger.permissionsystem.lib.command.PermissionCommandManager;
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommandSender;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.command.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;

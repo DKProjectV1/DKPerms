@@ -75,11 +75,13 @@ public class CommandTeam extends PermissionCommand{
         forceupdate = false;
         this.lastupdate = System.currentTimeMillis();
     }
+
     @Override
     public List<String> tabcomplete(PermissionCommandSender sender, String[] args) {
         return new LinkedList<>();
     }
-    public static void forceupdate(){
+
+    public static void forceUpdate(){
         forceupdate = true;
     }
 }

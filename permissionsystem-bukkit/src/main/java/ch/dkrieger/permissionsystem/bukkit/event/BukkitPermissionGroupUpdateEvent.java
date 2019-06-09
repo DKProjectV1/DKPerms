@@ -2,8 +2,6 @@ package ch.dkrieger.permissionsystem.bukkit.event;
 
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
-import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
-import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -25,6 +23,7 @@ public class BukkitPermissionGroupUpdateEvent extends Event {
     private final Boolean onthisserver;
 
     public BukkitPermissionGroupUpdateEvent(UUID uuid, PermissionUpdateData data, Boolean onthisserver) {
+        super(true);
         this.uuid = uuid;
         this.data = data;
         this.onthisserver = onthisserver;

@@ -1,10 +1,10 @@
 package ch.dkrieger.permissionsystem.lib;
 
+import ch.dkrieger.permissionsystem.lib.entity.PermissionEntityProvider;
+import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
+import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.permission.PermissionEntity;
-import ch.dkrieger.permissionsystem.lib.entity.PermissionEntityProvider;
-import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
-import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.permission.PermissionProvider;
 import ch.dkrieger.permissionsystem.lib.permission.data.PermissionData;
 import ch.dkrieger.permissionsystem.lib.permission.data.SimplePermissionData;

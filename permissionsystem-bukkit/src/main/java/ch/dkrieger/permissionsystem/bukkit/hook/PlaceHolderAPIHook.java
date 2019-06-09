@@ -6,26 +6,43 @@ package ch.dkrieger.permissionsystem.bukkit.hook;
  *
  */
 
+import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
+import ch.dkrieger.permissionsystem.lib.utils.Messages;
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 public class PlaceHolderAPIHook {
 
-    public PlaceHolderAPIHook(Plugin plugin) {
-        new RequestHook(plugin).hook();
+    public PlaceHolderAPIHook() {
+        new RequestHook().register();
     }
 
-    private class RequestHook extends EZPlaceholderHook {
+    private class RequestHook extends PlaceholderExpansion {
 
-        public RequestHook(Plugin plugin) {
-            super(plugin, "dkperms");
+        @Override
+        public String getIdentifier() {
+            return Messages.SYSTEM_NAME.toLowerCase();
+        }
+
+        @Override
+        public String getPlugin() {
+            return Messages.SYSTEM_NAME;
+        }
+
+        @Override
+        public String getAuthor() {
+            return "Dkrieger";
+        }
+
+        @Override
+        public String getVersion() {
+            return PermissionSystem.getInstance().getVersion();
         }
 
         @Override

@@ -33,7 +33,7 @@ public class PermissionUpdater {
     public void onPermissionGroupDelete(UUID uuid){
         PermissionGroup group = PermissionGroupManager.getInstance().getGroup(uuid);
         PermissionSystem.getInstance().sync();
-        if(group.isTeam()) CommandTeam.forceupdate();
+        if(group.isTeam()) CommandTeam.forceUpdate();
     }
     public void onPermissionUpdate(PermissionType type, UUID uuid,Boolean online){
         if(type == PermissionType.GROUP){
@@ -47,7 +47,7 @@ public class PermissionUpdater {
                 PermissionPlayerManager.getInstance().getLoadedPlayers().remove(uuid);
             }
         }
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
     }
     public void setExecutor(PermissionUpdateExecutor executor) {
         this.executor = executor;

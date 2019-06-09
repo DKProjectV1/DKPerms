@@ -9,10 +9,8 @@ package example;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommand;
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommandSender;
-import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.config.SimpleConfig;
 import ch.dkrieger.permissionsystem.lib.platform.DKPermsPlatform;
-import ch.dkrieger.permissionsystem.lib.utils.Messages;
 
 import java.io.File;
 import java.util.List;

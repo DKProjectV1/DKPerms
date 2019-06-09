@@ -6,7 +6,6 @@ package example;
  *
  */
 
-import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.entity.PermissionEntityProvider;

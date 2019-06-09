@@ -2,6 +2,7 @@ name: DKPermsDKBansConnection
 author: Davide Wietlisbach
 description: 
 version: ${project.version}
+depends: [DKPerms]
 
 main: ch.dkrieger.permissionsystem.tools.dkbansconnection.bungeecord.BungeeCordDKPermsDKBansConnection
 commands:

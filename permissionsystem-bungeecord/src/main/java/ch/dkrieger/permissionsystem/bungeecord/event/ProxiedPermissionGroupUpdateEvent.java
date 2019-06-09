@@ -2,7 +2,6 @@ package ch.dkrieger.permissionsystem.bungeecord.event;
 
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
-import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import net.md_5.bungee.api.plugin.Event;
 

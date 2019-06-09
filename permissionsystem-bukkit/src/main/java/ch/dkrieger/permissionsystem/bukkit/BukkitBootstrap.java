@@ -55,7 +55,10 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
     @Override
     public void onLoad() {
         instance = this;
-        this.server = Bukkit.getServer().getServerName();
+
+        this.server = Bukkit.getServer().getName();
+        System.out.println(this.server);
+
         this.commandManager = new BukkitCommandManager();
 
         this.updateExecutor = new SpigotPluginMessageUpdateExecutor();
@@ -65,10 +68,11 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
     }
     @Override
     public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
         hook();
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
         Bukkit.getScheduler().runTaskLater(this,()->{
             checkCloudNet();
+
             if(cloudNetV2){
                 Bukkit.getPluginManager().registerEvents(new CloudNetV2Listener(),this);
                 this.updateExecutor = new CloudNetV2UpdateExecutor();
@@ -158,9 +162,11 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
     public void updateDisplayName(UUID uuid){
         updateDisplayName(Bukkit.getPlayer(uuid), PermissionPlayerManager.getInstance().getPermissionPlayer(uuid));
     }
+
     public void updateDisplayName(Player player){
         updateDisplayName(player, PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId()));
     }
+
     public void updateDisplayName(Player player, PermissionPlayer networkPlayer){
         if(player == null|| networkPlayer== null) return;
         if(Config.PLAYER_DISPLAYNAME_ENABLED) player.setDisplayName(Config.PLAYER_DISPLAYNAME_FORMAT
@@ -170,6 +176,7 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
                 .replace("[player]",player.getName())
                 .replace("[color]",networkPlayer.getColor()));
     }
+
     private void checkCloudNet(){
         Plugin plugin = getServer().getPluginManager().getPlugin("CloudNetAPI");
         if(plugin != null && plugin.getDescription() != null){
@@ -187,16 +194,18 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
             return;
         }else this.cloudNetV3 = false;
     }
+
     private void hook(){
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
             System.out.println(Messages.SYSTEM_PREFIX+"PlaceHolderAPI found");
-            this.placeHolderAPI = new PlaceHolderAPIHook(this);
+            this.placeHolderAPI = new PlaceHolderAPIHook();
         }
         if(Bukkit.getPluginManager().isPluginEnabled("Vault")){
             System.out.println(Messages.SYSTEM_PREFIX+"Vault found");
             new VaultPermissionHook(this);
         }
     }
+
     private class WaitingRunnable {
 
         private Runnable runnable;

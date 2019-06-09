@@ -2,8 +2,6 @@ package ch.dkrieger.permissionsystem.lib.storage.mysql.table;
 
 import ch.dkrieger.permissionsystem.lib.storage.mysql.MySQL;
 import ch.dkrieger.permissionsystem.lib.storage.mysql.query.*;
-import ch.dkrieger.permissionsystem.lib.storage.mysql.query.CreateQuery;
-import ch.dkrieger.permissionsystem.lib.storage.mysql.query.CustomQuery;
 
 /*
  *

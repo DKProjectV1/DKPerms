@@ -9,7 +9,6 @@ package ch.dkrieger.permissionsystem.bukkit.listeners;
 import ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap;
 import ch.dkrieger.permissionsystem.bukkit.DKPermissable;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
-import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;

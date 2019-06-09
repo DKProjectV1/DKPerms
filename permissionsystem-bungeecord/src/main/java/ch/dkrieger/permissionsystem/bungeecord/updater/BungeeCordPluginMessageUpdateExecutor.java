@@ -38,19 +38,19 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
     public void executePermissionGroupCreate(UUID uuid) {
         sendToAllSpigotServers(new PermissionDocument("group_create").append("uuid",uuid));
         BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupCreateEvent(uuid,true));
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
     }
     @Override
     public void executePermissionGroupDelete(PermissionGroup group) {
         sendToAllSpigotServers(new PermissionDocument("group_delete").append("uuid",group.getUUID()));
         BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
     }
     @Override
     public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data) {
         sendToAllSpigotServers(new PermissionDocument("update").append("type",type).append("uuid",uuid).append("data",data));
         BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupUpdateEvent(uuid,data,true));
-        CommandTeam.forceupdate();
+        CommandTeam.forceUpdate();
     }
     @EventHandler
     public void onPluginMessageReceive(PluginMessageEvent event){
