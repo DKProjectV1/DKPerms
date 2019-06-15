@@ -11,13 +11,13 @@
     <parent>
         <artifactId>PermissionSystem</artifactId>
         <groupId>ch.dkrieger.permissionsystem</groupId>
-        <version>1.2.3</version>
+        <version>1.2.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.dkrieger.permissionsystem.bukkit</groupId>
     <artifactId>permissionsystem-bukkit</artifactId>
-    <version>1.2.3</version>
+    <version>1.2.4</version>
     <build>
         <plugins>
             <plugin>
@@ -44,6 +44,10 @@
             <id>vault-repo</id>
             <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
+        <repository>
+            <id>enginehub-maven</id>
+            <url>http://maven.enginehub.org/repo/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -68,6 +72,12 @@
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
             <version>1.6</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -23,7 +23,7 @@ public class BukkitPermissionGroupUpdateEvent extends Event {
     private final Boolean onthisserver;
 
     public BukkitPermissionGroupUpdateEvent(UUID uuid, PermissionUpdateData data, Boolean onthisserver) {
-        super(true);
+        super(Thread.currentThread().getId() != 1);
         this.uuid = uuid;
         this.data = data;
         this.onthisserver = onthisserver;

@@ -24,7 +24,7 @@ public class BukkitPermissionPlayerUpdateEvent extends Event {
     private final Boolean online;
 
     public BukkitPermissionPlayerUpdateEvent(UUID uuid, PermissionUpdateData data, Boolean onthisserver, Boolean online) {
-        super(true);
+        super(Thread.currentThread().getId() != 1);
         this.uuid = uuid;
         this.data = data;
         this.onthisserver = onthisserver;

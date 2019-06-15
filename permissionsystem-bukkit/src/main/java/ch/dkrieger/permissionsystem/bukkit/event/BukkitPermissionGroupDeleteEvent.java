@@ -18,7 +18,7 @@ public class BukkitPermissionGroupDeleteEvent extends Event {
     private final Boolean onthisserver;
 
     public BukkitPermissionGroupDeleteEvent(PermissionGroup group, Boolean onthisserver) {
-        super(true);
+        super(Thread.currentThread().getId() != 1);
         this.group = group;
         this.onthisserver = onthisserver;
     }

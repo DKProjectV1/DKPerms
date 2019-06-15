@@ -7,6 +7,7 @@ package ch.dkrieger.permissionsystem.bukkit;
  */
 
 import ch.dkrieger.permissionsystem.bukkit.hook.PlaceHolderAPIHook;
+import ch.dkrieger.permissionsystem.bukkit.hook.WorldEditPermissionResolver;
 import ch.dkrieger.permissionsystem.bukkit.hook.vault.VaultPermissionHook;
 import ch.dkrieger.permissionsystem.bukkit.listeners.CloudNetV2Listener;
 import ch.dkrieger.permissionsystem.bukkit.listeners.PlayerListener;
@@ -57,7 +58,6 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
         instance = this;
 
         this.server = Bukkit.getServer().getName();
-        System.out.println(this.server);
 
         this.commandManager = new BukkitCommandManager();
 
@@ -65,10 +65,15 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
         this.waitingRunnables = new LinkedList<>();
 
         new PermissionSystem(this,this.updateExecutor,false);
+        hook();
     }
     @Override
     public void onEnable() {
-        hook();
+        //Hook into WorldEdit
+        if(Bukkit.getPluginManager().getPlugin("WorldEdit") != null){
+            System.out.println(Messages.SYSTEM_PREFIX+"WorldEdit found");
+            new WorldEditPermissionResolver();
+        }
         Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
         Bukkit.getScheduler().runTaskLater(this,()->{
             checkCloudNet();
@@ -191,16 +196,15 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
             this.cloudNetV3 = true;
             CommandPermission.ADVANCED = true;
             System.out.println(Messages.SYSTEM_PREFIX+"CloudNetV3 found");
-            return;
         }else this.cloudNetV3 = false;
     }
 
     private void hook(){
-        if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
             System.out.println(Messages.SYSTEM_PREFIX+"PlaceHolderAPI found");
             this.placeHolderAPI = new PlaceHolderAPIHook();
         }
-        if(Bukkit.getPluginManager().isPluginEnabled("Vault")){
+        if(Bukkit.getPluginManager().getPlugin("Vault") != null){
             System.out.println(Messages.SYSTEM_PREFIX+"Vault found");
             new VaultPermissionHook(this);
         }

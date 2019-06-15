@@ -21,7 +21,7 @@ public class BukkitPermissionGroupCreateEvent extends Event {
     private final Boolean onthisserver;
 
     public BukkitPermissionGroupCreateEvent(UUID uuid, Boolean onthisserver) {
-        super(true);
+        super(Thread.currentThread().getId() != 1);
         this.uuid = uuid;
         this.onthisserver = onthisserver;
     }
