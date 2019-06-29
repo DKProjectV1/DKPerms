@@ -20,7 +20,7 @@ group:
     name: Name
     description: Beschreibung
     uuid: UUID
-    defaults: Standart
+    defaults: Standard
     team: Team
     priority: Priority
     prefix: Prefix
