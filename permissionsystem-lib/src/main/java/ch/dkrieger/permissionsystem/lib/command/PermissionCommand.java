@@ -19,6 +19,13 @@ public abstract class PermissionCommand {
         this.permission = permission;
         this.aliases = Arrays.asList(aliases);
     }
+
+    public PermissionCommand(String name, String permission, List<String> aliases) {
+        this.name = name;
+        this.permission = permission;
+        this.aliases = aliases;
+    }
+
     public String getName() {
         return name;
     }

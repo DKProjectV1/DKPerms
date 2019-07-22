@@ -63,6 +63,7 @@ public class BungeeCordCommandManager implements PermissionCommandManager{
             return this.command.tabcomplete(new BungeeCordPermissionCommandSender(sender),args);
         }
     }
+
     private class BungeeCordPermissionCommandSender implements PermissionCommandSender {
 
         private CommandSender sender;
@@ -70,19 +71,24 @@ public class BungeeCordCommandManager implements PermissionCommandManager{
         public BungeeCordPermissionCommandSender(CommandSender sender) {
             this.sender = sender;
         }
+
         public String getName() {
             return sender.getName();
         }
+
         public UUID getUUID() {
             if(sender instanceof ProxiedPlayer) return ((ProxiedPlayer) sender).getUniqueId();
             else return null;
         }
+
         public Boolean hasPermission(String permission) {
             return sender.hasPermission(permission);
         }
+
         public void sendMessage(String message) {
-            sender.sendMessage(message);
+            sender.sendMessage(TextComponent.fromLegacyText(message));
         }
+
         public void sendMessage(TextComponent component) {
             sender.sendMessage(component);
         }

@@ -11,6 +11,9 @@ import ch.dkrieger.permissionsystem.lib.platform.DKPermsPlatform;
 import ch.dkrieger.permissionsystem.lib.storage.StorageType;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Config extends SimpleConfig {
 
@@ -48,7 +51,22 @@ public class Config extends SimpleConfig {
     public static Boolean DEBUG_ENABLED;
     public static PermissionSystem.PermissionDebugLevel DEBUG_LEVEL;
 
-    private Boolean advanced;
+    public static boolean COMMAND_PERMISSION_ENABLED;
+    public static String COMMAND_PERMISSION_PERMISSION;
+    public static String COMMAND_PERMISSION_NAME;
+    public static List<String> COMMAND_PERMISSION_ALIASES;
+
+    public static boolean COMMAND_RANK_ENABLED;
+    public static String COMMAND_RANK_PERMISSION;
+    public static String COMMAND_RANK_NAME;
+    public static List<String> COMMAND_RANK_ALIASES;
+
+    public static boolean COMMAND_TEAM_ENABLED;
+    public static String COMMAND_TEAM_PERMISSION;
+    public static String COMMAND_TEAM_NAME;
+    public static List<String> COMMAND_TEAM_ALIASES;
+
+    private boolean advanced;
 
     public Config(DKPermsPlatform platform,Boolean advanced) {
         super(platform,new File(platform.getFolder(),"config.yml"));
@@ -67,13 +85,7 @@ public class Config extends SimpleConfig {
         STORAGE_MYSQL_USER = getStringValue("storage.mysql.user");
         STORAGE_MYSQL_PASSWORD = getStringValue("storage.mysql.password");
         STORAGE_MYSQL_DATABASE = getStringValue("storage.mysql.database");
-
-        /*STORAGE_MONGODB_HOST = getStringValue("storage.mongodb.host");
-        STORAGE_MONGODB_PORT = getIntValue("storage.mongodb.port");
-        STORAGE_MONGODB_USER = getStringValue("storage.mongodb.user");
-        STORAGE_MONGODB_PASSWORD = getStringValue("storage.mongodb.password");
-        STORAGE_MONGODB_DATABASE = getStringValue("storage.mongodb.database");*/
-
+        
         SECURITY_OPERATOR_ENABLED = getBooleanValue("security.operator.enabled");
         SECURITY_DISABLECOMMANDS = getBooleanValue("security.disablecommands");
 
@@ -95,7 +107,23 @@ public class Config extends SimpleConfig {
         }
         PLAYER_DISPLAYNAME_ENABLED = getBooleanValue("player.displayname.enabled");
         PLAYER_DISPLAYNAME_FORMAT = getStringValue("player.displayname.format");
+
+        COMMAND_PERMISSION_ENABLED = getBooleanValue("commands.permission.enabled");
+        COMMAND_PERMISSION_NAME = getStringValue("commands.permission.name");
+        COMMAND_PERMISSION_PERMISSION = getStringValue("commands.permission.permission");
+        COMMAND_PERMISSION_ALIASES = getStringListValue("commands.permission.aliases");
+
+        COMMAND_RANK_ENABLED = getBooleanValue("commands.rank.enabled");
+        COMMAND_RANK_NAME = getStringValue("commands.rank.name");
+        COMMAND_RANK_PERMISSION = getStringValue("commands.rank.permission");
+        COMMAND_RANK_ALIASES = getStringListValue("commands.rank.aliases");
+
+        COMMAND_TEAM_ENABLED = getBooleanValue("commands.team.enabled");
+        COMMAND_TEAM_NAME = getStringValue("commands.team.name");
+        COMMAND_TEAM_PERMISSION = getStringValue("commands.team.permission");
+        COMMAND_TEAM_ALIASES = getStringListValue("commands.team.aliases");
     }
+
     @Override
     public void registerDefaults() {
         addValue("advanced",this.advanced);
@@ -106,12 +134,6 @@ public class Config extends SimpleConfig {
         addValue("storage.mysql.user","root");
         addValue("storage.mysql.password","password");
         addValue("storage.mysql.database","PermissionSystem");
-
-        /*addValue("storage.mongodb.host","localhost");
-        addValue("storage.mongodb.port",27017);
-        addValue("storage.mongodb.user","root");
-        addValue("storage.mongodb.password","password");
-        addValue("storage.mongodb.database","PermissionSystem");*/
 
         addValue("security.operator.enabled",false);
         addValue("security.disablecommands",false);
@@ -129,5 +151,20 @@ public class Config extends SimpleConfig {
 
         addValue("player.displayname.enabled",true);
         addValue("player.displayname.format","[color][player]");
+
+        addValue("commands.permission.enabled",true);
+        addValue("commands.permission.permission","dkperms.admin");
+        addValue("commands.permission.name","permission");
+        addValue("commands.permission.aliases",Collections.singletonList("perms"));
+
+        addValue("commands.rank.enabled",true);
+        addValue("commands.rank.permission","dkperms.rank");
+        addValue("commands.rank.name","rank");
+        addValue("commands.rank.aliases",Collections.singletonList("ranks"));
+
+        addValue("commands.team.enabled",true);
+        addValue("commands.team.permission","dkperms.team");
+        addValue("commands.team.name","team");
+        addValue("commands.team.aliases",Collections.singletonList("teammembers"));
     }
 }

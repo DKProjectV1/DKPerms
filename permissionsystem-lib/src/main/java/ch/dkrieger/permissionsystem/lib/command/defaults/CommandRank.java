@@ -8,6 +8,7 @@ package ch.dkrieger.permissionsystem.lib.command.defaults;
 
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommand;
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommandSender;
+import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
@@ -26,8 +27,9 @@ import java.util.List;
 public class CommandRank extends PermissionCommand{
 
     public CommandRank() {
-        super("rank","dkperms.rank.see","rang","ranks");
+        super(Config.COMMAND_RANK_NAME,Config.COMMAND_RANK_PERMISSION,Config.COMMAND_RANK_ALIASES);
     }
+
     @Override
     public void execute(PermissionCommandSender sender, String[] args) {
         if(args.length == 1 && sender.hasPermission("dkperms.rank.see.others")){

@@ -8,6 +8,7 @@ package ch.dkrieger.permissionsystem.lib.command.defaults;
 
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommand;
 import ch.dkrieger.permissionsystem.lib.command.PermissionCommandSender;
+import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
@@ -24,7 +25,7 @@ public class CommandTeam extends PermissionCommand{
     private static Boolean forceupdate;
 
     public CommandTeam() {
-        super("team",null,"teamliste");
+        super(Config.COMMAND_TEAM_NAME,Config.COMMAND_TEAM_PERMISSION,Config.COMMAND_TEAM_ALIASES);
         this.messages = new LinkedList<>();
         forceupdate = true;
     }

@@ -38,11 +38,12 @@ public class CommandPermission extends PermissionCommand {
     public static Boolean ADVANCED, JOINPOWER, TSGROUP;
 
     public CommandPermission() {
-        super("permission","dkperms.admin","perms");
+        super(Config.COMMAND_PERMISSION_NAME,Config.COMMAND_PERMISSION_PERMISSION,Config.COMMAND_PERMISSION_ALIASES);
         JOINPOWER = false;
         TSGROUP = false;
         ADVANCED = Config.ADVANCED;
     }
+
     @Override
     public void execute(PermissionCommandSender sender, String[] args) {
         if(args.length >= 1){

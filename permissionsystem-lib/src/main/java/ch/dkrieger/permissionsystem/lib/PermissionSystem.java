@@ -141,9 +141,9 @@ public class PermissionSystem {
     private void registerCommands(){
         if(Config.SECURITY_DISABLECOMMANDS) return;
         this.platform.getCommandManager().registerCommand(new CommandDKPerms());
-        this.platform.getCommandManager().registerCommand(new CommandPermission());
-        this.platform.getCommandManager().registerCommand(new CommandRank());
-        this.platform.getCommandManager().registerCommand(new CommandTeam());
+        if(Config.COMMAND_PERMISSION_ENABLED) this.platform.getCommandManager().registerCommand(new CommandPermission());
+        if(Config.COMMAND_RANK_ENABLED) this.platform.getCommandManager().registerCommand(new CommandRank());
+        if(Config.COMMAND_TEAM_ENABLED) this.platform.getCommandManager().registerCommand(new CommandTeam());
     }
     public void disable(){
         if(this.mysql != null) this.mysql.disconect();
