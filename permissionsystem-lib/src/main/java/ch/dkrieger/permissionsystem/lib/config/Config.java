@@ -11,7 +11,6 @@ import ch.dkrieger.permissionsystem.lib.platform.DKPermsPlatform;
 import ch.dkrieger.permissionsystem.lib.storage.StorageType;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

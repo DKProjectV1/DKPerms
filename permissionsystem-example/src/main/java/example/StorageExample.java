@@ -50,7 +50,7 @@ public class StorageExample implements PermissionPlayerStorage, PermissionStorag
     public void updateName(UUID uuid, String name) {
 
     }
-    public List<PermissionGroupEntity> getPermissionEntitys(PermissionType type, UUID uuid) {
+    public List<PermissionGroupEntity> getPermissionEntities(PermissionType type, UUID uuid) {
         return null;
     }
     public void setEntity(PermissionType type, UUID uuid, UUID group, Long timeout) {

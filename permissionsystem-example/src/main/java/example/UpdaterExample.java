@@ -8,7 +8,7 @@ package example;
 
 import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
-import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
+import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateExecutor;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
 
@@ -30,7 +30,10 @@ public class UpdaterExample implements PermissionUpdateExecutor{
     public void executePermissionGroupDelete(PermissionGroup group) {
 
     }
-    public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateCause cause) {
+
+    @Override
+    public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data) {
 
     }
+
 }
