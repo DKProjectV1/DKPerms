@@ -146,7 +146,7 @@ public class PermissionSystem {
         if(Config.COMMAND_TEAM_ENABLED) this.platform.getCommandManager().registerCommand(new CommandTeam());
     }
     public void disable(){
-        if(this.mysql != null) this.mysql.disconect();
+        if(this.mysql != null) this.mysql.disconnect();
         //if(MongoDriver.getInstance() != null) MongoDriver.getInstance().disconnect();
     }
     public void sync(){

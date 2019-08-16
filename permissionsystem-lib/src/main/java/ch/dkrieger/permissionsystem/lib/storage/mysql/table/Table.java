@@ -22,24 +22,24 @@ public class Table {
         return this.name;
     }
     public CreateQuery create(){
-        return new CreateQuery(mysql.getConnecion(),"CREATE TABLE IF NOT EXISTS `"+this.name+"` (");
+        return new CreateQuery(mysql.getConnection(),"CREATE TABLE IF NOT EXISTS `"+this.name+"` (");
     }
     public InsertQuery insert(){
-        return new InsertQuery(mysql.getConnecion(),"INSERT INTO `"+this.name+"` (");
+        return new InsertQuery(mysql.getConnection(),"INSERT INTO `"+this.name+"` (");
     }
     public UpdateQuery update(){
-        return new UpdateQuery(mysql.getConnecion(),"UPDATE `"+this.name+"` SET");
+        return new UpdateQuery(mysql.getConnection(),"UPDATE `"+this.name+"` SET");
     }
     public SelectQuery select(){
         return select("*");
     }
     public SelectQuery select(String selection){
-        return new SelectQuery(mysql.getConnecion(), "SELECT "+selection+" FROM `"+this.name+"`");
+        return new SelectQuery(mysql.getConnection(), "SELECT "+selection+" FROM `"+this.name+"`");
     }
     public DeleteQuery delete(){
-        return new DeleteQuery(mysql.getConnecion(), "DELETE FROM `"+this.name+"`");
+        return new DeleteQuery(mysql.getConnection(), "DELETE FROM `"+this.name+"`");
     }
     public CustomQuery query(){
-        return new CustomQuery(mysql.getConnecion());
+        return new CustomQuery(mysql.getConnection());
     }
 }

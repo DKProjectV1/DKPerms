@@ -24,7 +24,7 @@ public class CustomQuery extends Query{
     }
     public void execute(String query) {
         this.query = query;
-        try {
+        try(Connection connection = this.connection) {
             pstatement = connection.prepareStatement(query);
             int i = 1;
             for (Object object : values) {
@@ -32,7 +32,6 @@ public class CustomQuery extends Query{
                 i++;
             }
             pstatement.executeUpdate();
-            pstatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,6 +57,7 @@ public class CustomQuery extends Query{
         }
         pstatement.executeUpdate();
         pstatement.close();
+        connection.close();
     }
     public void executeWithOutError(String query){
         try{ executeSave(query);

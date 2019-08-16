@@ -1,5 +1,6 @@
 package ch.dkrieger.permissionsystem.lib.storage.mysql.query;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -36,10 +37,9 @@ public class QueryBuilder {
         return this;
     }
     public void execute(){
-        PreparedStatement pstatement;
         if(querys.size() <= 0) return;
-        try {
-            pstatement = querys.get(0).getConnection().prepareStatement(query);
+        try(Connection connection = querys.get(0).getConnection()) {
+            PreparedStatement pstatement = connection.prepareStatement(query);
             int i = 1;
             for(Query query : this.querys){
                 for(Object object : query.getValues()) {
@@ -48,7 +48,6 @@ public class QueryBuilder {
                 }
             }
             pstatement.executeUpdate();
-            pstatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

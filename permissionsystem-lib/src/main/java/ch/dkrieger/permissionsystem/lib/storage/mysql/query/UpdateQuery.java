@@ -31,16 +31,14 @@ public class UpdateQuery extends Query {
         return this;
     }
     public void execute() {
-        PreparedStatement pstatement;
-        try {
-            pstatement = connection.prepareStatement(query);
+        try(Connection connection = this.connection) {
+            PreparedStatement pstatement = connection.prepareStatement(query);
             int i = 1;
             for(Object object : values) {
                 pstatement.setString(i, object.toString());
                 i++;
             }
             pstatement.executeUpdate();
-            pstatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

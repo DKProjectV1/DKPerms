@@ -46,7 +46,8 @@ public class SelectQuery extends  Query{
         ResultSet result = pstatement.executeQuery();
         return result;
     }
-    public void close() throws SQLException{
+    public void close() throws SQLException {
+        if(connection != null) connection.close();
         if(pstatement != null)  pstatement.close();
     }
 }

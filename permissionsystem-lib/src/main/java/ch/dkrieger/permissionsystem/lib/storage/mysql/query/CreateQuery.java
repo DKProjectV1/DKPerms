@@ -1,5 +1,6 @@
 package ch.dkrieger.permissionsystem.lib.storage.mysql.query;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,11 +24,9 @@ public class CreateQuery extends Query {
         return this;
     }
     public void execute(){
-        Statement statement;
-        try {
-            statement = connection.createStatement();
+        try(Connection connection = this.connection) {
+            Statement statement = connection.createStatement();
             statement.execute(query);
-            statement.close();
         } catch(SQLException exception){
             exception.printStackTrace();
         }
