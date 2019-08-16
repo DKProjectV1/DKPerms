@@ -60,11 +60,7 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
         <repository>
-            <id>cloudnet-repo</id>
-            <url>http://dytanic.de/repositories/</url>
-        </repository>
-        <repository>
-            <id>cloudnet-repo</id>
+            <id>cloudnet</id>
             <url>https://cloudnetservice.eu/repositories/</url>
         </repository>
     </repositories>
