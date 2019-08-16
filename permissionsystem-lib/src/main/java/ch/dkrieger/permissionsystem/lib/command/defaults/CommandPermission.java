@@ -68,7 +68,7 @@ public class CommandPermission extends PermissionCommand {
            }else if(args[0].equalsIgnoreCase("groups")){
                 sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_LIST_HEADER);
                 for(PermissionGroup group : PermissionGroupManager.getInstance().getSortedGroups()){
-                    TextComponent text = new TextComponent(Messages.PERMISSION_GROUP_LIST_FORMAT
+                    TextComponent text = new TextComponent(TextComponent.fromLegacyText(Messages.PERMISSION_GROUP_LIST_FORMAT
                             .replace("[name]",group.getName())
                             .replace("[color]",group.getColor())
                             .replace("[prefix]",group.getPlayerDesign().getPrefix())
@@ -76,7 +76,7 @@ public class CommandPermission extends PermissionCommand {
                             .replace("[display]",group.getPlayerDesign().getDisplay())
                             .replace("[description]",group.getDescription())
                             .replace("[priority]",""+group.getPriority())
-                            .replace("[name]",group.getName()));
+                            .replace("[name]",group.getName())));
                     text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/perms group "+group.getName()));
                     text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder(Messages.PERMISSION_GROUP_LIST_HOVER).create()));
                     sender.sendMessage(text);
@@ -441,7 +441,7 @@ public class CommandPermission extends PermissionCommand {
                                 sender.sendMessage(Messages.PERMISSION_GROUP_IMPLEMENTATION_LIST_HEADER);
                                 for(PermissionGroupEntity entity : group.getGroups()){
                                     if(!(entity.hasTimeOut()) && entity.getGroup() != null){
-                                        TextComponent text = new TextComponent(Messages.PERMISSION_GROUP_IMPLEMENTATION_LIST_FORMAT
+                                        TextComponent text = new TextComponent(TextComponent.fromLegacyText(Messages.PERMISSION_GROUP_IMPLEMENTATION_LIST_FORMAT
                                                 .replace("[name]",entity.getGroup().getName())
                                                 .replace("[color]",entity.getGroup().getColor())
                                                 .replace("[prefix]",entity.getGroup().getPlayerDesign().getPrefix())
@@ -450,7 +450,7 @@ public class CommandPermission extends PermissionCommand {
                                                 .replace("[description]",entity.getGroup().getDescription())
                                                 .replace("[priority]",""+entity.getGroup().getPriority())
                                                 .replace("[timeout]",entity.getTimeOutDate())
-                                                .replace("[name]",entity.getGroup().getName()));
+                                                .replace("[name]",entity.getGroup().getName())));
                                         text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/perms group "+entity.getGroup().getName()));
                                         text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder(Messages.PERMISSION_GROUP_LIST_HOVER).create()));
                                         sender.sendMessage(text);
@@ -682,7 +682,7 @@ public class CommandPermission extends PermissionCommand {
                                 if(!entity.hasTimeOut()){
                                     PermissionGroup group = entity.getGroup();
                                     if(group != null){
-                                        TextComponent text = new TextComponent(Messages.PERMISSION_PLAYER_GROUP_LIST_FORMAT
+                                        TextComponent text = new TextComponent(TextComponent.fromLegacyText(Messages.PERMISSION_PLAYER_GROUP_LIST_FORMAT
                                                 .replace("[name]",group.getName())
                                                 .replace("[color]",group.getColor())
                                                 .replace("[prefix]",group.getPlayerDesign().getPrefix())
@@ -691,7 +691,7 @@ public class CommandPermission extends PermissionCommand {
                                                 .replace("[description]",group.getDescription())
                                                 .replace("[timeout]",entity.getTimeOutDate())
                                                 .replace("[priority]",""+group.getPriority())
-                                                .replace("[name]",group.getName()));
+                                                .replace("[name]",group.getName())));
                                         text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/perms group "+group.getName()));
                                         text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder(Messages.PERMISSION_GROUP_LIST_HOVER).create()));
                                         sender.sendMessage(text);

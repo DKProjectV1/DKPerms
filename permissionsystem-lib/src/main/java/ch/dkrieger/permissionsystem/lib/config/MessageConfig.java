@@ -171,6 +171,7 @@ public class MessageConfig extends SimpleConfig{
         Messages.RANK_NOPERMISSION_FOR_RANK = get("rank.nopermissions.for.rank");
         Messages.RANK_NOPERMISSION_FOR_PLAYER= get("rank.nopermissions.for.player");
         Messages.RANK_NOFOUND = get("rank.nofound");
+        Messages.RANK_SEPARATOR = get("rank.separator");
         Messages.RANK_HELP = new LinkedList<>();
         for(String message : getStringListValue("rank.help")) Messages.RANK_HELP.add(getPlatform().translateColorCodes(message));
 
@@ -406,6 +407,7 @@ public class MessageConfig extends SimpleConfig{
         rank_help.add("&7/rank <player> add <rank> {time} {unit}");
         rank_help.add("&7/rank <player> remove <rank> {time} {unit}");
         rank_help.add("");
+        addValue("rank.separator","&8, ");
         addValue("rank.help",rank_help);
 
         addValue("team.list.header","");

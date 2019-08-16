@@ -171,6 +171,7 @@ public class Messages {
     public static String RANK_NOPERMISSION_FOR_RANK;
     public static String RANK_NOPERMISSION_FOR_PLAYER;
     public static String RANK_NOFOUND;
+    public static String RANK_SEPARATOR;
     public static List<String> RANK_HELP;
 
     public static String TEAM_LIST_HEADER;

@@ -55,7 +55,7 @@ public class BungeeCordCommandManager implements PermissionCommandManager{
                 });
                 return;
             }
-            sender.sendMessage(new TextComponent(Messages.PREFIX+Messages.NOPERMISSIONS));
+            sender.sendMessage(TextComponent.fromLegacyText(Messages.PREFIX+Messages.NOPERMISSIONS));
             return;
         }
         @Override

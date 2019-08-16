@@ -2,6 +2,7 @@ package ch.dkrieger.permissionsystem.lib.storage.mysql;
 
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
  */
 
 public class MySQL implements Runnable{
+
+	private DataSource dataSource;
 
 	private String systemname, host, port, user, password, database;
 	private Connection conn;
@@ -35,7 +38,7 @@ public class MySQL implements Runnable{
 			System.out.println(Messages.SYSTEM_PREFIX+"Could not load MySQL driver.");
 		}
 	}
-	public Boolean connect(){
+	public boolean connect(){
 		if(!isConnect()){
 			loadDriver();
 			System.out.println(Messages.SYSTEM_PREFIX+"connecting to MySQL server at "+this.host+":"+port);

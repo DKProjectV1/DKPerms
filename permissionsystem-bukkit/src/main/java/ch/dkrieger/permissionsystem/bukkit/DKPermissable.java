@@ -82,7 +82,7 @@ public class DKPermissable extends PermissibleBase {
 		String world = null;
 		try{
 			world = Bukkit.getPlayer(this.uuid).getWorld().getName();
-		}catch (NullPointerException exception){}
+		}catch (NullPointerException ignored){}
 		GeneralUtil.iterateForEach(player.getAllPermissions(BukkitBootstrap.getInstance().getServerName(), world)
 				,object -> permission.add(new PermissionAttachmentInfo(instance,object.getPermission(),null
 				,!object.getPermission().startsWith("-"))));

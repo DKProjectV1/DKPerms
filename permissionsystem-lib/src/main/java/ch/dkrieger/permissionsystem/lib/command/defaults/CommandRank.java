@@ -36,7 +36,7 @@ public class CommandRank extends PermissionCommand{
             if(args[0].equalsIgnoreCase("list") && sender.hasPermission("dkperms.rank.change")){
                 sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_LIST_HEADER);
                 for(PermissionGroup group : PermissionGroupManager.getInstance().getSortedGroups()){
-                    TextComponent text = new TextComponent(Messages.PERMISSION_GROUP_LIST_FORMAT
+                    TextComponent text = new TextComponent(TextComponent.fromLegacyText(Messages.PERMISSION_GROUP_LIST_FORMAT
                             .replace("[name]",group.getName())
                             .replace("[color]",group.getColor())
                             .replace("[prefix]",group.getPlayerDesign().getPrefix())
@@ -44,7 +44,7 @@ public class CommandRank extends PermissionCommand{
                             .replace("[display]",group.getPlayerDesign().getDisplay())
                             .replace("[description]",group.getDescription())
                             .replace("[priority]",""+group.getPriority())
-                            .replace("[name]",group.getName()));
+                            .replace("[name]",group.getName())));
                     text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/perms group "+group.getName()));
                     text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder(Messages.PERMISSION_GROUP_LIST_HOVER).create()));
                     sender.sendMessage(text);

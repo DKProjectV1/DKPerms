@@ -35,7 +35,7 @@ public class PlayerListener implements Listener{
                 player = PermissionPlayerManager.getInstance().getPermissionPlayerSave(event.getConnection().getUniqueId());
             }catch (Exception exception2){
                 event.setCancelled(true);
-                event.setCancelReason(new TextComponent(Messages.ERROR));
+                event.setCancelReason(new TextComponent(TextComponent.fromLegacyText(Messages.ERROR)));
                 PermissionSystem.getInstance().debug(PermissionSystem.PermissionInfoLevel.ERROR,null,"Could not load player "+event.getConnection().getName());
                 PermissionSystem.getInstance().debug(PermissionSystem.PermissionInfoLevel.ERROR,null,exception2.getMessage());
                 return;

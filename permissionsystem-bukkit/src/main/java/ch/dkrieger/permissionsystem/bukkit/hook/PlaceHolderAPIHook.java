@@ -17,6 +17,11 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
+
 public class PlaceHolderAPIHook {
 
     public PlaceHolderAPIHook() {
@@ -56,6 +61,31 @@ public class PlaceHolderAPIHook {
                     PermissionGroup group = PermissionGroupManager.getInstance().getHighestDefaultGroup();
                     if(group != null) return group.getPlayerDesign().getColor()+group.getName();
                 }
+            }else if(identifier.equalsIgnoreCase("ranks")){
+                PermissionPlayer permissionplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId());
+                List<PermissionGroup> groups;
+                if(permissionplayer != null) groups = permissionplayer.getSortedGroups();
+                else groups = Collections.singletonList(PermissionGroupManager.getInstance().getHighestDefaultGroup());
+                StringBuilder builder = new StringBuilder();
+
+                boolean first = true;
+                for(PermissionGroup group : groups) {
+                    if(!first) builder.append(Messages.RANK_SEPARATOR);
+                    else first = false;
+                    builder.append(group.getPlayerDesign().getColor()).append(group.getName());
+                }
+                return builder.toString();
+            }else if(identifier.startsWith("  ")){
+                int index = identifier.lastIndexOf('_');
+                if(index != -1){
+                    String name = identifier.substring(index+1);
+                    PermissionGroup group = PermissionGroupManager.getInstance().getGroup(name);
+                    if(group != null){
+                        PermissionPlayer permissionplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId());
+                        return String.valueOf(permissionplayer.isInGroup(group));
+                    }
+                }
+                return "false";
             }else if(identifier.equalsIgnoreCase("color")){
                 PermissionPlayer permissionplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId());
                 if(permissionplayer != null){
