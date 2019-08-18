@@ -26,6 +26,8 @@ public class Config extends SimpleConfig {
     public static String STORAGE_MYSQL_USER;
     public static String STORAGE_MYSQL_PASSWORD;
     public static String STORAGE_MYSQL_DATABASE;
+    public static int STORAGE_MYSQL_MAX_CONNECTIONS;
+    public static boolean STORAGE_MYSQL_SSL;
 
     public static String STORAGE_MONGODB_HOST;
     public static int STORAGE_MONGODB_PORT;
@@ -84,6 +86,8 @@ public class Config extends SimpleConfig {
         STORAGE_MYSQL_USER = getStringValue("storage.mysql.user");
         STORAGE_MYSQL_PASSWORD = getStringValue("storage.mysql.password");
         STORAGE_MYSQL_DATABASE = getStringValue("storage.mysql.database");
+        STORAGE_MYSQL_MAX_CONNECTIONS= getIntValue("storage.mysql.maxConnections");
+        STORAGE_MYSQL_SSL = getBooleanValue("storage.mysql.ssl");
         
         SECURITY_OPERATOR_ENABLED = getBooleanValue("security.operator.enabled");
         SECURITY_DISABLECOMMANDS = getBooleanValue("security.disablecommands");
@@ -133,6 +137,8 @@ public class Config extends SimpleConfig {
         addValue("storage.mysql.user","root");
         addValue("storage.mysql.password","password");
         addValue("storage.mysql.database","PermissionSystem");
+        addValue("storage.mysql.maxConnections",10);
+        addValue("storage.mysql.ssl",false);
 
         addValue("security.operator.enabled",false);
         addValue("security.disablecommands",false);
