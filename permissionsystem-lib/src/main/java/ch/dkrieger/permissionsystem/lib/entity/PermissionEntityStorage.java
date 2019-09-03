@@ -14,14 +14,14 @@ import java.util.UUID;
 
 public interface PermissionEntityStorage {
 
-    public List<PermissionGroupEntity> getPermissionEntities(PermissionType type, UUID uuid);
+    List<PermissionGroupEntity> getPermissionEntities(PermissionType type, UUID uuid);
 
-    public void setEntity(PermissionType type, UUID uuid, UUID group, Long timeout);
+    void setEntity(PermissionType type, UUID uuid, UUID group, Long timeout);
 
-    public void addEntity(PermissionType type, UUID uuid, UUID group, Long timeout);
+    void addEntity(PermissionType type, UUID uuid, UUID group, Long timeout);
 
-    public void removeEntity(PermissionType type, UUID uuid, UUID group);
+    void removeEntity(PermissionType type, UUID uuid, UUID group);
 
-    public void clearEntity(PermissionType type, UUID uuid);
+    void clearEntity(PermissionType type, UUID uuid);
 
 }

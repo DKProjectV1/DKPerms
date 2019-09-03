@@ -9,7 +9,7 @@ import ch.dkrieger.permissionsystem.lib.storage.mysql.MySQL;
 
 public class TableManager {
 
-    private static TableManager instance;
+    private static TableManager INSTANCE;
 
     private Table players;
 
@@ -18,7 +18,7 @@ public class TableManager {
     private Table perms_entity;
 
     public TableManager(MySQL mysql){
-        instance = this;
+        INSTANCE = this;
         String systemname = mysql.getSystemName().toLowerCase();
 
         this.players = new Table(mysql,systemname+"_players");
@@ -32,15 +32,19 @@ public class TableManager {
     public Table getPlayerTable(){
         return this.players;
     }
+
     public Table getGroupTable(){
         return this.perms_groups;
     }
+
     public Table getPermissionTable(){
         return this.perms_permissions;
     }
+
     public Table getEntityTable(){
         return this.perms_entity;
     }
+
     private void create(){
         this.players.create().create("`id` int(30) NOT NULL AUTO_INCREMENT").create("`name` varchar(20) NOT NULL")
                 .create("`uuid` varchar(120) NOT NULL").create("PRIMARY KEY (`id`)").execute();
@@ -63,7 +67,8 @@ public class TableManager {
                 .create("PRIMARY KEY (`id`)").execute();
         this.perms_groups.query().executeWithOutError("ALTER TABLE `"+perms_entity.getName()+"` ADD CONSTRAIN1771T `perms_group_connection` FOREIGN KEY (`groupuuid`) REFERENCES `"+perms_groups.getName()+"`(`uuid`) ON DELETE CASCADE ON UPDATE CASCADE;");
     }
+
     public static TableManager getInstance(){
-        return instance;
+        return INSTANCE;
     }
 }

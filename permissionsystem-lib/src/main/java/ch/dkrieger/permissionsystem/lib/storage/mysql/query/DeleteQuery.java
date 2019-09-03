@@ -16,6 +16,7 @@ public class DeleteQuery extends Query {
         super(connection, query);
         this.firstvalue = true;
     }
+
     public DeleteQuery where(String key, Object value) {
         if(and) query += " AND";
         else{
@@ -27,6 +28,7 @@ public class DeleteQuery extends Query {
         query += "?";
         return this;
     }
+
     public DeleteQuery whereLower(String key, Object value) {
         if(and) query += " AND";
         else{
@@ -38,6 +40,7 @@ public class DeleteQuery extends Query {
         query += "?";
         return this;
     }
+
     public DeleteQuery whereHigher(String key, Object value) {
         if(and) query += " AND";
         else{
@@ -49,6 +52,7 @@ public class DeleteQuery extends Query {
         query += "?";
         return this;
     }
+
     public void execute() {
         try(Connection connection = this.connection) {
             PreparedStatement pstatement = connection.prepareStatement(query);
@@ -58,6 +62,7 @@ public class DeleteQuery extends Query {
                 i++;
             }
             pstatement.executeUpdate();
+            pstatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

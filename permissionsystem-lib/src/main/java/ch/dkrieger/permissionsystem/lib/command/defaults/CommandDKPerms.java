@@ -19,12 +19,14 @@ public class CommandDKPerms extends PermissionCommand {
     public CommandDKPerms() {
         super("dkperms",null);
     }
+
     @Override
     public void execute(PermissionCommandSender sender, String[] args) {
         sender.sendMessage(Messages.PREFIX+"§7PermissionSystem v§c"+PermissionSystem.getInstance().getVersion()+" §7by §cDavide Wietlisbach");
     }
+
     @Override
-    public List<String> tabcomplete(PermissionCommandSender sender, String[] args) {
+    public List<String> tabComplete(PermissionCommandSender sender, String[] args) {
         return new LinkedList<>();
     }
 }

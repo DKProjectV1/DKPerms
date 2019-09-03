@@ -18,22 +18,24 @@ import java.util.*;
 
 public class PermissionGroupManager {
 
-    private static PermissionGroupManager instance;
+    private static PermissionGroupManager INSTANCE;
     private PermissionGroupStorage storage;
     private List<PermissionGroup> groups;
 
     public PermissionGroupManager(PermissionGroupStorage storage){
         if(storage == null) throw new IllegalArgumentException("Storage can't be null.");
-        instance = this;
+        INSTANCE = this;
         this.storage = storage;
         load();
     }
     public PermissionGroupStorage getStorage() {
         return storage;
     }
+
     public List<PermissionGroup> getGroups() {
         return groups;
     }
+
     public List<PermissionGroup> getSortedGroups() {
         Map<Integer,List<PermissionGroup>> grouplist = new TreeMap<>();
         for(PermissionGroup group : this.groups){
@@ -44,17 +46,20 @@ public class PermissionGroupManager {
         for(Integer priority : grouplist.keySet()) list.addAll(grouplist.get(priority));
         return list;
     }
+
     public List<PermissionGroup> getDefaultGroups(){
         List<PermissionGroup> groups = new ArrayList<>();
         for(PermissionGroup group : this.groups) if(group.isDefault()) groups.add(group);
         return groups;
     }
+
     public PermissionGroup getHighestDefaultGroup(){
         Map<Integer,PermissionGroup> grouplist = new TreeMap<>();
         for(PermissionGroup group : this.groups) if(group.isDefault()) grouplist.put(group.getPriority(),group);
         for(Integer priority : grouplist.keySet()) return grouplist.get(priority);
         return null;
     }
+
     public List<PermissionPlayer> getPlayers(PermissionGroup group){
         List<PermissionPlayer> players = new ArrayList<>();
         for(UUID uuid : this.storage.getPlayers(group)){
@@ -62,14 +67,17 @@ public class PermissionGroupManager {
         }
         return players;
     }
+
     public PermissionGroup getGroup(String name){
         for(PermissionGroup group : this.groups) if(group.getName().equalsIgnoreCase(name)) return group;
         return null;
     }
+
     public PermissionGroup getGroup(UUID uuid){
         for(PermissionGroup group : this.groups) if(group.getUUID().equals(uuid)) return group;
         return null;
     }
+
     public PermissionGroup getNextGroup(int priority){
         int current = priority;
         PermissionGroup group = null;
@@ -82,6 +90,7 @@ public class PermissionGroupManager {
         }
         return group;
     }
+
     public PermissionGroup getBeforeGroup(int priority){
         int current = priority;
         PermissionGroup group = null;
@@ -94,19 +103,23 @@ public class PermissionGroupManager {
         }
         return group;
     }
+
     public void setStorage(PermissionGroupStorage storage) {
         if(storage == null) throw new IllegalArgumentException("Storage can't be null.");
         this.storage = storage;
     }
+
     public PermissionGroup createGroup(String name){
         PermissionGroup group = getStorage().createGroup(name);
         this.groups.add(group);
         PermissionUpdater.getInstance().getExecutor().executePermissionGroupCreate(group.getUUID());
         return group;
     }
+
     public void deleteGroup(String name){
         deleteGroup(getGroup(name));
     }
+
     public void deleteGroup(PermissionGroup group){
         if(group == null) return;
         this.groups.remove(group);
@@ -115,20 +128,24 @@ public class PermissionGroupManager {
         this.storage.deleteGroup(group.getUUID());
         PermissionUpdater.getInstance().getExecutor().executePermissionGroupDelete(group);
     }
+
     public void load(){
-        final Long timestamp = System.currentTimeMillis();
+        final long timestamp = System.currentTimeMillis();
         this.groups = storage.loadGroups();
         loadPermissions();
         PermissionSystem.getInstance().debug(PermissionSystem.PermissionInfoLevel.INFO, PermissionSystem.PermissionDebugLevel.NORMAL,"loaded all groups in "+(System.currentTimeMillis()-timestamp)+"ms");
     }
+
     public void loadPermissions(){
         for(PermissionGroup group : this.groups) loadPermissions(group);
     }
+
     public void loadPermissions(PermissionGroup group){
         group.setPermissionData(PermissionProvider.getInstance().getStorage().getPermissions(PermissionType.GROUP,group.getUUID()));
         group.setGroups(PermissionEntityProvider.getInstance().getStorage().getPermissionEntities(PermissionType.GROUP,group.getUUID()));
     }
+
     public static PermissionGroupManager getInstance() {
-        return instance;
+        return INSTANCE;
     }
 }

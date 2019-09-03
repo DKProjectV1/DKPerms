@@ -34,39 +34,42 @@ public class CloudNetV2PermissionImport implements PermissionImport {
         return "CloudNetV2";
     }
     @Override
-    public Boolean isAvailable() {
+
+    public boolean isAvailable() {
         return AVAILABLE;
     }
     @Override
-    public Boolean needFile() {
+    public boolean needFile() {
         return false;
     }
+
     @Override
     public void importData(PermissionCommandSender sender, File file) {
         Map<UUID,List<String>> implementation = new LinkedHashMap<>();
         for(de.dytanic.cloudnet.lib.player.permission.PermissionGroup group : CloudAPI.getInstance().getPermissionPool().getGroups().values()){
-            PermissionGroup newgroup = PermissionGroupManager.getInstance().getGroup(group.getName());
-            if(newgroup == null) newgroup = PermissionGroupManager.getInstance().createGroup(group.getName());
-            newgroup.setPrefix(group.getPrefix());
-            newgroup.setSuffix(group.getSuffix());
-            newgroup.setDisplay(group.getDisplay());
-            newgroup.setDefault(group.isDefaultGroup());
-            newgroup.setJoinPower(group.getJoinPower());
-            newgroup.setPriority(group.getTagId());
+            PermissionGroup newGroup = PermissionGroupManager.getInstance().getGroup(group.getName());
+            if(newGroup == null) newGroup = PermissionGroupManager.getInstance().createGroup(group.getName());
+            newGroup.setPrefix(group.getPrefix());
+            newGroup.setSuffix(group.getSuffix());
+            newGroup.setDisplay(group.getDisplay());
+            newGroup.setDefault(group.isDefaultGroup());
+            newGroup.setJoinPower(group.getJoinPower());
+            newGroup.setPriority(group.getTagId());
             for(Map.Entry<String,Boolean> entry : group.getPermissions().entrySet()){
-                if(entry.getValue()) newgroup.addPermission(entry.getKey());
+                if(entry.getValue()) newGroup.addPermission(entry.getKey());
             }
             for(Map.Entry<String,List<String>> entry : group.getServerGroupPermissions().entrySet()){
                 if(entry.getValue() != null && !(entry.getValue().isEmpty())){
                     for(String permission : entry.getValue())
-                        newgroup.addServerGroupPermission(entry.getKey().toLowerCase(),permission.toLowerCase());
+                        newGroup.addServerGroupPermission(entry.getKey().toLowerCase(),permission.toLowerCase());
                 }
             }
             if(!group.getImplementGroups().isEmpty()){
-                implementation.put(newgroup.getUUID(),new LinkedList<>());
-                for(String name : group.getImplementGroups()) implementation.get(newgroup.getUUID()).add(name);
+                implementation.put(newGroup.getUUID(),new LinkedList<>());
+                for(String name : group.getImplementGroups()) implementation.get(newGroup.getUUID()).add(name);
             }
         }
+
         for(Map.Entry<UUID,List<String>> entry : implementation.entrySet()){
             PermissionGroup group = PermissionGroupManager.getInstance().getGroup(entry.getKey());
             if(group != null){
@@ -76,6 +79,7 @@ public class CloudNetV2PermissionImport implements PermissionImport {
                 }
             }
         }
+
         Database database = CloudAPI.getInstance().getDatabaseManager().getDatabase("cloudnet_internal_players");
         if(database != null){
             database.loadDocuments();
@@ -93,7 +97,7 @@ public class CloudNetV2PermissionImport implements PermissionImport {
                         if(group != null) PermissionEntityProvider.getInstance().getStorage().addEntity(PermissionType.PLAYER
                                 ,player.getUniqueId(),group.getUUID(),(entitydata.getTimeout() > 0 ? entitydata.getTimeout() : -1L));
                     }
-                }catch (Exception exception){}
+                }catch (Exception ignored){}
             }
         }
         PermissionSystem.getInstance().sync();

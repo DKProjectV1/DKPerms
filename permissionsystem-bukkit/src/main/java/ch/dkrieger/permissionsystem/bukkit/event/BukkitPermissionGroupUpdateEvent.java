@@ -20,27 +20,31 @@ public class BukkitPermissionGroupUpdateEvent extends Event {
 
     private final UUID uuid;
     private final PermissionUpdateData data;
-    private final Boolean onthisserver;
+    private final boolean onThisServer;
 
-    public BukkitPermissionGroupUpdateEvent(UUID uuid, PermissionUpdateData data, Boolean onthisserver) {
+    public BukkitPermissionGroupUpdateEvent(UUID uuid, PermissionUpdateData data, boolean onThisServer) {
         super(Thread.currentThread().getId() != 1);
         this.uuid = uuid;
         this.data = data;
-        this.onthisserver = onthisserver;
+        this.onThisServer = onThisServer;
     }
     public PermissionGroup getGroup(){
         return PermissionGroupManager.getInstance().getGroup(this.uuid);
     }
+
     public PermissionUpdateData getData(){
         return this.data;
     }
-    public Boolean isOnThisServer() {
-        return onthisserver;
+
+    public boolean isOnThisServer() {
+        return onThisServer;
     }
     @Override
+
     public HandlerList getHandlers() {
         return handlers;
     }
+
     public static HandlerList getHandlerList() {
         return handlers;
     }

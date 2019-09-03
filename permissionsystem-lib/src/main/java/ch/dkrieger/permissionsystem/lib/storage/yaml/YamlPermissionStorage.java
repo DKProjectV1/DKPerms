@@ -25,6 +25,7 @@ public class YamlPermissionStorage implements PermissionStorage{
         this.groups = groups;
         this.players = players;
     }
+
     @Override
     public PermissionData getPermissions(PermissionType type, UUID uuid) {
         PermissionData data = new PermissionData();
@@ -51,7 +52,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                     String[] split = entity.split(";");
                                     permissions.add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                                 }else permissions.add(new PermissionEntity(-1L,entity));
-                            }catch (Exception exception){}
+                            }catch (Exception ignored){}
                         }
                         if(permissions.size() > 0) data.getWorldPermissions().put(world.toLowerCase(),permissions);
                     }
@@ -66,7 +67,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                     String[] split = entity.split(";");
                                    serverdata.getPermissions().add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                                 }else serverdata.getPermissions().add(new PermissionEntity(-1L,entity));
-                            }catch (Exception exception){}
+                            }catch (Exception ignored){}
                         }
                     }
                     for(String world : this.groups.getKeys("groups."+uuid+".permissions.servers."+server+".worlds")){
@@ -79,7 +80,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                         String[] split = entity.split(";");
                                         permissions.add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                                     }else permissions.add(new PermissionEntity(-1L,entity));
-                                }catch (Exception exception){}
+                                }catch (Exception ignored){}
                             }
                             if(permissions.size() > 0) serverdata.getWorldPermissions().put(world.toLowerCase(),permissions);
                         }
@@ -97,7 +98,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                     String[] split = entity.split(";");
                                     serverdata.getPermissions().add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                                 }else serverdata.getPermissions().add(new PermissionEntity(-1L,entity));
-                            }catch (Exception exception){}
+                            }catch (Exception ignored){}
                         }
                     }
                     for(String world : this.groups.getKeys("groups."+uuid+".permissions.groups."+server+".worlds")){
@@ -110,7 +111,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                         String[] split = entity.split(";");
                                         permissions.add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                                     }else permissions.add(new PermissionEntity(-1L,entity));
-                                }catch (Exception exception){}
+                                }catch (Exception ignored){}
                             }
                             if(permissions.size() > 0) serverdata.getWorldPermissions().put(world.toLowerCase(),permissions);
                         }
@@ -131,7 +132,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                 String[] split = entity.split(";");
                                 data.getPermissions().add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                             }else data.getPermissions().add(new PermissionEntity(-1L,entity));
-                        }catch (Exception exception){}
+                        }catch (Exception ignored){}
                     }
                 }
                 for(String world : this.players.getKeys("players."+uuid+".permissions.worlds")){
@@ -144,7 +145,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                     String[] split = entity.split(";");
                                     permissions.add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                                 }else permissions.add(new PermissionEntity(-1L,entity));
-                            }catch (Exception exception){}
+                            }catch (Exception ignored){}
                         }
                         if(permissions.size() > 0) data.getWorldPermissions().put(world.toLowerCase(),permissions);
                     }
@@ -159,7 +160,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                     String[] split = entity.split(";");
                                     serverdata.getPermissions().add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                                 }else serverdata.getPermissions().add(new PermissionEntity(-1L,entity));
-                            }catch (Exception exception){}
+                            }catch (Exception ignored){}
                         }
                     }
                     for(String world : this.players.getKeys("players."+uuid+".permissions.servers."+server+".worlds")){
@@ -172,7 +173,7 @@ public class YamlPermissionStorage implements PermissionStorage{
                                         String[] split = entity.split(";");
                                         permissions.add(new PermissionEntity(Long.valueOf(split[1]),split[0]));
                                     }else permissions.add(new PermissionEntity(-1L,entity));
-                                }catch (Exception exception){}
+                                }catch (Exception ignored){}
                             }
                             if(permissions.size() > 0) serverdata.getWorldPermissions().put(world.toLowerCase(),permissions);
                         }
@@ -217,6 +218,7 @@ public class YamlPermissionStorage implements PermissionStorage{
         }
         return data;
     }
+
     @Override
     public void addPermission(PermissionType type, UUID uuid, String permission, String world, Long timeout) {
         if(type == PermissionType.GROUP){
@@ -246,7 +248,8 @@ public class YamlPermissionStorage implements PermissionStorage{
             }
             this.players.save();
         }
-}
+    }
+
     @Override
     public void addServerPermission(PermissionType type, UUID uuid, String server, String permission, String world, Long timeout) {
         if(type == PermissionType.GROUP){
@@ -277,6 +280,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void addServerGroupPermission(PermissionType type, UUID uuid, String group, String permission, String world, Long timeout) {
         if(type == PermissionType.GROUP){
@@ -307,6 +311,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void removePermission(PermissionType type, UUID uuid, String permission, String world) {
         if(type == PermissionType.GROUP){
@@ -365,6 +370,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void removeServerPermission(PermissionType type, UUID uuid, String server, String permission, String world) {
         if(server == null) return;
@@ -424,6 +430,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void removeServerGroupPermission(PermissionType type, UUID uuid, String group, String permission, String world) {
         if(group == null) return;
@@ -483,6 +490,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void clearAllPermissions(PermissionType type, UUID uuid) {
         if(type == PermissionType.GROUP){
@@ -493,6 +501,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void clearPermissions(PermissionType type, UUID uuid, String world) {
         if(type == PermissionType.GROUP){
@@ -509,6 +518,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void clearServerPermission(PermissionType type, UUID uuid, String server, String world) {
         if(type == PermissionType.GROUP){
@@ -527,6 +537,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void clearServerGroupPermission(PermissionType type, UUID uuid, String group, String world) {
         if(type == PermissionType.GROUP){
@@ -545,6 +556,7 @@ public class YamlPermissionStorage implements PermissionStorage{
             this.players.save();
         }
     }
+
     @Override
     public void onTimeOutDeleteTask() {
         for(String uuid : this.groups.getKeys("groups")){

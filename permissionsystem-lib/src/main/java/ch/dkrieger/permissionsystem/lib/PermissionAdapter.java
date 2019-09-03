@@ -32,6 +32,7 @@ public class PermissionAdapter {
     public PermissionAdapter(String name, UUID uuid, PermissionType type) {
         this(name,uuid,type,new PermissionData(),new ArrayList<>());
     }
+
     public PermissionAdapter(String name, UUID uuid, PermissionType type, PermissionData permissiondata, List<PermissionGroupEntity> groups) {
         this.name = name;
         this.uuid = uuid;
@@ -39,35 +40,42 @@ public class PermissionAdapter {
         this.permissiondata = permissiondata;
         this.groups = groups;
     }
+
     public String getName() {
         return name;
     }
+
     public UUID getUUID() {
         return uuid;
     }
+
     public PermissionType getType() {
         return type;
     }
+
     public PermissionData getPermissionData() {
         return permissiondata;
     }
+
     public List<PermissionGroupEntity> getGroups() {
         return groups;
     }
+
     public List<PermissionGroup> getSortedGroups() {
-        Map<Integer,List<PermissionGroup>> grouplist = new TreeMap<>();
+        Map<Integer,List<PermissionGroup>> groupList = new TreeMap<>();
         for(PermissionGroupEntity entity: this.groups){
             if(!entity.hasTimeOut()){
                 PermissionGroup group = entity.getGroup();
                 if(group == null) continue;
-                if(!grouplist.containsKey(group.getPriority())) grouplist.put(group.getPriority(),new ArrayList<>());
-                grouplist.get(group.getPriority()).add(group);
+                if(!groupList.containsKey(group.getPriority())) groupList.put(group.getPriority(),new ArrayList<>());
+                groupList.get(group.getPriority()).add(group);
             }
         }
         List<PermissionGroup> list = new ArrayList<>();
-        for(Integer priority : grouplist.keySet()) list.addAll(grouplist.get(priority));
+        for(Integer priority : groupList.keySet()) list.addAll(groupList.get(priority));
         return list;
     }
+
     public List<PermissionGroupEntity> getSortedGroupEntities() {
         Map<Integer,List<PermissionGroupEntity>> groupList = new TreeMap<>();
 
@@ -86,15 +94,19 @@ public class PermissionAdapter {
     public List<PermissionEntity> getPermissions(){
         return getPermissions(null);
     }
+
     public List<PermissionEntity> getPermissions(String server){
         return getPermissions(server,null);
     }
+
     public List<PermissionEntity> getPermissions(String server, String world) {
         return this.permissiondata.getAllPermissions(server, world);
     }
+
     public List<PermissionEntity> getAllPermissions(String server, String world){
         return getAllPermissions(server, world,new ArrayList<>());
     }
+
     public List<PermissionEntity> getAllPermissions(String server, String world, List<UUID> checked){
         checked.add(this.uuid);
         List<PermissionEntity> permissions = new ArrayList<>(this.permissiondata.getAllPermissions(server,world));
@@ -110,19 +122,22 @@ public class PermissionAdapter {
                 checked.add(object.getUUID());
                 permissions.addAll(object.getAllPermissions(server,world,checked));
             });
-        }catch (Exception exception){}
+        }catch (Exception ignored){}
         return permissions;
     }
-    public Boolean hasPermission(String permission){
+
+    public boolean hasPermission(String permission){
         return hasPermission(permission,null,null);
     }
-    public Boolean hasPermission(String permission, String server){
+
+    public boolean hasPermission(String permission, String server){
         return hasPermission(permission,server,null);
     }
-    public Boolean hasPermission(String permission, String server, String world){
+
+    public boolean hasPermission(String permission, String server, String world){
         PermissionSystem.getInstance().debug(PermissionSystem.PermissionDebugLevel.HIGH
                 ,"checking permission "+permission+"["+server+"/"+world+"] for "+getName());
-        Boolean has = false;
+        boolean has = false;
         permission = permission.toLowerCase();
         if(server != null) server = server.toLowerCase();
         if(world != null) world = world.toLowerCase();
@@ -135,15 +150,15 @@ public class PermissionAdapter {
                     has = true;
                     continue;
                 }else if(permissions.getPermission().equalsIgnoreCase("-*")) return false;
-                Boolean hasthis = false;
-                Boolean negative = false;
+                boolean hasthis = false;
+                boolean negative = false;
                 String perm = permissions.getPermission();
                 if(perm.startsWith("-")){
                     negative = true;
                     perm = perm.replaceFirst("-","");
                 }
                 if(perm.endsWith(".*")){
-                    perm = perm.replace("*","");//dkbans.   dkbans.test
+                    perm = perm.replace("*","");
                     if(permission.startsWith(perm.toLowerCase())) hasthis = true;
                 }else if(perm.equalsIgnoreCase(permission)) hasthis = true;
                 if(hasthis) has = hasthis;
@@ -152,19 +167,29 @@ public class PermissionAdapter {
         }
         return has;
     }
-    public Boolean isInGroup(PermissionGroup group){
+
+    public boolean isInGroup(String group){
+        return isInGroup(PermissionGroupManager.getInstance().getGroup(group));
+    }
+
+
+    public boolean isInGroup(PermissionGroup group){
         for(PermissionGroup groups : getSortedGroups()) if(groups.getUUID().equals(group)) return true;
         return false;
     }
+
     public void addPermission(String permission){
         addPermission(permission,-1L,TimeUnit.SECONDS);
     }
+
     public void addPermission(String permission, String world){
         addPermission(permission,world,-1L,TimeUnit.SECONDS);
     }
+
     public void addPermission(String permission, Long duration, TimeUnit unit){
         addPermission(permission,null,duration,unit);
     }
+
     public void addPermission(String permission, String world, Long duration, TimeUnit unit){
         Long timeout = -1L;
         if(world != null) world = world.toLowerCase();
@@ -179,15 +204,19 @@ public class PermissionAdapter {
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.addPermission(permission,world,duration,unit));
     }
+
     public void addServerPermission(String server,String permission){
         addServerPermission(server,permission,-1L,TimeUnit.SECONDS);
     }
+
     public void addServerPermission(String server,String permission,String world){
         addServerPermission(server,permission,world,-1L,TimeUnit.SECONDS);
     }
+
     public void addServerPermission(String server,String permission,Long duration,TimeUnit unit){
         addServerPermission(server,permission,null,duration, unit);
     }
+
     public void addServerPermission(String server,String permission,String world, Long duration, TimeUnit unit){
         if(server != null) server = server.toLowerCase();
         if(world != null) world = world.toLowerCase();
@@ -206,15 +235,19 @@ public class PermissionAdapter {
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.addServerPermission(server,permission,world,duration,unit));
     }
+
     public void addServerGroupPermission(String group,String permission){
         addServerGroupPermission(group,permission,-1L,TimeUnit.SECONDS);
     }
+
     public void addServerGroupPermission(String group,String permission,String world){
         addServerGroupPermission(group,permission,world,-1L,TimeUnit.SECONDS);
     }
+
     public void addServerGroupPermission(String group,String permission,Long duration,TimeUnit unit){
         addServerGroupPermission(group,permission,null,duration, unit);
     }
+
     public void addServerGroupPermission(String group,String permission,String world, Long duration, TimeUnit unit){
         if(group != null) group = group.toLowerCase();
         if(world != null) world = world.toLowerCase();
@@ -233,9 +266,11 @@ public class PermissionAdapter {
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.addServerGroupPermission(group,permission,world,duration,unit));
     }
+
     public void removePermission(String permission){
         removePermission(permission,null);
     }
+
     public void removePermission(String permission, String world){
         if(world != null) world = world.toLowerCase();
         this.permissiondata.removePermission(permission,world);
@@ -243,9 +278,11 @@ public class PermissionAdapter {
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.removePermission(permission,world));
     }
+
     public void removeServerPermission(String server, String permission){
         removeServerPermission(server,permission,null);
     }
+
     public void removeServerPermission(String server, String permission, String world){
         if(server != null) server = server.toLowerCase();
         if(world != null) world = world.toLowerCase();
@@ -256,9 +293,11 @@ public class PermissionAdapter {
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.removeServerPermission(server,permission,world));
     }
+
     public void removeServerGroupPermission(String group, String permission){
         removeServerGroupPermission(group,permission,null);
     }
+
     public void removeServerGroupPermission(String group, String permission, String world){
         if(group != null) group = group.toLowerCase();
         if(world != null) world = world.toLowerCase();
@@ -269,65 +308,67 @@ public class PermissionAdapter {
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.removeServerGroupPermission(group,permission,world));
     }
+
     public void clearAllPermissions(){
         this.permissiondata = new PermissionData();
         PermissionProvider.getInstance().getStorage().clearAllPermissions(this.type,this.uuid);
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.clearAllPermission());
     }
+
     public void clearPermissions(){
         clearPermissions(null);
     }
+
     public void clearPermissions(String world){
         if(world != null) world = world.toLowerCase();
+
         if(world == null){
             this.permissiondata.getPermissions().clear();
             this.permissiondata.getWorldPermissions().clear();
-        }else{
-            if(this.permissiondata.getWorldPermissions().containsKey(world))
-                this.permissiondata.getWorldPermissions().remove(world);
-        }
+        }else this.permissiondata.getWorldPermissions().remove(world);
+
         PermissionProvider.getInstance().getStorage().clearPermissions(this.type,this.uuid,world);
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.clearPermission(world));
     }
+
     public void clearServerPermissions(){
         clearServerGroupPermissions(null);
     }
+
     public void clearServerPermissions(String server){
         clearServerPermissions(server,null);
     }
+
     public void clearServerPermissions(String server, String world){
         if(server != null) server = server.toLowerCase();
         if(world != null) world = world.toLowerCase();
         if(server == null) this.permissiondata.getServerPermissions().clear();
         else if(this.permissiondata.getServerPermissions().containsKey(server)){
             if(world == null) this.permissiondata.getServerPermissions().remove(server);
-            else{
-                if(this.permissiondata.getServerPermissions().get(server).getWorldPermissions().containsKey(world))
-                    this.permissiondata.getServerPermissions().get(server).getWorldPermissions().remove(world);
-            }
+            else this.permissiondata.getServerPermissions().get(server).getWorldPermissions().remove(world);
         }
         PermissionProvider.getInstance().getStorage().clearServerPermission(this.type,this.uuid,server,world);
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.clearServerPermission(server,world));
     }
+
     public void clearServerGroupPermissions(){
         clearServerGroupPermissions(null);
     }
+
     public void clearServerGroupPermissions(String group){
         clearServerGroupPermissions(group,null);
     }
+
     public void clearServerGroupPermissions(String group, String world){
         if(group != null) group = group.toLowerCase();
         if(world != null) world = world.toLowerCase();
         if(group == null) this.permissiondata.getGroupPermissions().clear();
         else if(this.permissiondata.getGroupPermissions().containsKey(group)){
             if(world == null) this.permissiondata.getGroupPermissions().remove(group);
-            else{
-                if(this.permissiondata.getGroupPermissions().get(group).getWorldPermissions().containsKey(world))
-                    this.permissiondata.getGroupPermissions().get(group).getWorldPermissions().remove(world);
-            }
+            else this.permissiondata.getGroupPermissions().get(group).getWorldPermissions().remove(world);
         }
         PermissionProvider.getInstance().getStorage().clearServerGroupPermission(this.type,this.uuid,group,world);
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
@@ -336,6 +377,7 @@ public class PermissionAdapter {
     public void setGroup(PermissionGroup group){
         setGroup(group,null,null);
     }
+
     public void setGroup(PermissionGroup group,Long duration,TimeUnit unit){
         Long timeout = -1L;
         if(duration != null && duration > 0 && unit != null) timeout = System.currentTimeMillis()+unit.toMillis(duration);
@@ -345,9 +387,11 @@ public class PermissionAdapter {
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.setGroup(group,duration,unit));
     }
+
     public void addGroup(PermissionGroup group){
         addGroup(group,null,null);
     }
+
     public void addGroup(PermissionGroup group,Long duration,TimeUnit unit){
         Long timeout = -1L;
         if(duration != null && duration > 0 && unit != null) timeout = System.currentTimeMillis()+unit.toMillis(duration);
@@ -356,21 +400,25 @@ public class PermissionAdapter {
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.addGroup(group,duration,unit));
     }
+
     public void removeGroup(PermissionGroup group){
         for(PermissionGroupEntity entity : new ArrayList<>(this.groups)) if(entity.getGroupUUID().equals(group.getUUID())) this.groups.remove(entity);
         PermissionEntityProvider.getInstance().getStorage().removeEntity(this.type,this.uuid,group.getUUID());
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.removeGroup(group));
     }
+
     public void clearGroups(){
         this.groups.clear();
         PermissionEntityProvider.getInstance().getStorage().clearEntity(this.type,this.uuid);
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.clearGroup());
     }
+
     public void setPermissionData(PermissionData permissiondata) {
         this.permissiondata = permissiondata;
     }
+
     public void setGroups(List<PermissionGroupEntity> groups) {
         this.groups = groups;
     }

@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CommandPermission extends PermissionCommand {
 
-    public static Boolean ADVANCED, JOINPOWER, TSGROUP;
+    public static boolean ADVANCED, JOINPOWER, TSGROUP;
 
     public CommandPermission() {
         super(Config.COMMAND_PERMISSION_NAME,Config.COMMAND_PERMISSION_PERMISSION,Config.COMMAND_PERMISSION_ALIASES);
@@ -202,7 +202,7 @@ public class CommandPermission extends PermissionCommand {
                         }else if(args.length >= 4){
                             if(args[2].equalsIgnoreCase("setdefault")){
                                 if(args[3].equalsIgnoreCase("true") || args[3].equalsIgnoreCase("false")){
-                                    group.setDefault(Boolean.valueOf(args[3]));
+                                    group.setDefault(Boolean.parseBoolean(args[3]));
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                             .replace("[group]",group.getColor()+group.getName())
                                             .replace("[setting]","Default").replace("[value]",args[3]));
@@ -219,7 +219,7 @@ public class CommandPermission extends PermissionCommand {
                                 return;
                             }else if(args[2].equalsIgnoreCase("setteam")){
                                 if(args[3].equalsIgnoreCase("true") || args[3].equalsIgnoreCase("false")){
-                                    group.setTeam(Boolean.valueOf(args[3]));
+                                    group.setTeam(Boolean.parseBoolean(args[3]));
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                             .replace("[group]",group.getColor()+group.getName())
                                             .replace("[setting]","Team").replace("[value]",args[3]));
@@ -227,7 +227,7 @@ public class CommandPermission extends PermissionCommand {
                                 }
                             }else if(args[2].equalsIgnoreCase("setpriority")){
                                 if(GeneralUtil.isNumber(args[3])){
-                                    group.setPriority(Integer.valueOf(args[3]));
+                                    group.setPriority(Integer.parseInt(args[3]));
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                             .replace("[group]",group.getColor()+group.getName())
                                             .replace("[setting]","Priority").replace("[value]",args[3]));
@@ -272,7 +272,7 @@ public class CommandPermission extends PermissionCommand {
                                 return;
                             }else if(args[2].equalsIgnoreCase("setjoinpower")){
                                 if(GeneralUtil.isNumber(args[3])){
-                                    group.setJoinPower(Integer.valueOf(args[3]));
+                                    group.setJoinPower(Integer.parseInt(args[3]));
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                             .replace("[group]",group.getColor()+group.getName())
                                             .replace("[setting]","JoinPower").replace("[value]",args[3]));
@@ -280,7 +280,7 @@ public class CommandPermission extends PermissionCommand {
                                 }
                             }else if(args[2].equalsIgnoreCase("settsgroup")){
                                 if(GeneralUtil.isNumber(args[3])){
-                                    group.setTsGroupID(Integer.valueOf(args[3]));
+                                    group.setTsGroupID(Integer.parseInt(args[3]));
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_SETTINGSCHANGED
                                             .replace("[group]",group.getColor()+group.getName())
                                             .replace("[setting]","TsGroupID").replace("[value]",args[3]));
@@ -292,13 +292,13 @@ public class CommandPermission extends PermissionCommand {
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 7){
                                         if(GeneralUtil.isNumber(args[6])){
-                                            if(args.length >= 8) duration = getDuration(Long.valueOf(args[6]),args[7]);
-                                            else duration = getDuration(Long.valueOf(args[6]),"");
+                                            if(args.length >= 8) duration = getDuration(Long.parseLong(args[6]),args[7]);
+                                            else duration = getDuration(Long.parseLong(args[6]),"");
                                         }else{
                                             world = args[6];
                                             if(args.length >= 8 && GeneralUtil.isNumber(args[7])){
-                                                if(args.length >= 9) duration = getDuration(Long.valueOf(args[7]),args[8]);
-                                                else duration = getDuration(Long.valueOf(args[7]),"");
+                                                if(args.length >= 9) duration = getDuration(Long.parseLong(args[7]),args[8]);
+                                                else duration = getDuration(Long.parseLong(args[7]),"");
                                             }
                                         }
                                     }
@@ -312,12 +312,12 @@ public class CommandPermission extends PermissionCommand {
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 7){
                                         if(GeneralUtil.isNumber(args[6])){
-                                            if(args.length >= 8) duration = getDuration(Long.valueOf(args[6]),args[7]);
-                                            else duration = getDuration(Long.valueOf(args[6]),"");
+                                            if(args.length >= 8) duration = getDuration(Long.parseLong(args[6]),args[7]);
+                                            else duration = getDuration(Long.parseLong(args[6]),"");
                                         }else{
                                             world = args[6];
-                                            if(args.length >= 8 && GeneralUtil.isNumber(args[7])) duration = getDuration(Long.valueOf(args[7]),"");
-                                            else if(args.length >= 9) duration = getDuration(Long.valueOf(args[7]),args[8]);
+                                            if(args.length >= 8 && GeneralUtil.isNumber(args[7])) duration = getDuration(Long.parseLong(args[7]),"");
+                                            else if(args.length >= 9) duration = getDuration(Long.parseLong(args[7]),args[8]);
                                         }
                                     }
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_PERMISSION_ADD_GROUP
@@ -330,13 +330,13 @@ public class CommandPermission extends PermissionCommand {
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 5){
                                         if(GeneralUtil.isNumber(args[4])){
-                                            if(args.length >= 6) duration = getDuration(Long.valueOf(args[4]),args[5]);
-                                            else duration = getDuration(Long.valueOf(args[4]),"");
+                                            if(args.length >= 6) duration = getDuration(Long.parseLong(args[4]),args[5]);
+                                            else duration = getDuration(Long.parseLong(args[4]),"");
                                         }else{
                                             world = args[4];
                                             if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
-                                                if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
-                                                else duration = getDuration(Long.valueOf(args[5]),"");
+                                                if(args.length >= 7) duration = getDuration(Long.parseLong(args[5]),args[6]);
+                                                else duration = getDuration(Long.parseLong(args[5]),"");
                                             }
                                         }
                                     }
@@ -381,8 +381,8 @@ public class CommandPermission extends PermissionCommand {
                                 }else if(args[3].equalsIgnoreCase("set")){
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
-                                        if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
-                                        else duration = getDuration(Long.valueOf(args[5]),"");
+                                        if(args.length >= 7) duration = getDuration(Long.parseLong(args[5]),args[6]);
+                                        else duration = getDuration(Long.parseLong(args[5]),"");
                                     }
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_IMPLEMENTATION_SET
                                             .replace("[group]",group.getColor()+group.getName()).replace("[implementation]",implementation.getColor()+implementation.getName()));
@@ -390,8 +390,8 @@ public class CommandPermission extends PermissionCommand {
                                 }else if(args[3].equalsIgnoreCase("add")){
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
-                                        if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
-                                        else duration = getDuration(Long.valueOf(args[5]),"");
+                                        if(args.length >= 7) duration = getDuration(Long.parseLong(args[5]),args[6]);
+                                        else duration = getDuration(Long.parseLong(args[5]),"");
                                     }
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_GROUP_IMPLEMENTATION_ADD
                                             .replace("[group]",group.getColor()+group.getName()).replace("[implementation]",implementation.getColor()+implementation.getName()));
@@ -550,13 +550,13 @@ public class CommandPermission extends PermissionCommand {
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 7){
                                         if(GeneralUtil.isNumber(args[6])){
-                                            if(args.length >= 8) duration = getDuration(Long.valueOf(args[6]),args[7]);
-                                            else duration = getDuration(Long.valueOf(args[6]),"");
+                                            if(args.length >= 8) duration = getDuration(Long.parseLong(args[6]),args[7]);
+                                            else duration = getDuration(Long.parseLong(args[6]),"");
                                         }else{
                                             world = args[6];
                                             if(args.length >= 8 && GeneralUtil.isNumber(args[7])){
-                                                if(args.length >= 9) duration = getDuration(Long.valueOf(args[7]),args[8]);
-                                                else duration = getDuration(Long.valueOf(args[7]),"");
+                                                if(args.length >= 9) duration = getDuration(Long.parseLong(args[7]),args[8]);
+                                                else duration = getDuration(Long.parseLong(args[7]),"");
                                             }
                                         }
                                     }
@@ -570,12 +570,12 @@ public class CommandPermission extends PermissionCommand {
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 7){
                                         if(GeneralUtil.isNumber(args[6])){
-                                            if(args.length >= 8) duration = getDuration(Long.valueOf(args[6]),args[7]);
-                                            else duration = getDuration(Long.valueOf(args[6]),"");
+                                            if(args.length >= 8) duration = getDuration(Long.parseLong(args[6]),args[7]);
+                                            else duration = getDuration(Long.parseLong(args[6]),"");
                                         }else{
                                             world = args[6];
-                                            if(args.length >= 8 && GeneralUtil.isNumber(args[7])) duration = getDuration(Long.valueOf(args[7]),"");
-                                            else if(args.length >= 9) duration = getDuration(Long.valueOf(args[7]),args[8]);
+                                            if(args.length >= 8 && GeneralUtil.isNumber(args[7])) duration = getDuration(Long.parseLong(args[7]),"");
+                                            else if(args.length >= 9) duration = getDuration(Long.parseLong(args[7]),args[8]);
                                         }
                                     }
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_PLAYER_PERMISSION_ADD_SERVER
@@ -588,13 +588,13 @@ public class CommandPermission extends PermissionCommand {
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 5){
                                         if(GeneralUtil.isNumber(args[4])){
-                                            if(args.length >= 6) duration = getDuration(Long.valueOf(args[4]),args[5]);
-                                            else duration = getDuration(Long.valueOf(args[4]),"");
+                                            if(args.length >= 6) duration = getDuration(Long.parseLong(args[4]),args[5]);
+                                            else duration = getDuration(Long.parseLong(args[4]),"");
                                         }else{
                                             world = args[4];
                                             if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
-                                                if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
-                                                else duration = getDuration(Long.valueOf(args[5]),"");
+                                                if(args.length >= 7) duration = getDuration(Long.parseLong(args[5]),args[6]);
+                                                else duration = getDuration(Long.parseLong(args[5]),"");
                                             }
                                         }
                                     }
@@ -639,8 +639,8 @@ public class CommandPermission extends PermissionCommand {
                                 }else if(args[3].equalsIgnoreCase("set")){
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
-                                        if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
-                                        else duration = getDuration(Long.valueOf(args[5]),"");
+                                        if(args.length >= 7) duration = getDuration(Long.parseLong(args[5]),args[6]);
+                                        else duration = getDuration(Long.parseLong(args[5]),"");
                                     }
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_PLAYER_GROUP_SET
                                             .replace("[player]",player.getName()).replace("[group]",implementation.getColor()+implementation.getName()));
@@ -649,8 +649,8 @@ public class CommandPermission extends PermissionCommand {
                                 }else if(args[3].equalsIgnoreCase("add")){
                                     DurationResult duration = new DurationResult(-1L,null);
                                     if(args.length >= 6 && GeneralUtil.isNumber(args[5])){
-                                        if(args.length >= 7) duration = getDuration(Long.valueOf(args[5]),args[6]);
-                                        else duration = getDuration(Long.valueOf(args[5]),"");
+                                        if(args.length >= 7) duration = getDuration(Long.parseLong(args[5]),args[6]);
+                                        else duration = getDuration(Long.parseLong(args[5]),"");
                                     }
                                     sender.sendMessage(Messages.PREFIX+Messages.PERMISSION_PLAYER_GROUP_ADD
                                             .replace("[player]",player.getName()).replace("[group]",implementation.getColor()+implementation.getName()));
@@ -733,8 +733,6 @@ public class CommandPermission extends PermissionCommand {
                 }
             }
         }
-        int page = 1;
-        if(args.length >= 1 && GeneralUtil.isNumber(args[0])) page = Integer.valueOf(args[0]);
         sendHelp(sender,HelpType.MAIN);
     }
     private void sendPermissionData(PermissionCommandSender sender, PermissionData data){
@@ -804,13 +802,12 @@ public class CommandPermission extends PermissionCommand {
             }
         }
     }
+
     @Override
-    public List<String> tabcomplete(PermissionCommandSender sender, String[] args) {
-        /*if(args.length == 1){
-            String search = args[0].toLowerCase();
-            List<String> list = new LinkedList<>();*/
+    public List<String> tabComplete(PermissionCommandSender sender, String[] args) {
         return new LinkedList<>();
     }
+
     private void sendHelp(PermissionCommandSender sender, HelpType type){
         if(type == HelpType.MAIN){
             for(String message : Messages.PERMISSION_HELP_MAIN){
@@ -854,6 +851,7 @@ public class CommandPermission extends PermissionCommand {
             }
         }
     }
+
     private void sendPermissionHelp(PermissionCommandSender sender){
         for(String message : Messages.PERMISSION_HELP_PERMISSION){
             if(!ADVANCED && message.contains("<-advanced->")) continue;
@@ -864,7 +862,8 @@ public class CommandPermission extends PermissionCommand {
                     .replace("<-joinpower->",""));
         }
     }
-    public static DurationResult getDuration(Long duration, String value){
+
+    public static DurationResult getDuration(long duration, String value){
         TimeUnit unit = TimeUnit.DAYS;
         if(value != null && !(value.equalsIgnoreCase(""))){
             try{
@@ -877,12 +876,13 @@ public class CommandPermission extends PermissionCommand {
                         || value.equalsIgnoreCase("y")) duration = duration*360;
                 else if(value.equalsIgnoreCase("day") || value.equalsIgnoreCase("tag") || value.equalsIgnoreCase("tage")) unit = TimeUnit.DAYS;
                 else if(value.equalsIgnoreCase("hour") || value.equalsIgnoreCase("stunde") || value.equalsIgnoreCase("stunden")) unit = TimeUnit.HOURS;
-                else if(value.equalsIgnoreCase("minute") || value.equalsIgnoreCase("minuten") || value.equalsIgnoreCase("minute")) unit = TimeUnit.MINUTES;
+                else if(value.equalsIgnoreCase("minute") || value.equalsIgnoreCase("minuten")) unit = TimeUnit.MINUTES;
                 else if(value.equalsIgnoreCase("second") || value.equalsIgnoreCase("sekunde") || value.equalsIgnoreCase("sekunden")) unit = TimeUnit.SECONDS;
             }
         }
         return new DurationResult(duration,unit);
     }
+
     public static class DurationResult {
         private Long duration;
         private TimeUnit unit;
@@ -894,16 +894,20 @@ public class CommandPermission extends PermissionCommand {
         public Long getDuration() {
             return duration;
         }
+
         public TimeUnit getUnit() {
             return unit;
         }
+
         public void setDuration(Long duration) {
             this.duration = duration;
         }
+
         public void setUnit(TimeUnit unit) {
             this.unit = unit;
         }
     }
+
     private enum HelpType {
         MAIN(),
         PLAYER(),

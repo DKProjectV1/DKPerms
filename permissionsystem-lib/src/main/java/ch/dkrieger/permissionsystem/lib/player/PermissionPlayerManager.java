@@ -30,16 +30,18 @@ public class PermissionPlayerManager {
     public Map<UUID, PermissionPlayer> getLoadedPlayers() {
         return this.players;
     }
+
     public PermissionPlayer getPermissionPlayer(UUID uuid){
         if(this.players.containsKey(uuid)) return this.players.get(uuid);
         try{
             return getPermissionPlayerSave(uuid);
-        }catch (Exception exception){}
+        }catch (Exception ignored){}
         return null;
     }
+
     public PermissionPlayer getPermissionPlayer(String name){
         for(PermissionPlayer player : this.players.values()) if(player.getName().equalsIgnoreCase(name)) return player;
-        final Long timestamp = System.currentTimeMillis();
+        final long timestamp = System.currentTimeMillis();
         try{
             PermissionPlayer player = this.storage.getPermissionPlayer(name);
             if(player != null){
@@ -54,8 +56,9 @@ public class PermissionPlayerManager {
         }
         return null;
     }
+
     public PermissionPlayer getPermissionPlayerSave(UUID uuid) throws Exception{
-        final Long timestamp = System.currentTimeMillis();
+        final long timestamp = System.currentTimeMillis();
         PermissionPlayer player = this.storage.getPermissionPlayer(uuid);
         if(player != null){
             player.setPermissionData(PermissionProvider.getInstance().getStorage().getPermissions(PermissionType.PLAYER,uuid));
@@ -65,8 +68,9 @@ public class PermissionPlayerManager {
         }
         return player;
     }
+
     public PermissionPlayer createPermissionPlayer(UUID uuid,String name){
-        final Long timestamp = System.currentTimeMillis();
+        final long timestamp = System.currentTimeMillis();
         PermissionPlayer player = this.storage.createPermissionPlayer(uuid,name);
         if(player != null){
             this.players.put(uuid,player);
@@ -74,10 +78,12 @@ public class PermissionPlayerManager {
         }
         return player;
     }
+
     public void setStorage(PermissionPlayerStorage storage) {
         if(storage == null) throw new IllegalArgumentException("Storage can't be null.");
         this.storage = storage;
     }
+
     public void checkName(UUID uuid, String name){
         PermissionPlayer player = getPermissionPlayer(uuid);
         if(player != null && !(player.getName().equals(name))){
@@ -85,6 +91,7 @@ public class PermissionPlayerManager {
             this.storage.updateName(uuid,name);
         }
     }
+
     public static PermissionPlayerManager getInstance() {
         return instance;
     }

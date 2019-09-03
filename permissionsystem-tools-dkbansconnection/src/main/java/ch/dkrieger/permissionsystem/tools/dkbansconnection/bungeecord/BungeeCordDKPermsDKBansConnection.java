@@ -42,11 +42,13 @@ public class BungeeCordDKPermsDKBansConnection extends Plugin implements Listene
             getProxy().getPluginManager().registerListener(this,this);
         },2L, TimeUnit.SECONDS);
     }
+
     @EventHandler
     public void onColorSet(ProxiedNetworkPlayerColorSetEvent event){
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getUUID());
         if(player != null) event.setColor(player.getColor());
     }
+
     @EventHandler
     public void onUpdate(ProxiedPermissionPlayerUpdateEvent event){
         BungeeCord.getInstance().getScheduler().runAsync(this,()->{
@@ -54,6 +56,7 @@ public class BungeeCordDKPermsDKBansConnection extends Plugin implements Listene
             if(player != null) player.setColor(event.getPlayer().getColor());
         });
     }
+
     @EventHandler
     public void onOfflinePermissionCheck(ProxiedNetworkPlayerOfflinePermissionCheckEvent event){
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getUUID());

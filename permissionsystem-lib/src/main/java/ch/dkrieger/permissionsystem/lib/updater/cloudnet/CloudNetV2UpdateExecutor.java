@@ -26,6 +26,7 @@ public class CloudNetV2UpdateExecutor implements PermissionUpdateExecutor{
                 ,new Document().append("uuid",uuid));
         CommandTeam.forceUpdate();
     }
+
     @Override
     public void executePermissionGroupDelete(PermissionGroup group) {
         CloudAPI.getInstance().sendCustomSubProxyMessage("dkperms","group_delete"
@@ -34,6 +35,7 @@ public class CloudNetV2UpdateExecutor implements PermissionUpdateExecutor{
                 ,new Document().append("uuid",group.getUUID()));
         CommandTeam.forceUpdate();
     }
+
     @Override
     public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data) {
         CloudAPI.getInstance().sendCustomSubProxyMessage("dkperms","update"

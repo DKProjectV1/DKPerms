@@ -21,9 +21,11 @@ public class ProxiedPermissionGroupCreateEvent extends Event {
         this.uuid = uuid;
         this.onThisServer = onThisServer;
     }
+
     public PermissionGroup getGroup(){
         return PermissionGroupManager.getInstance().getGroup(this.uuid);
     }
+
     public boolean isOnThisServer() {
         return onThisServer;
     }

@@ -13,31 +13,31 @@ import java.util.UUID;
 
 public interface PermissionStorage {
 
-    public PermissionData getPermissions(PermissionType type, UUID uuid);
+    PermissionData getPermissions(PermissionType type, UUID uuid);
 
     //add permissions
-    public void addPermission(PermissionType type, UUID uuid, String permission, String world,Long timeout);
+    void addPermission(PermissionType type, UUID uuid, String permission, String world,Long timeout);
 
-    public void addServerPermission(PermissionType type, UUID uuid,String server, String permission, String world,Long timeout);
+    void addServerPermission(PermissionType type, UUID uuid,String server, String permission, String world,Long timeout);
 
-    public void addServerGroupPermission(PermissionType type, UUID uuid,String group, String permission, String world,Long timeout);
+    void addServerGroupPermission(PermissionType type, UUID uuid,String group, String permission, String world,Long timeout);
 
     //remove
-    public void removePermission(PermissionType type, UUID uuid,String permission,String world);
+    void removePermission(PermissionType type, UUID uuid,String permission,String world);
 
-    public void removeServerPermission(PermissionType type, UUID uuid,String server, String permission, String world);
+    void removeServerPermission(PermissionType type, UUID uuid,String server, String permission, String world);
 
-    public void removeServerGroupPermission(PermissionType type, UUID uuid,String group, String permission, String world);
+    void removeServerGroupPermission(PermissionType type, UUID uuid,String group, String permission, String world);
 
     //clear
-    public void clearAllPermissions(PermissionType type, UUID uuid);
+    void clearAllPermissions(PermissionType type, UUID uuid);
 
-    public void clearPermissions(PermissionType type, UUID uuid, String world);
+    void clearPermissions(PermissionType type, UUID uuid, String world);
 
-    public void clearServerPermission(PermissionType type, UUID uuid, String server,String world);
+    void clearServerPermission(PermissionType type, UUID uuid, String server,String world);
 
-    public void clearServerGroupPermission(PermissionType type, UUID uuid, String group,String world);
+    void clearServerGroupPermission(PermissionType type, UUID uuid, String group,String world);
 
-    public void onTimeOutDeleteTask();
+    void onTimeOutDeleteTask();
 
 }

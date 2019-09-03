@@ -8,22 +8,25 @@ package ch.dkrieger.permissionsystem.lib.entity;
 
 public class PermissionEntityProvider {
 
-    private static PermissionEntityProvider instance;
+    private static PermissionEntityProvider INSTANCE;
     private PermissionEntityStorage storage;
 
     public PermissionEntityProvider(PermissionEntityStorage storage) {
         if(storage == null) throw new IllegalArgumentException("Storage can't be null.");
-        instance = this;
+        INSTANCE = this;
         this.storage = storage;
     }
+
     public PermissionEntityStorage getStorage() {
         return storage;
     }
+
     public void setStorage(PermissionEntityStorage storage) {
         if(storage == null) throw new IllegalArgumentException("Storage can't be null.");
         this.storage = storage;
     }
+
     public static PermissionEntityProvider getInstance() {
-        return instance;
+        return INSTANCE;
     }
 }

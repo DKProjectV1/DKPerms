@@ -48,7 +48,7 @@ public class SpigotCloudNetV2UpdateExecutor implements Listener{
                     Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupDeleteEvent(group,false));
                     for(Player players : Bukkit.getOnlinePlayers()) BukkitBootstrap.getInstance().updateDisplayName(players);
                 }else if(event.getMessage().equalsIgnoreCase("update")){
-                    Boolean online = false;
+                    boolean online = false;
                     UUID uuid = event.getDocument().getObject("uuid",UUID.class);
                     PermissionType type = event.getDocument().getObject("type",PermissionType.class);
                     PermissionUpdateData data = event.getDocument().getObject("data",PermissionUpdateData.class);

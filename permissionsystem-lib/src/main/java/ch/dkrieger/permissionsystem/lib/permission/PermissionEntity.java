@@ -16,6 +16,7 @@ public class PermissionEntity extends SimpleEntity {
         super(timeout);
         this.permission = permission;
     }
+
     public String getPermission() {
         return permission;
     }

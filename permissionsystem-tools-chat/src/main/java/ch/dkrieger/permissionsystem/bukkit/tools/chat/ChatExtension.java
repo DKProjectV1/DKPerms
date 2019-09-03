@@ -31,6 +31,7 @@ public class ChatExtension extends JavaPlugin implements Listener{
             Bukkit.getPluginManager().registerEvents(this,this);
         },5L);
     }
+
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event){
         PermissionGroup group = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUniqueId()).getHighestGroup();

@@ -28,7 +28,7 @@ public class PlatformAndConfigExample {
         //register a command
         PermissionSystem.getInstance().getPlatform().getCommandManager().registerCommand(new command());
 
-        //regsiter a task
+        //register a task
         PermissionSystem.getInstance().getPlatform().getTaskManager().runTaskAsync(new Runnable() {
             public void run() {
                 System.out.println("I am Async");
@@ -40,28 +40,35 @@ public class PlatformAndConfigExample {
             }
         },2L, TimeUnit.MINUTES);
     }
-    //config class
-    public class config extends SimpleConfig {
+
+    public static class config extends SimpleConfig {
+
         public config() {
             super(PermissionSystem.getInstance().getPlatform(),
                     new File(PermissionSystem.getInstance().getPlatform().getFolder().getPath()+"/extension/","config.yml"));
         }
+
         public void onLoad() {
-            Boolean enabled = getBooleanValue("enabled");
+            boolean enabled = getBooleanValue("enabled");
         }
+
         public void registerDefaults() {
             addValue("enabled",true);
         }
     }
-    public class command extends PermissionCommand {
+
+    public static class command extends PermissionCommand {
+
         public command() {
             super("test","test.use","test2","test3");
         }
+
         public void execute(PermissionCommandSender sender, String[] args) {
             sender.sendMessage("Hey "+sender.getName());
         }
+
         @Override
-        public List<String> tabcomplete(PermissionCommandSender sender, String[] args) {
+        public List<String> tabComplete(PermissionCommandSender sender, String[] args) {
             return null;
         }
     }

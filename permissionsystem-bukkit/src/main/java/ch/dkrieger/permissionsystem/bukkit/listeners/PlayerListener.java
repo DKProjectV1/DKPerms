@@ -59,6 +59,7 @@ public class PlayerListener implements Listener{
             BukkitBootstrap.getInstance().updateDisplayName(event.getPlayer());
         },6);
     }
+
     public static Class<?> reflectCraftClazz(String suffix){
         try{
             String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
@@ -66,7 +67,7 @@ public class PlayerListener implements Listener{
         }catch (Exception ex){
             try{
                 return Class.forName("org.bukkit.craftbukkit."+suffix);
-            }catch (ClassNotFoundException localClassNotFoundException){}
+            }catch (ClassNotFoundException ignored){}
         }
         return null;
     }

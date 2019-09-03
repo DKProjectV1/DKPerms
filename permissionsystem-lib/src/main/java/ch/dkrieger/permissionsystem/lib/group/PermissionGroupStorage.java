@@ -11,14 +11,14 @@ import java.util.UUID;
 
 public interface PermissionGroupStorage {
 
-    public List<PermissionGroup> loadGroups();
+    List<PermissionGroup> loadGroups();
 
-    public PermissionGroup createGroup(String name);
+    PermissionGroup createGroup(String name);
 
-    public void deleteGroup(UUID uuid);
+    void deleteGroup(UUID uuid);
 
-    public void setSetting(UUID uuid,String identifier, Object value);
+    void setSetting(UUID uuid,String identifier, Object value);
 
-    public List<UUID> getPlayers(PermissionGroup group);
+    List<UUID> getPlayers(PermissionGroup group);
 
 }

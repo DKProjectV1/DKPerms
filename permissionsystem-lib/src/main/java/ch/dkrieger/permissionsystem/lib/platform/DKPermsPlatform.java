@@ -13,16 +13,16 @@ import java.io.File;
 
 public interface DKPermsPlatform {
 
-    public String getPlatformName();
+    String getPlatformName();
 
-    public String getServerVersion();
+    String getServerVersion();
 
-    public File getFolder();
+    File getFolder();
 
-    public PermissionCommandManager getCommandManager();
+    PermissionCommandManager getCommandManager();
 
-    public PermissionTaskManager getTaskManager();
+    PermissionTaskManager getTaskManager();
 
-    public String translateColorCodes(String value);
+    String translateColorCodes(String value);
 
 }

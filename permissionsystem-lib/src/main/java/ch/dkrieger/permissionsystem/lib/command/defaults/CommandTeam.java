@@ -20,24 +20,27 @@ import java.util.concurrent.TimeUnit;
 
 public class CommandTeam extends PermissionCommand{
 
+    private static boolean forceUpdate;
+
     private List<String> messages;
-    private Long lastupdate;
-    private static Boolean forceupdate;
+    private long lastupdate;
 
     public CommandTeam() {
         super(Config.COMMAND_TEAM_NAME,Config.COMMAND_TEAM_PERMISSION,Config.COMMAND_TEAM_ALIASES);
         this.messages = new LinkedList<>();
-        forceupdate = true;
+        forceUpdate = true;
     }
+
     @Override
     public void execute(PermissionCommandSender sender, String[] args) {
         if(args.length >= 1 && args[0].equalsIgnoreCase("reload")) load();
         else{
-            if(forceupdate) load();
-            else if(lastupdate != null && lastupdate+TimeUnit.MINUTES.toMillis(10) < System.currentTimeMillis()) load();
+            if(forceUpdate) load();
+            else if(lastupdate+TimeUnit.MINUTES.toMillis(10) < System.currentTimeMillis()) load();
         }
         for(String message : this.messages) sender.sendMessage(message);
     }
+
     private void load(){
         this.messages.clear();
         this.messages.add(Messages.TEAM_LIST_HEADER);
@@ -73,16 +76,16 @@ public class CommandTeam extends PermissionCommand{
         }
         this.messages.remove(this.messages.size()-1);
         this.messages.add(Messages.TEAM_LIST_FOOTER);
-        forceupdate = false;
+        forceUpdate = false;
         this.lastupdate = System.currentTimeMillis();
     }
 
     @Override
-    public List<String> tabcomplete(PermissionCommandSender sender, String[] args) {
+    public List<String> tabComplete(PermissionCommandSender sender, String[] args) {
         return new LinkedList<>();
     }
 
     public static void forceUpdate(){
-        forceupdate = true;
+        forceUpdate = true;
     }
 }

@@ -28,6 +28,7 @@ public class BungeeCordRankChangeMessageExtension extends Plugin implements List
         BungeeCord.getInstance().getPluginManager().registerListener(this,this);
         new RankChangeMessageConfig();
     }
+
     @EventHandler
     public void onUpdate(ProxiedPermissionPlayerUpdateEvent event) {
         if(event.getData() != null && event.getData().getCause() != null && event.getData().getCause() == PermissionUpdateCause.GROUP

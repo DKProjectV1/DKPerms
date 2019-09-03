@@ -18,19 +18,21 @@ public class BukkitPermissionGroupCreateEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final UUID uuid;
-    private final Boolean onthisserver;
+    private final boolean onThisServer;
 
-    public BukkitPermissionGroupCreateEvent(UUID uuid, Boolean onthisserver) {
+    public BukkitPermissionGroupCreateEvent(UUID uuid, boolean onThisServer) {
         super(Thread.currentThread().getId() != 1);
         this.uuid = uuid;
-        this.onthisserver = onthisserver;
+        this.onThisServer = onThisServer;
     }
     public PermissionGroup getGroup(){
         return PermissionGroupManager.getInstance().getGroup(this.uuid);
     }
-    public Boolean isOnThisServer() {
-        return onthisserver;
+
+    public boolean isOnThisServer() {
+        return onThisServer;
     }
+
     @Override
     public HandlerList getHandlers() {
         return handlers;

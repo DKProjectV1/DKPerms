@@ -18,6 +18,7 @@ public class MessageConfig extends SimpleConfig{
     public MessageConfig(DKPermsPlatform platform) {
         super(platform,new File(platform.getFolder(),"messages.yml"));
     }
+
     @Override
     public void onLoad() {
         Messages.PREFIX = get("prefix");
@@ -181,6 +182,7 @@ public class MessageConfig extends SimpleConfig{
         Messages.TEAM_LIST_FORMAT_GROUP = get("team.list.format.group");
         Messages.TEAM_LIST_FORMAT_PLAYER = get("team.list.format.player");
     }
+
     @Override
     public void registerDefaults() {
         addValue("prefix", "&8» &9DKPerms &8| &f");
@@ -416,6 +418,7 @@ public class MessageConfig extends SimpleConfig{
         addValue("team.list.format.group","&8» &7[color][name] &8| &7[description]");
         addValue("team.list.format.player"," &8- &7[color][player]");
     }
+
     public String get(String path){
         String value = getStringValue(path);
         if(value != null) return getPlatform().translateColorCodes(value);

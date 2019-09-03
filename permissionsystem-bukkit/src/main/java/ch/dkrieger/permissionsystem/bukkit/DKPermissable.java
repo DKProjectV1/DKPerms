@@ -4,7 +4,9 @@ import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
+import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissibleBase;
 import org.bukkit.permissions.Permission;
@@ -32,20 +34,26 @@ public class DKPermissable extends PermissibleBase {
 		instance = this;
 		this.uuid = player.getUniqueId();
 		clearPermissions();
-	}	
+	}
+
 	@Override
 	public boolean hasPermission(Permission perm) {
 		return hasPermission(perm.getName());
 	}
+
 	@Override
 	public boolean hasPermission(String permission) {
 		PermissionPlayer permissionplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(this.uuid);
 		if(permissionplayer == null) return false;
 		String world = null;
-		try{
-			world = Bukkit.getPlayer(this.uuid).getWorld().getName();
-		}catch (NullPointerException exception){}
-		Boolean has = permissionplayer.hasPermission(permission,BukkitBootstrap.getInstance().getServerName(),world);
+
+		Player bukkitPlayer = Bukkit.getPlayer(this.uuid);
+		if(bukkitPlayer != null){
+			World bukkitWorld = bukkitPlayer.getWorld();
+			if(bukkitWorld != null) world = bukkitWorld.getName();
+		}
+
+		boolean has = permissionplayer.hasPermission(permission,BukkitBootstrap.getInstance().getServerName(),world);
 		if(!has){
 			for(Permission perm : Bukkit.getPluginManager().getPermissions()){
 				if(perm.getChildren().containsKey(permission)){
@@ -56,19 +64,23 @@ public class DKPermissable extends PermissibleBase {
 		}
 		return has;
 	}
+
 	@Override
 	public boolean isPermissionSet(Permission perm){
 		return hasPermission(perm);
 	}
+
 	@Override
 	public boolean isPermissionSet(String permission) {
 		return hasPermission(permission);
 	}
+
 	@Override
 	public boolean isOp() {
 		if(!Config.SECURITY_OPERATOR_ENABLED) return false;
 		else return super.isOp();
 	}
+
 	@Override
 	public void setOp(boolean value) {
 		super.setOp(false);
@@ -93,22 +105,27 @@ public class DKPermissable extends PermissibleBase {
 	public PermissionAttachment addAttachment(Plugin plugin, String name, boolean value) {
 		throw new UnsupportedOperationException("Bukkit permission attachments are blocked for security reasons");
 	}
+
 	@Override
 	public PermissionAttachment addAttachment(Plugin plugin) {
 		throw new UnsupportedOperationException("Bukkit permission attachments are blocked for security reasons");
 	}
+
 	@Override
 	public void removeAttachment(PermissionAttachment attachment) {
 		throw new UnsupportedOperationException("Bukkit permission attachments are blocked for security reasons");
 	}
+
 	@Override
 	public void recalculatePermissions() {
 		clearPermissions();
 	}
+
 	@Override
 	public PermissionAttachment addAttachment(Plugin plugin, String name, boolean value, int ticks) {
 		throw new UnsupportedOperationException("Bukkit permission attachments are blocked for security reasons");
 	}
+
 	@Override
 	public PermissionAttachment addAttachment(Plugin plugin, int ticks) {
 		throw new UnsupportedOperationException("Bukkit permission attachments are blocked for security reasons");

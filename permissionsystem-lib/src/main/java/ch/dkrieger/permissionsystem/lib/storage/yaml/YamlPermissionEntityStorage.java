@@ -24,6 +24,7 @@ public class YamlPermissionEntityStorage implements PermissionEntityStorage{
         this.groups = groups;
         this.players = players;
     }
+
     @Override
     public List<PermissionGroupEntity> getPermissionEntities(PermissionType type, UUID uuid) {
         List<PermissionGroupEntity> list = new ArrayList<>();
@@ -54,6 +55,7 @@ public class YamlPermissionEntityStorage implements PermissionEntityStorage{
         }
         return list;
     }
+
     @Override
     public void setEntity(PermissionType type, UUID uuid, UUID group, Long timeout) {
         if(type == PermissionType.GROUP){
@@ -68,6 +70,7 @@ public class YamlPermissionEntityStorage implements PermissionEntityStorage{
             this.players.save();
         }
     }
+
     @Override
     public void addEntity(PermissionType type, UUID uuid, UUID group, Long timeout) {
         if(type == PermissionType.GROUP){
@@ -84,6 +87,7 @@ public class YamlPermissionEntityStorage implements PermissionEntityStorage{
             this.players.save();
         }
     }
+
     @Override
     public void removeEntity(PermissionType type, UUID uuid, UUID group) {
         if(type == PermissionType.GROUP){
@@ -114,6 +118,7 @@ public class YamlPermissionEntityStorage implements PermissionEntityStorage{
             this.players.save();
         }
     }
+
     @Override
     public void clearEntity(PermissionType type, UUID uuid) {
         if(type == PermissionType.GROUP){

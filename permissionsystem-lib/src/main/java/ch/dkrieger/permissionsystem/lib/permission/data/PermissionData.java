@@ -16,18 +16,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class PermissionData extends SimplePermissionData {
 
-    private Map<String,SimplePermissionData> serverPermissions, groupPermissions;
+    private final Map<String,SimplePermissionData> serverPermissions, groupPermissions;
 
     public PermissionData() {
         this.serverPermissions = new ConcurrentHashMap<>();
         this.groupPermissions = new ConcurrentHashMap<>();
     }
+
     public Map<String, SimplePermissionData> getServerPermissions() {
         return serverPermissions;
     }
+
     public Map<String, SimplePermissionData> getGroupPermissions() {
         return groupPermissions;
     }
+
     public List<PermissionEntity> getAllPermissions(String server, String world){
         List<PermissionEntity> permissions = new LinkedList<>(getAllPermissions(world));
         if(server != null){

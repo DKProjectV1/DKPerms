@@ -1,6 +1,5 @@
 package ch.dkrieger.permissionsystem.lib.storage.mysql.query;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,16 +16,19 @@ public class CreateQuery extends Query {
         super(connection, query);
         firstvalue = true;
     }
+
     public CreateQuery create(String value) {
         if(!firstvalue) query = query.substring(0,query.length()-1)+",";
         else firstvalue = false;
         query += value+")";
         return this;
     }
+
     public void execute(){
         try(Connection connection = this.connection) {
             Statement statement = connection.createStatement();
             statement.execute(query);
+            statement.close();
         } catch(SQLException exception){
             exception.printStackTrace();
         }

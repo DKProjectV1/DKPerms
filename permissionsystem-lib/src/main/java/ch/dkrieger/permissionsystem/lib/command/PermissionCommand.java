@@ -29,17 +29,20 @@ public abstract class PermissionCommand {
     public String getName() {
         return name;
     }
+
     public String getPermission() {
         return permission;
     }
+
     public List<String> getAliases() {
         return aliases;
     }
-    public Boolean hasAliase(String name){
-        if(this.name.equalsIgnoreCase(name) || this.aliases.contains(name.toLowerCase())) return true;
-        return false;
+
+    public boolean hasAliases(String name){
+        return this.name.equalsIgnoreCase(name) || this.aliases.contains(name.toLowerCase());
     }
+
     public abstract void execute(PermissionCommandSender sender, String[] args);
 
-    public abstract List<String> tabcomplete(PermissionCommandSender sender, String[] args);
+    public abstract List<String> tabComplete(PermissionCommandSender sender, String[] args);
 }

@@ -11,13 +11,11 @@
     <parent>
         <artifactId>PermissionSystem</artifactId>
         <groupId>ch.dkrieger.permissionsystem</groupId>
-        <version>1.2.7</version>
+        <version>1.2.9</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ch.dkrieger.permissionsystem.vaulttest</groupId>
     <artifactId>permissionsystem-vaulttest</artifactId>
-    <version>1.2.7</version>
 
     <repositories>
         <repository>
@@ -28,9 +26,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>ch.dkrieger.permissionsystem.lib</groupId>
+            <groupId>ch.dkrieger.permissionsystem</groupId>
             <artifactId>permissionsystem-lib</artifactId>
-            <version>${project.version}</version>
+            <version>1.2.9</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

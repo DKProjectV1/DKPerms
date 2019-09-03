@@ -40,18 +40,21 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
         BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupCreateEvent(uuid,true));
         CommandTeam.forceUpdate();
     }
+
     @Override
     public void executePermissionGroupDelete(PermissionGroup group) {
         sendToAllSpigotServers(new PermissionDocument("group_delete").append("uuid",group.getUUID()));
         BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
         CommandTeam.forceUpdate();
     }
+
     @Override
     public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data) {
         sendToAllSpigotServers(new PermissionDocument("update").append("type",type).append("uuid",uuid).append("data",data));
         BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupUpdateEvent(uuid,data,true));
         CommandTeam.forceUpdate();
     }
+
     @EventHandler
     public void onPluginMessageReceive(PluginMessageEvent event){
         if(!Config.SYNCHRONISE_CHANNEL) return;
@@ -75,7 +78,7 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
                         sendToAllSpigotServers(document,((Server) event.getSender()).getInfo().getName());
                         BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
                     }else if(document.getName().equalsIgnoreCase("update")){
-                        Boolean online = false;
+                        boolean online = false;
                         UUID uuid = document.getObject("uuid",UUID.class);
                         PermissionType type = document.getObject("type",PermissionType.class);
                         PermissionUpdateData data = document.getObject("data",PermissionUpdateData.class);
@@ -96,23 +99,28 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
             });
         }
     }
+
     @EventHandler
     public void onServerConnected(ServerConnectedEvent event){
         if(event.getServer().getInfo().getPlayers().size() <= 0) sendServer(event.getServer().getInfo());
     }
+
     @Override
     public void run() {
         for(ServerInfo server : BungeeCord.getInstance().getServers().values()) sendServer(server);
     }
+
     private void sendToAllSpigotServers(PermissionDocument document){
         sendToAllSpigotServers(document,null);
     }
+
     private void sendToAllSpigotServers(PermissionDocument document, String from){
         for(ServerInfo server : BungeeCord.getInstance().getServers().values()){
             if(from != null && server.getName().equalsIgnoreCase(from)) return;
             sendToSpigotServer(server,document);
         }
     }
+
     private void sendToSpigotServer(ServerInfo server, PermissionDocument document){
         if(!Config.SYNCHRONISE_CHANNEL) return;
         try {
@@ -125,6 +133,7 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
             exception.printStackTrace();
         }
     }
+
     private void sendServer(ServerInfo server){
         sendToSpigotServer(server,new PermissionDocument("server").append("server",server.getName()));
     }

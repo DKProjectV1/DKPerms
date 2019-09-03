@@ -27,6 +27,7 @@ public class TabListStyle {
 	public static void setStyle(String prefix,String suffix,String priority,Player player,Player receiver) {
         setStyle(prefix,suffix,priority,player.getName(),receiver);
 	}
+
 	public static void setStyle(String prefix,String suffix,String priority, String playerName,Player receiver) {
         String team_name = priority+playerName.charAt(0)+playerName.charAt(1);
 
@@ -94,12 +95,15 @@ public class TabListStyle {
             exception.printStackTrace();
         }
     }
+
     public static void setStyle(String prefix,String suffix,String priority, Player player){
         setStyle(prefix,suffix,priority,player.getName());
     }
+
     public static void setStyle(String prefix,String suffix,String priority, String playername){
         for(Player t : Bukkit.getOnlinePlayers()) setStyle(prefix, suffix, priority, playername, t);
     }
+
 	private static String getFreeString(Player player,String priority){
 	    String value = priority+ GeneralUtil.getRandomString(10);
 		if(alreadyinuse.containsKey(player)) while(alreadyinuse.get(player).contains(value)) value = GeneralUtil.getRandomString(10);

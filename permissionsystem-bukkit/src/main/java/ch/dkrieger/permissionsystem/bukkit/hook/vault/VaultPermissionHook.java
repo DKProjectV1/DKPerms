@@ -31,48 +31,57 @@ public class VaultPermissionHook extends Permission {
     public String getName() {
         return BukkitBootstrap.getInstance().getName();
     }
+
     @Override
     public boolean isEnabled() {
         return true;
     }
+
     @Override
     public boolean hasSuperPermsCompat() {
         return false;
     }
+
     @Override
     public boolean playerHas(String world, String name, String permission) {
         PermissionPlayer player = getPlayer(name);
         return player!=null&&player.hasPermission(permission,BukkitBootstrap.getInstance().getServerName(),world);
     }
+
     @Override
     public boolean playerAdd(String world, String name, String permission) {
         PermissionPlayer player = getPlayer(name);
         if(player != null) player.addPermission(permission,world);
         return player !=null;
     }
+
     @Override
     public boolean playerRemove(String world, String name, String permission) {
         PermissionPlayer player = getPlayer(name);
         if(player != null) player.removePermission(permission,world);
         return player !=null;
     }
+
     @Override
     public boolean groupHas(String world, String name, String permission) {
         PermissionGroup group = getGroup(name);
         return group != null&&group.hasPermission(permission,BukkitBootstrap.getInstance().getServerName(),world);
     }
+
     @Override
     public boolean groupAdd(String world, String name, String permission) {
         PermissionGroup group = getGroup(name);
         if(group != null) group.addPermission(permission,world);
         return group != null;
     }
+
     @Override
     public boolean groupRemove(String world, String name, String permission) {
         PermissionGroup group = getGroup(name);
         if(group != null) group.removePermission(permission,world);
         return group != null;
     }
+
     @Override
     public boolean playerInGroup(String world, String name, String group) {
         PermissionPlayer player = getPlayer(name);
@@ -91,6 +100,7 @@ public class VaultPermissionHook extends Permission {
         }
         return false;
     }
+
     @Override
     public boolean playerRemoveGroup(String world, String name, String groupName) {
         PermissionPlayer player = getPlayer(name);
@@ -103,6 +113,7 @@ public class VaultPermissionHook extends Permission {
         }
         return false;
     }
+
     @Override
     public String[] getPlayerGroups(String world, String name) {
         PermissionPlayer player = getPlayer(name);
@@ -115,6 +126,7 @@ public class VaultPermissionHook extends Permission {
         }
         return new String[0];
     }
+
     @Override
     public String getPrimaryGroup(String world, String name) {
         PermissionPlayer player = getPlayer(name);
@@ -124,6 +136,7 @@ public class VaultPermissionHook extends Permission {
         }
         return null;
     }
+
     @Override
     public String[] getGroups() {
         List<PermissionGroup> groups = PermissionGroupManager.getInstance().getGroups();
@@ -131,6 +144,7 @@ public class VaultPermissionHook extends Permission {
         for(int i = 0;i<groups.size();i++) names[i] = groups.get(i).getName();
         return names;
     }
+
     @Override
     public boolean hasGroupSupport() {
         return true;
@@ -139,6 +153,7 @@ public class VaultPermissionHook extends Permission {
     public PermissionPlayer getPlayer(String name){
         return PermissionPlayerManager.getInstance().getPermissionPlayer(name);
     }
+
     public PermissionGroup getGroup(String name){
         return PermissionGroupManager.getInstance().getGroup(name);
     }

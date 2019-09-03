@@ -16,29 +16,34 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SimplePermissionData {
 
-    private List<PermissionEntity> permissions;
-    private Map<String,List<PermissionEntity>> worldPermissions;
+    private final List<PermissionEntity> permissions;
+    private final Map<String,List<PermissionEntity>> worldPermissions;
 
     public SimplePermissionData() {
         this.permissions =  new ArrayList<>();
         this.worldPermissions =  new ConcurrentHashMap<>();
     }
+
     public List<PermissionEntity> getPermissions() {
         return permissions;
     }
+
     public Map<String, List<PermissionEntity>> getWorldPermissions() {
         return worldPermissions;
     }
+
     public List<PermissionEntity> getPermissions(String world) {
         if(this.worldPermissions.containsKey(world)) return this.worldPermissions.get(world);
         return new LinkedList<>();
     }
+
     public List<PermissionEntity> getAllPermissions(String world) {
         List<PermissionEntity> permissions = new LinkedList<>(this.permissions);
         if(world != null && this.worldPermissions.containsKey(world))
             permissions.addAll(this.worldPermissions.get(world));
         return permissions;
     }
+
     public void removePermission(String permission, String world){
         if(world != null){
             if(this.worldPermissions.containsKey(world)){

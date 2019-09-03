@@ -42,7 +42,7 @@ public class BungeeCordCloudNetV2UpdateExecutor implements Listener{
                     PermissionUpdater.getInstance().onPermissionGroupDelete(uuid);
                     BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
                 }else if(event.getMessage().equalsIgnoreCase("update")){
-                    Boolean online = false;
+                    boolean online = false;
                     UUID uuid = event.getDocument().getObject("uuid",UUID.class);
                     PermissionUpdateData data = event.getDocument().getObject("data",PermissionUpdateData.class);
                     PermissionType type = event.getDocument().getObject("type",PermissionType.class);

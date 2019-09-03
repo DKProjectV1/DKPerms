@@ -28,6 +28,7 @@ public class YamlPermissionPlayerStorage extends SimpleConfig implements Permiss
     public void registerDefaults() {
         addValue("nextid",1);
     }
+
     @Override
     public PermissionPlayer getPermissionPlayer(UUID uuid) throws Exception {
         if(getStringValue("players."+uuid+".name") != null){
@@ -35,6 +36,7 @@ public class YamlPermissionPlayerStorage extends SimpleConfig implements Permiss
         }
         return null;
     }
+
     @Override
     public PermissionPlayer getPermissionPlayer(String name) throws Exception {
         try{
@@ -43,6 +45,7 @@ public class YamlPermissionPlayerStorage extends SimpleConfig implements Permiss
         }catch (Exception exception){}
         return null;
     }
+
     @Override
     public PermissionPlayer createPermissionPlayer(UUID uuid, String name) {
         int id = getIntValue("nextid");
@@ -54,6 +57,7 @@ public class YamlPermissionPlayerStorage extends SimpleConfig implements Permiss
         save();
         return new PermissionPlayer(id,name,uuid);
     }
+
     @Override
     public void updateName(UUID uuid, String name) {
         setValue("nameplayers."+name.toLowerCase(),""+uuid);

@@ -16,12 +16,15 @@ public class PermissionProvider {
         instance = this;
         this.storage = storage;
     }
+
     public PermissionStorage getStorage() {
         return storage;
     }
+
     public void setStorage(PermissionStorage storage) {
         this.storage = storage;
     }
+
     public static PermissionProvider getInstance() {
         return instance;
     }

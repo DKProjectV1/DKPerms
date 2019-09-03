@@ -28,6 +28,7 @@ public class BukkitRankChangeMessageExtension extends JavaPlugin implements List
         Bukkit.getPluginManager().registerEvents(this,this);
         new RankChangeMessageConfig();
     }
+
     @EventHandler
     public void onUpdate(BukkitPermissionPlayerUpdateEvent event) {
         if(event.getData() != null && event.getData().getCause() != null && event.getData().getCause() == PermissionUpdateCause.GROUP

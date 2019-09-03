@@ -12,12 +12,12 @@ import java.io.File;
 
 public interface PermissionImport {
 
-    public String getName();
+    String getName();
 
-    public Boolean isAvailable();
+    boolean isAvailable();
 
-    public Boolean needFile();
+    boolean needFile();
 
-    public void importData(PermissionCommandSender sender, File file);
+    void importData(PermissionCommandSender sender, File file);
 
 }

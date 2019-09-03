@@ -10,12 +10,12 @@ import java.util.UUID;
 
 public interface PermissionPlayerStorage {
 
-    public PermissionPlayer getPermissionPlayer(UUID uuid) throws Exception;
+    PermissionPlayer getPermissionPlayer(UUID uuid) throws Exception;
 
-    public PermissionPlayer getPermissionPlayer(String name) throws Exception;
+    PermissionPlayer getPermissionPlayer(String name) throws Exception;
 
-    public PermissionPlayer createPermissionPlayer(UUID uuid, String name);
+    PermissionPlayer createPermissionPlayer(UUID uuid, String name);
 
-    public void updateName(UUID uuid, String name);
+    void updateName(UUID uuid, String name);
 
 }

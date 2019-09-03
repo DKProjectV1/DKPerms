@@ -24,17 +24,21 @@ public class PermissionUpdater {
         instance = this;
         this.executor = executor;
     }
+
     public PermissionUpdateExecutor getExecutor() {
         return executor;
     }
+
     public void onPermissionGroupCreate(UUID uuid){
         PermissionSystem.getInstance().sync();
     }
+
     public void onPermissionGroupDelete(UUID uuid){
         PermissionGroup group = PermissionGroupManager.getInstance().getGroup(uuid);
         PermissionSystem.getInstance().sync();
         if(group.isTeam()) CommandTeam.forceUpdate();
     }
+
     public void onPermissionUpdate(PermissionType type, UUID uuid,Boolean online){
         if(type == PermissionType.GROUP){
             PermissionSystem.getInstance().syncGroups();
@@ -42,16 +46,16 @@ public class PermissionUpdater {
             if(online){
                 try{
                     PermissionPlayerManager.getInstance().getPermissionPlayerSave(uuid);
-                }catch (Exception exception){}
-            }else{
-                PermissionPlayerManager.getInstance().getLoadedPlayers().remove(uuid);
-            }
+                }catch (Exception ignored){}
+            }else PermissionPlayerManager.getInstance().getLoadedPlayers().remove(uuid);
         }
         CommandTeam.forceUpdate();
     }
+
     public void setExecutor(PermissionUpdateExecutor executor) {
         this.executor = executor;
     }
+
     public static PermissionUpdater getInstance() {
         return instance;
     }

@@ -37,6 +37,7 @@ public class BungeeCordDKPermsDKCoinsConnection extends Plugin implements Listen
             getProxy().getPluginManager().registerListener(this,this);
         },2L, TimeUnit.SECONDS);
     }
+
     @EventHandler
     public void onColorSet(ProxiedCoinPlayerColorSetEvent event){
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUUID());
@@ -46,6 +47,7 @@ public class BungeeCordDKPermsDKCoinsConnection extends Plugin implements Listen
         if(group != null && !(group.getPlayerDesign().getColor().equalsIgnoreCase("-1")))
             event.setColor(group.getPlayerDesign().getColor());
     }
+
     @EventHandler
     public void onUpdate(ProxiedPermissionPlayerUpdateEvent event){
         BungeeCord.getInstance().getScheduler().runAsync(this,()->{

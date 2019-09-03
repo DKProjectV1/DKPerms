@@ -29,6 +29,7 @@ import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateExecutor;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
 
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +41,8 @@ import java.util.concurrent.TimeUnit;
 
 public class PermissionSystem {
 
-    private static PermissionSystem instance;
+    private static PermissionSystem INSTANCE;
+
     private Properties dkpermsProperties;
     private String version;
     private DKPermsPlatform platform;
@@ -52,18 +54,19 @@ public class PermissionSystem {
     private PermissionEntityStorage entityStorage;
     private MySQL mysql;
 
-    public PermissionSystem(DKPermsPlatform platform, PermissionUpdateExecutor updateexecutor, Boolean advanced) {
-        instance = this;
+    public PermissionSystem(DKPermsPlatform platform, PermissionUpdateExecutor updateexecutor, boolean advanced) {
+        INSTANCE = this;
         this.platform = platform;
         new Messages("DKPerms");
         this.dkpermsProperties = new Properties();
         try {
-            this.dkpermsProperties.load(getClass().getClassLoader().getResourceAsStream("dkperms.properties"));
+            this.dkpermsProperties.load(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("dkperms.properties")));
         } catch (Exception exception) {
             System.out.println(Messages.SYSTEM_PREFIX+"Could not load dkperms plugin build informations");
             this.version = "Unknown";
         }
         this.version = dkpermsProperties.getProperty("version");
+
         System.out.println(Messages.SYSTEM_PREFIX+"plugin is starting");
         System.out.println(Messages.SYSTEM_PREFIX+"PermissionSystem "+this.version+" by Davide Wietlisbach");
 
@@ -71,7 +74,8 @@ public class PermissionSystem {
 
         System.out.println(Messages.SYSTEM_PREFIX+"plugin successfully started");
     }
-    private void systemBootstrap(PermissionUpdateExecutor updateexecutor,Boolean advanced){
+
+    private void systemBootstrap(PermissionUpdateExecutor updateExecutor,boolean advanced){
         this.platform.getFolder().mkdirs();
 
         this.config = new Config(this.platform,advanced);
@@ -79,9 +83,9 @@ public class PermissionSystem {
         this.config.loadConfig();
         this.messageconfig.loadConfig();
 
-        PermissionImportManager impmanager = new PermissionImportManager();
-        impmanager.registerImport(new CloudNetV2PermissionImport());
-        impmanager.registerImport(new PermissionExImport());
+        PermissionImportManager importManager = new PermissionImportManager();
+        importManager.registerImport(new CloudNetV2PermissionImport());
+        importManager.registerImport(new PermissionExImport());
 
         setupStorage();
 
@@ -91,23 +95,20 @@ public class PermissionSystem {
         new PermissionPlayerManager(this.playerStorage);
         new PermissionGroupManager(this.groupStorage);
 
-        new PermissionUpdater(updateexecutor);
+        new PermissionUpdater(updateExecutor);
 
         registerCommands();
 
         if(Config.SYNCHRONISE_TASK_ENABLED){
-            this.platform.getTaskManager().scheduleTask(()->{
-                this.platform.getTaskManager().runTaskAsync(()->{
-                    syncGroups();
-                });
-            },Config.SYNCHRONISE_TASK_DELAY,TimeUnit.MINUTES);
+            this.platform.getTaskManager().scheduleTask(()-> this.platform.getTaskManager().runTaskAsync(this::syncGroups)
+                    ,Config.SYNCHRONISE_TASK_DELAY,TimeUnit.MINUTES);
         }
-        this.platform.getTaskManager().scheduleTask(()->{
-            this.platform.getTaskManager().runTaskAsync(()->{
-                if(this.permissionStorage != null) this.permissionStorage.onTimeOutDeleteTask();
-            });
-        },5L,TimeUnit.MINUTES);
+
+        this.platform.getTaskManager().scheduleTask(()-> this.platform.getTaskManager().runTaskAsync(()->{
+            if(this.permissionStorage != null) this.permissionStorage.onTimeOutDeleteTask();
+        }),5L,TimeUnit.MINUTES);
     }
+
     private void setupStorage(){
         if(Config.STORAGE_TYPE == StorageType.MYSQL){
             this.mysql = new MySQL(Messages.SYSTEM_NAME,Config.STORAGE_MYSQL_HOST,Config.STORAGE_MYSQL_PORT,Config.STORAGE_MYSQL_USER
@@ -122,15 +123,7 @@ public class PermissionSystem {
                 this.entityStorage = new MySQLPermissionEntityStorage();
                 return;
             }
-        }/*else if(Config.STORAGE_TYPE == StorageType.MONGODB){
-            MongoDriver driver = new MongoDriver(Config.STORAGE_MONGODB_HOST,Config.STORAGE_MONGODB_PORT,Config.STORAGE_MONGODB_USER
-            ,Config.STORAGE_MONGODB_PASSWORD,Config.STORAGE_MONGODB_DATABASE);
-            driver.connect();
-            if(driver.isConnected()){
-                this.playerstorage = new MongoDBPermissionPlayerStorage();
-            }
-            return;
-        }*/
+        }
         Config.STORAGE_TYPE = StorageType.YAML;
         this.playerStorage = new YamlPermissionPlayerStorage();
         this.groupStorage = new YamlPermissionGroupStorage((YamlPermissionPlayerStorage)this.playerStorage);
@@ -138,6 +131,7 @@ public class PermissionSystem {
         this.entityStorage = new YamlPermissionEntityStorage((YamlPermissionGroupStorage)this.groupStorage,(YamlPermissionPlayerStorage)this.playerStorage);
         System.out.println("Using "+Config.STORAGE_TYPE.getName()+" v"+Config.STORAGE_TYPE.getVersion()+" storage");
     }
+
     private void registerCommands(){
         if(Config.SECURITY_DISABLECOMMANDS) return;
         this.platform.getCommandManager().registerCommand(new CommandDKPerms());
@@ -145,10 +139,11 @@ public class PermissionSystem {
         if(Config.COMMAND_RANK_ENABLED) this.platform.getCommandManager().registerCommand(new CommandRank());
         if(Config.COMMAND_TEAM_ENABLED) this.platform.getCommandManager().registerCommand(new CommandTeam());
     }
+
     public void disable(){
         if(this.mysql != null) this.mysql.disconnect();
-        //if(MongoDriver.getInstance() != null) MongoDriver.getInstance().disconnect();
     }
+
     public void sync(){
         try{
             syncGroups();
@@ -157,53 +152,63 @@ public class PermissionSystem {
             debug(PermissionInfoLevel.WARN,PermissionDebugLevel.NORMAL,"Could not synchronise.");
         }
     }
+
     public void syncGroups(){
         PermissionGroupManager.getInstance().load();
     }
+
     public void debug(PermissionDebugLevel level, String message){
         debug(PermissionInfoLevel.INFO,level,message);
     }
-    public void debug(PermissionInfoLevel infolevel, PermissionDebugLevel level, String message){
-        if(infolevel != PermissionInfoLevel.INFO){
-            if(infolevel == PermissionInfoLevel.WARN) System.out.println(Messages.SYSTEM_PREFIX+"Warn: "+message);
+
+    public void debug(PermissionInfoLevel infoLevel, PermissionDebugLevel level, String message){
+        if(infoLevel != PermissionInfoLevel.INFO){
+            if(infoLevel == PermissionInfoLevel.WARN) System.out.println(Messages.SYSTEM_PREFIX+"Warn: "+message);
             else System.out.println(Messages.SYSTEM_PREFIX+"Error: "+message);
         }else{
             if(Config.DEBUG_ENABLED && Config.DEBUG_LEVEL.canSee(level)) System.out.println(Messages.SYSTEM_PREFIX+message);
         }
     }
+
     public String getVersion() {
         return version;
     }
+
     public DKPermsPlatform getPlatform() {
         return platform;
     }
+
     public MySQL getMySQL() {
         return mysql;
     }
+
     public Config getConfig() {
         return config;
     }
+
     public MessageConfig getMessageConfig() {
         return messageconfig;
     }
+
     public static PermissionSystem getInstance() {
-        return instance;
+        return INSTANCE;
     }
+
     public enum PermissionInfoLevel {
         INFO(),
         WARN(),
         ERROR();
     }
+
     public enum PermissionDebugLevel {
         LOW(),
         NORMAL(),
         HIGH();
 
-        public Boolean canSee(PermissionDebugLevel level){
+        public boolean canSee(PermissionDebugLevel level){
             if(this == HIGH) return true;
             else if(this == NORMAL && (level == NORMAL || level == LOW)) return true;
-            else if(this == level) return true;
-            return false;
+            else return this == level;
         }
     }
 }

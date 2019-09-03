@@ -15,23 +15,26 @@ public class BukkitPermissionGroupDeleteEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final PermissionGroup group;
-    private final Boolean onthisserver;
+    private final boolean onThisServer;
 
-    public BukkitPermissionGroupDeleteEvent(PermissionGroup group, Boolean onthisserver) {
+    public BukkitPermissionGroupDeleteEvent(PermissionGroup group, boolean onThisServer) {
         super(Thread.currentThread().getId() != 1);
         this.group = group;
-        this.onthisserver = onthisserver;
+        this.onThisServer = onThisServer;
     }
     public PermissionGroup getGroup(){
         return this.group;
     }
-    public Boolean isOnThisServer() {
-        return onthisserver;
+
+    public boolean isOnThisServer() {
+        return onThisServer;
     }
+
     @Override
     public HandlerList getHandlers() {
         return handlers;
     }
+
     public static HandlerList getHandlerList() {
         return handlers;
     }

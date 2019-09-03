@@ -30,19 +30,21 @@ import java.util.concurrent.TimeUnit;
 
 public class BungeeCordBootstrap extends Plugin implements DKPermsPlatform, PermissionTaskManager {
 
-    private static BungeeCordBootstrap instance;
+    private static BungeeCordBootstrap INSTANCE;
+
     private PermissionCommandManager commandManager;
     private PermissionUpdateExecutor updateExecutor;
     private boolean cloudNetV2, cloudNetV3;
 
     @Override
     public void onLoad() {
-        instance = this;
+        INSTANCE = this;
         this.commandManager = new BungeeCordCommandManager();
         this.updateExecutor = new BungeeCordPluginMessageUpdateExecutor();
 
         new PermissionSystem(this,this.updateExecutor,true);
     }
+
     @Override
     public void onEnable() {
         BungeeCord.getInstance().getPluginManager().registerListener(this,new PlayerListener());
@@ -66,46 +68,60 @@ public class BungeeCordBootstrap extends Plugin implements DKPermsPlatform, Perm
             }
         },3L, TimeUnit.SECONDS);
     }
+
     @Override
     public void onDisable() {
         PermissionSystem.getInstance().disable();
     }
+
     public String getPlatformName() {
         return "bungeecord";
     }
+
     public String getServerVersion() {
         return BungeeCord.getInstance().getVersion();
     }
+
     public File getFolder() {
         return new File("plugins/DKPerms/");
     }
+
     public PermissionCommandManager getCommandManager() {
         return this.commandManager;
     }
+
     public PermissionTaskManager getTaskManager() {
         return this;
     }
+
     public String translateColorCodes(String value) {
         return ChatColor.translateAlternateColorCodes('&',value);
     }
+
     public void runTaskAsync(Runnable runnable) {
         BungeeCord.getInstance().getScheduler().runAsync(this,runnable);
     }
+
     public void runTaskLater(Runnable runnable, Long duration, TimeUnit unit) {
         BungeeCord.getInstance().getScheduler().schedule(this,runnable,duration,unit);
     }
+
     public void scheduleTask(Runnable runnable, Long repet, TimeUnit unit) {
         BungeeCord.getInstance().getScheduler().schedule(this,runnable,0L,repet,unit);
     }
-    public Boolean isCloudNetV2(){
+
+    public boolean isCloudNetV2(){
         return this.cloudNetV2;
     }
-    public Boolean isCloudNetV3(){
+
+    public boolean isCloudNetV3(){
         return this.cloudNetV3;
     }
+
     public static BungeeCordBootstrap getInstance() {
-        return instance;
+        return INSTANCE;
     }
+
     private void checkCloudNet(){
         Plugin plugin = BungeeCord.getInstance().getPluginManager().getPlugin("CloudNetAPI");
         if(plugin != null && plugin.getDescription() != null){

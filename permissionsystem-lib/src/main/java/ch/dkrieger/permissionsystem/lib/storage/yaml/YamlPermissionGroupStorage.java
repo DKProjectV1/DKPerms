@@ -28,10 +28,13 @@ public class YamlPermissionGroupStorage extends SimpleConfig implements Permissi
         this.players = players;
         loadConfig();
     }
+
     @Override
     public void onLoad() {}
+
     @Override
     public void registerDefaults() {}
+
     @Override
     public List<PermissionGroup> loadGroups() {
         List<PermissionGroup> groups = new LinkedList<>();
@@ -50,6 +53,7 @@ public class YamlPermissionGroupStorage extends SimpleConfig implements Permissi
         }
         return groups;
     }
+
     @Override
     public PermissionGroup createGroup(String name) {
         UUID uuid = UUID.randomUUID();
@@ -69,16 +73,19 @@ public class YamlPermissionGroupStorage extends SimpleConfig implements Permissi
         return new PermissionGroup(name,uuid,"New PermissionGroup",false,false,-1,-1
                 ,0,new PlayerDesign("-1","-1","-1","-1"));
     }
+
     @Override
     public void deleteGroup(UUID uuid) {
         setValue("groups."+uuid,null);
         save();
     }
+
     @Override
     public void setSetting(UUID uuid, String identifier, Object value) {
         setValue("groups."+uuid+"."+identifier,value);
         save();
     }
+
     @Override
     public List<UUID> getPlayers(PermissionGroup group) {
         List<UUID> list = new LinkedList<>();

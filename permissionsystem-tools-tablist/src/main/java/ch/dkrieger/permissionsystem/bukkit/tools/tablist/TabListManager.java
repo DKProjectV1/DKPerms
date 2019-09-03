@@ -17,19 +17,22 @@ import org.bukkit.entity.Player;
 
 public class TabListManager {
 	
-	private static TabListManager instance;
+	private static TabListManager INSTANCE;
 	
 	public TabListManager(){
-		instance = this;
+		INSTANCE = this;
 		new TabListStyle();
 	}
+
 	public void loadPlayer(Player player){
 		updatePlayer(player);
 		for(Player players : Bukkit.getOnlinePlayers()) if(players != player) setTab(players, player);
 	}
+
 	public void updatePlayer(Player player){
 		setTab(player);
 	}
+
 	public void setTab(Player player, Player receiver){
 		if(PermissionPlayerManager.getInstance() == null) return;
 		PermissionPlayer permplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId());
@@ -46,9 +49,11 @@ public class TabListManager {
 
 		TabListStyle.setStyle(prefix, suffix, priority, player,receiver);
 	}
+
 	public void setTab(Player player) {
 		for(Player players : Bukkit.getOnlinePlayers()) setTab(player, players);
 	}
+
 	private String getPriority(int priority){
 		String p = ""+priority;
 		if(p.length() == 1) return "00000"+priority;
@@ -59,7 +64,8 @@ public class TabListManager {
 		if(p.length() == 6) return ""+priority;
 		return "0";
 	}
+
 	public static TabListManager getInstance() {
-		return instance;
+		return INSTANCE;
 	}
 }

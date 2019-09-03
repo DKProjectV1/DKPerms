@@ -26,7 +26,7 @@ public class PlaceHolderAPIHook {
         new RequestHook().register();
     }
 
-    private class RequestHook extends PlaceholderExpansion {
+    private static class RequestHook extends PlaceholderExpansion {
 
         @Override
         public String getIdentifier() {

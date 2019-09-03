@@ -12,13 +12,13 @@ import java.util.UUID;
 
 public interface PermissionCommandSender {
 
-    public String getName();
+    String getName();
 
-    public UUID getUUID();
+    UUID getUUID();
 
-    public Boolean hasPermission(String permission);
+    boolean hasPermission(String permission);
 
-    public void sendMessage(String message);
+    void sendMessage(String message);
 
-    public void sendMessage(TextComponent component);
+    void sendMessage(TextComponent component);
 }

@@ -27,6 +27,7 @@ public class MongoDriver {
         this.databasename = databasename;
         this.port = port;
     }
+
     public void connect() {
         this.client = MongoClients.create("mongodb://"+this.username+":"+this.password+"@"+this.host+"/?authSource="+this.database+"&authMechanism=SCRAM-SHA-256");
         for(String s : this.client.listDatabaseNames()){
@@ -36,27 +37,35 @@ public class MongoDriver {
 
         database.createCollection("dkperms_players", null);
     }
+
     public void disconnect(){
         if(this.client != null) this.client.close();
     }
+
     public MongoDatabase getDatabase() {
         return database;
     }
+
     public MongoCollection getPlayerCollection(){
         return this.database.getCollection("dkperms_players");
     }
+
     public MongoCollection getGroupCollection(){
         return this.database.getCollection("dkperms_groups");
     }
+
     public MongoCollection getPermissionCollection(){
         return this.database.getCollection("dkperms_permissions");
     }
+
     public MongoCollection getEntityCollection(){
         return this.database.getCollection("dkperms_entity");
     }
-    public Boolean isConnected(){
+
+    public boolean isConnected(){
         return this.database != null;
     }
+
     public static MongoDriver getInstance() {
         return instance;
     }

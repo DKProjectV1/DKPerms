@@ -16,10 +16,12 @@ public class InsertQuery extends Query{
     public InsertQuery(Connection connection, String query) {
         super(connection, query);
     }
+
     public InsertQuery insert(String insert) {
         query += "`"+insert+"`,";
         return this;
     }
+
     public InsertQuery value(Object value) {
         query = query.substring(0, query.length() - 1);
         if(firstvalue){
@@ -29,6 +31,7 @@ public class InsertQuery extends Query{
         values.add(value);
         return this;
     }
+
     public void execute(){
         try(Connection connection = this.connection) {
             PreparedStatement pstatement = connection.prepareStatement(query);
@@ -38,10 +41,12 @@ public class InsertQuery extends Query{
                 i++;
             }
             pstatement.executeUpdate();
+            pstatement.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     public Object executeAndGetKey(){
         try(Connection connection = this.connection) {
             PreparedStatement pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -55,11 +60,14 @@ public class InsertQuery extends Query{
             if(result != null){
                 if(result.next()) return result.getObject(1);
             }
+            result.close();
+            pstatement.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public int executeAndGetKeyInInt(){
         try(Connection connection = this.connection) {
             PreparedStatement pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -73,6 +81,8 @@ public class InsertQuery extends Query{
             if(result != null){
                 if(result.next()) return result.getInt(1);
             }
+            result.close();
+            pstatement.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }

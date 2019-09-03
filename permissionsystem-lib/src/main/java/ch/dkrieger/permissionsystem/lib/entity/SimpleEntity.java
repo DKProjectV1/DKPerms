@@ -12,19 +12,22 @@ import java.text.SimpleDateFormat;
 
 public class SimpleEntity {
 
-    private final Long timeout;
+    private final long timeout;
 
     public SimpleEntity(Long timeout) {
         this.timeout = timeout;
     }
-    public Long getTimeOut() {
+
+    public long getTimeOut() {
         return timeout;
     }
+
     public String getTimeOutDate(){
         if(this.timeout <= -1) return "lifetime";
         return new SimpleDateFormat("dd.MM.yyyy kk:mm").format(timeout);
     }
-    public Boolean hasTimeOut(){
+
+    public boolean hasTimeOut(){
         return GeneralUtil.hasTimeOut(this.timeout);
     }
 }

@@ -10,10 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 public interface PermissionTaskManager {
 
-    public void runTaskAsync(Runnable runnable);
+    void runTaskAsync(Runnable runnable);
 
-    public void runTaskLater(Runnable runnable, Long duration, TimeUnit unit);
+    void runTaskLater(Runnable runnable, Long duration, TimeUnit unit);
 
-    public void scheduleTask(Runnable runnable, Long repet, TimeUnit unit);
+    void scheduleTask(Runnable runnable, Long repet, TimeUnit unit);
 
 }

@@ -40,11 +40,13 @@ public class BukkitDKPermsDKBansConnection extends JavaPlugin implements Listene
             Bukkit.getPluginManager().registerEvents(this,this);
         },8L);
     }
+
     @EventHandler
     public void onColorSet(BukkitNetworkPlayerColorSetEvent event){
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getUUID());
         if(player != null) event.setColor(player.getColor());
     }
+
     @EventHandler
     public void onUpdate(BukkitPermissionPlayerUpdateEvent event){
         Bukkit.getScheduler().runTaskAsynchronously(this,()->{
@@ -52,6 +54,7 @@ public class BukkitDKPermsDKBansConnection extends JavaPlugin implements Listene
             if(player != null) player.setColor(event.getPlayer().getColor());
         });
     }
+
     @EventHandler
     public void onOfflinePermissionCheck(BukkitNetworkPlayerOfflinePermissionCheckEvent event){
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getUUID());

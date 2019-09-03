@@ -20,31 +20,36 @@ public class BukkitPermissionPlayerUpdateEvent extends Event {
 
     private final UUID uuid;
     private final PermissionUpdateData data;
-    private final Boolean onthisserver;
-    private final Boolean online;
+    private final boolean onThisServer;
+    private final boolean online;
 
-    public BukkitPermissionPlayerUpdateEvent(UUID uuid, PermissionUpdateData data, Boolean onthisserver, Boolean online) {
+    public BukkitPermissionPlayerUpdateEvent(UUID uuid, PermissionUpdateData data, boolean onThisServer, boolean online) {
         super(Thread.currentThread().getId() != 1);
         this.uuid = uuid;
         this.data = data;
-        this.onthisserver = onthisserver;
+        this.onThisServer = onThisServer;
         this.online = online;
     }
     public UUID getUUID() {
         return uuid;
     }
+
     public PermissionPlayer getPlayer() {
         return PermissionPlayerManager.getInstance().getPermissionPlayer(this.uuid);
     }
+
     public PermissionUpdateData getData(){
         return this.data;
     }
-    public Boolean isOnThisServer() {
-        return onthisserver;
+
+    public boolean isOnThisServer() {
+        return onThisServer;
     }
-    public Boolean isOnline() {
+
+    public boolean isOnline() {
         return online;
     }
+
     @Override
     public HandlerList getHandlers() {
         return handlers;

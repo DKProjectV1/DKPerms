@@ -29,12 +29,14 @@ public class TabListExtension extends JavaPlugin implements Listener{
             for(Player player : Bukkit.getOnlinePlayers()) TabListManager.getInstance().loadPlayer(player);
         },12L);
     }
+
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent event){
         Bukkit.getScheduler().runTaskAsynchronously(this,()->{
             this.tablistmanager.loadPlayer(event.getPlayer());
         });
     }
+
     @EventHandler
     public void onPlayerUpdate(BukkitPermissionPlayerUpdateEvent event){
         Player player = Bukkit.getPlayer(event.getUUID());
@@ -44,8 +46,9 @@ public class TabListExtension extends JavaPlugin implements Listener{
             });
         }
     }
+
     @EventHandler
-    public void onGroupUpate(BukkitPermissionGroupUpdateEvent event){
+    public void onGroupUpdate(BukkitPermissionGroupUpdateEvent event){
         for(Player player : Bukkit.getOnlinePlayers()){
             if(player != null){
                 Bukkit.getScheduler().runTaskAsynchronously(this,()->{
@@ -54,6 +57,7 @@ public class TabListExtension extends JavaPlugin implements Listener{
             }
         }
     }
+
     @EventHandler
     public void onGroupDelete(BukkitPermissionGroupDeleteEvent event){
         for(Player player : Bukkit.getOnlinePlayers()){
@@ -64,6 +68,7 @@ public class TabListExtension extends JavaPlugin implements Listener{
             }
         }
     }
+
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event){
         Bukkit.getScheduler().runTaskAsynchronously(this,()->{

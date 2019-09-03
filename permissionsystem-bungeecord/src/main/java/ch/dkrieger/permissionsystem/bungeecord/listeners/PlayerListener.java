@@ -51,6 +51,7 @@ public class PlayerListener implements Listener{
             });
         }
     }
+
     @EventHandler(priority= EventPriority.HIGHEST)
     public void onPermissionCheck(PermissionCheckEvent event){
         if(event.getSender() instanceof ProxiedPlayer){

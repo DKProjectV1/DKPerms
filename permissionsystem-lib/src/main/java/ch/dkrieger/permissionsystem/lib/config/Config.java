@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Config extends SimpleConfig {
 
-    public static Boolean ADVANCED;
+    public static boolean ADVANCED;
 
     public static StorageType STORAGE_TYPE;
     public static File STORAGE_FOLDER;
@@ -35,21 +35,21 @@ public class Config extends SimpleConfig {
     public static String STORAGE_MONGODB_PASSWORD;
     public static String STORAGE_MONGODB_DATABASE;
 
-    public static Boolean SECURITY_OPERATOR_ENABLED;
-    public static Boolean SECURITY_DISABLECOMMANDS;
+    public static boolean SECURITY_OPERATOR_ENABLED;
+    public static boolean SECURITY_DISABLECOMMANDS;
 
-    public static Boolean SYNCHRONISE_TASK_ENABLED;
-    public static Long SYNCHRONISE_TASK_DELAY;
-    public static Boolean SYNCHRONISE_GROUP_ONFIRSTPLAYERJOIN;
-    public static Boolean SYNCHRONISE_GROUP_ONLASTPLAYERLEAVE;
-    public static Boolean SYNCHRONISE_CHANNEL;
+    public static boolean SYNCHRONISE_TASK_ENABLED;
+    public static long SYNCHRONISE_TASK_DELAY;
+    public static boolean SYNCHRONISE_GROUP_ONFIRSTPLAYERJOIN;
+    public static boolean SYNCHRONISE_GROUP_ONLASTPLAYERLEAVE;
+    public static boolean SYNCHRONISE_CHANNEL;
 
     public static char SERVERGROUP_SPLIT;
 
     public static boolean PLAYER_DISPLAYNAME_ENABLED;
     public static String PLAYER_DISPLAYNAME_FORMAT;
 
-    public static Boolean DEBUG_ENABLED;
+    public static boolean DEBUG_ENABLED;
     public static PermissionSystem.PermissionDebugLevel DEBUG_LEVEL;
 
     public static boolean COMMAND_PERMISSION_ENABLED;
@@ -104,7 +104,7 @@ public class Config extends SimpleConfig {
 
         DEBUG_ENABLED = getBooleanValue("debug.enabled");
         try{
-            DEBUG_LEVEL = PermissionSystem.PermissionDebugLevel.NORMAL.valueOf(getStringValue("debug.level"));
+            DEBUG_LEVEL = PermissionSystem.PermissionDebugLevel.valueOf(getStringValue("debug.level"));
         }catch (Exception exception){
             DEBUG_LEVEL = PermissionSystem.PermissionDebugLevel.NORMAL;
         }

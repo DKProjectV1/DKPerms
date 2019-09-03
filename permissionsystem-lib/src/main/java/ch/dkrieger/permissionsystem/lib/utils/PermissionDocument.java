@@ -18,82 +18,99 @@ import java.util.UUID;
 
 public class PermissionDocument {
 
-    public static Gson gson = new Gson();
-    public static JsonParser parser = new JsonParser();
+    private static Gson GSON = new Gson();
+    private static JsonParser PARSER = new JsonParser();
 
-    private JsonObject datas;
+    private JsonObject data;
 
 
     public PermissionDocument(String name){
-        this.datas = new JsonObject();
+        this.data = new JsonObject();
         setName(name);
     }
+    
     public PermissionDocument(UUID uuid, String name){
-        this.datas = new JsonObject();
+        this.data = new JsonObject();
         setName(name);
     }
+    
     public PermissionDocument(JsonObject data){
-        this.datas = data;
+        this.data = data;
     }
+    
     public String getName(){
         return getString("data_intern_name");
     }
+    
     public PermissionDocument setName(String name){
         if(name == null) return this;
         return append("data_intern_name",name);
     }
+    
     public JsonObject getJsonObject(){
-        return datas;
+        return data;
     }
+    
     public String getString(String key){
-        if(!this.datas.has(key)) return null;
-        return this.datas.get(key).getAsString();
+        if(!this.data.has(key)) return null;
+        return this.data.get(key).getAsString();
     }
+    
     public int getInt(String key){
-        if(!this.datas.has(key)) return 0;
-        return this.datas.get(key).getAsInt();
+        if(!this.data.has(key)) return 0;
+        return this.data.get(key).getAsInt();
     }
-    public Long getLong(String key){
-        if(!this.datas.has(key)) return 0L;
-        return this.datas.get(key).getAsLong();
+    
+    public long getLong(String key){
+        if(!this.data.has(key)) return 0L;
+        return this.data.get(key).getAsLong();
     }
-    public Boolean getBoolean(String key){
-        if(!this.datas.has(key)) return false;
-        return this.datas.get(key).getAsBoolean();
+    
+    public boolean getBoolean(String key){
+        if(!this.data.has(key)) return false;
+        return this.data.get(key).getAsBoolean();
     }
+    
     public <T> T getObject(String key,Class<T> classOF){
-        if(!this.datas.has(key)) return null;
-        return this.gson.fromJson(this.datas.get(key),classOF);
+        if(!this.data.has(key)) return null;
+        return GSON.fromJson(this.data.get(key),classOF);
     }
+    
     public PermissionDocument append(String key, String value){
-        this.datas.addProperty(key,value);
+        this.data.addProperty(key,value);
         return this;
     }
+
     public PermissionDocument append(String key, Boolean value){
-        this.datas.addProperty(key,value);
+        this.data.addProperty(key,value);
         return this;
     }
+
     public PermissionDocument append(String key, Number value){
-        this.datas.addProperty(key,value);
+        this.data.addProperty(key,value);
         return this;
     }
+
     public PermissionDocument append(String key, Object value){
-        this.datas.add(key,gson.toJsonTree(value));
+        this.data.add(key,GSON.toJsonTree(value));
         return this;
     }
+
     public PermissionDocument remove(String key){
-        this.datas.remove(key);
+        this.data.remove(key);
         return this;
     }
+
     public String toJson(){
-        return this.gson.toJson(datas);
+        return GSON.toJson(data);
     }
-    public static PermissionDocument get(String gsonString){
+
+    public static PermissionDocument get(String GSONString){
         try {
-            InputStreamReader reader = new InputStreamReader(new StringBufferInputStream(gsonString), "UTF-8");
-            return new PermissionDocument(parser.parse(new BufferedReader(reader)).getAsJsonObject());
-        }catch (IOException e){
-            e.printStackTrace();
+            InputStreamReader reader = new InputStreamReader(new StringBufferInputStream(GSONString), "UTF-8");
+            return new PermissionDocument(PARSER.parse(new BufferedReader(reader)).getAsJsonObject());
+        }catch (IOException exception){
+            exception.printStackTrace();
         }
         return null;
     }

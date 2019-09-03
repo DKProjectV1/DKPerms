@@ -46,6 +46,7 @@ public class BukkitCordRankChangeCommandExtension extends JavaPlugin implements 
             }
         }
     }
+
     private void executeCommands(List<String> commands, PermissionPlayer player,PermissionGroup group, PermissionUpdateData updateData){
         for(String command : commands){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender()

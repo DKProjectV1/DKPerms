@@ -24,7 +24,7 @@ public class MySQLPermissionGroupStorage implements PermissionGroupStorage{
 
     @Override
     public List<PermissionGroup> loadGroups() {
-        List<PermissionGroup> list = new LinkedList();
+        List<PermissionGroup> list = new LinkedList<>();
         try {
             SelectQuery query = TableManager.getInstance().getGroupTable().select();
             ResultSet result = query.execute();
@@ -53,23 +53,27 @@ public class MySQLPermissionGroupStorage implements PermissionGroupStorage{
         }
         return list;
     }
+
     @Override
     public PermissionGroup createGroup(String name) {
         UUID uuid = UUID.randomUUID();
-        while(!isUUIDAvalibal(uuid)) uuid = UUID.randomUUID();
+        while(!isUUIDAvailable(uuid)) uuid = UUID.randomUUID();
         TableManager.getInstance().getGroupTable().insert().insert("name").insert("uuid").insert("created").value(name)
                 .value(uuid).value(System.currentTimeMillis()).execute();
         return new PermissionGroup(name,uuid,"New PermissionGroup",false,false,-1,-1
                 ,0,new PlayerDesign("-1","-1","-1","-1"));
     }
+
     @Override
     public void deleteGroup(UUID uuid) {
         TableManager.getInstance().getGroupTable().delete().where("uuid",uuid).execute();
     }
+
     @Override
     public void setSetting(UUID uuid, String identifier, Object value) {
         TableManager.getInstance().getGroupTable().update().set(identifier,value).where("uuid",uuid).execute();
     }
+
     @Override
     public List<UUID> getPlayers(PermissionGroup group) {
         List<UUID> players = new ArrayList<>();
@@ -89,7 +93,8 @@ public class MySQLPermissionGroupStorage implements PermissionGroupStorage{
         }
         return players;
     }
-    private Boolean isUUIDAvalibal(UUID uuid){
+
+    private boolean isUUIDAvailable(UUID uuid){
         try {
             SelectQuery query = TableManager.getInstance().getPermissionTable().select().where("uuid", uuid);
             ResultSet result = query.execute();

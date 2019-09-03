@@ -51,19 +51,20 @@ public class MySQL implements Runnable{
 			configuration.setJdbcUrl("jdbc:mysql://"+host+":"+port+"/"+database);
 			configuration.setUsername(user);
 			configuration.setPassword(password);
-			configuration.addDataSourceProperty("cachePrepStmts", true);
-			configuration.addDataSourceProperty("prepStmtCacheSize", 250);
-			configuration.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
-			configuration.addDataSourceProperty("autoReconnect", true);
-			configuration.addDataSourceProperty("allowMultiQueries", true);
-			configuration.addDataSourceProperty("reconnectAtTxEnd", true);
+
+			//configuration.addDataSourceProperty("cachePrepStmts", true);
+			//configuration.addDataSourceProperty("prepStmtCacheSize", 250);
+			//configuration.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
+			//configuration.addDataSourceProperty("autoReconnect", true);
+			//configuration.addDataSourceProperty("allowMultiQueries", true);
+			//configuration.addDataSourceProperty("reconnectAtTxEnd", true);
 
 			if(Config.STORAGE_MYSQL_SSL){
 				configuration.addDataSourceProperty("ssl",true);
 				configuration.addDataSourceProperty("useSSL",true);
 			}
 
-			configuration.setMaximumPoolSize(Config.STORAGE_MYSQL_MAX_CONNECTIONS);
+			configuration.setMaximumPoolSize(10);
 			this.dataSource = new HikariDataSource(configuration);
 			System.out.println(Messages.SYSTEM_PREFIX+"successful connected to MySQL server at "+this.host+":"+port);
 			return true;

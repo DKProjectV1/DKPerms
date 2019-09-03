@@ -18,9 +18,11 @@ public class PermissionGroupEntity extends SimpleEntity {
         super(timeout);
         this.group = group;
     }
+
     public UUID getGroupUUID() {
         return group;
     }
+
     public PermissionGroup getGroup(){
         return PermissionGroupManager.getInstance().getGroup(this.group);
     }

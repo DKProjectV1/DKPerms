@@ -18,9 +18,11 @@ public class ProxiedPermissionGroupDeleteEvent extends Event {
         this.group = group;
         this.onThisServer = onThisServer;
     }
+
     public PermissionGroup getGroup(){
         return this.group;
     }
+
     public boolean isOnThisServer() {
         return onThisServer;
     }

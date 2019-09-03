@@ -25,14 +25,17 @@ public class PermissionExImport implements PermissionImport{
     public String getName() {
         return "PermissionEx";
     }
+
     @Override
-    public Boolean isAvailable() {
+    public boolean isAvailable() {
         return true;
     }
+
     @Override
-    public Boolean needFile() {
+    public boolean needFile() {
         return true;
     }
+
     @Override
     public void importData(PermissionCommandSender sender, File file) {
         SimpleConfig config = new PermissionExConfig(file);
@@ -75,6 +78,7 @@ public class PermissionExImport implements PermissionImport{
                 }catch (Exception exception){}
             }
         }
+
         for(Map.Entry<UUID,List<String>> entry : implementation.entrySet()){
             PermissionGroup group = PermissionGroupManager.getInstance().getGroup(entry.getKey());
             if(group != null){
@@ -84,6 +88,7 @@ public class PermissionExImport implements PermissionImport{
                 }
             }
         }
+
         for(String uuid : config.getKeys("users")) {
             try{
                 UUID uuid0 = UUID.fromString(uuid);
@@ -112,15 +117,19 @@ public class PermissionExImport implements PermissionImport{
                         }
                     }
                 }
-            }catch (Exception exception){}
+            }catch (Exception ignored){}
         }
     }
-    private class PermissionExConfig extends SimpleConfig {
+
+    private static class PermissionExConfig extends SimpleConfig {
+
         public PermissionExConfig(File file) {
             super(PermissionSystem.getInstance().getPlatform(),file);
         }
+
         @Override
         public void onLoad() {}
+
         @Override
         public void registerDefaults() {}
     }

@@ -18,9 +18,11 @@ public enum StorageType {
         this.name = name;
         this.version = version;
     }
+
     public String getName() {
         return name;
     }
+
     public String getVersion() {
         return version;
     }

@@ -10,10 +10,10 @@ import java.util.Collection;
 
 public interface PermissionCommandManager {
 
-    public Collection<PermissionCommand> getCommands();
+    Collection<PermissionCommand> getCommands();
 
-    public PermissionCommand getCommand(String name);
+    PermissionCommand getCommand(String name);
 
-    public void registerCommand(PermissionCommand command);
+    void registerCommand(PermissionCommand command);
 
 }

@@ -35,6 +35,7 @@ public class BukkitDKPermsDKCoinsConnection extends JavaPlugin implements Listen
             Bukkit.getPluginManager().registerEvents(this,this);
         },8L);
     }
+
     @EventHandler
     public void onColorSet(BukkitCoinPlayerColorSetEvent event){
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUUID());
@@ -44,6 +45,7 @@ public class BukkitDKPermsDKCoinsConnection extends JavaPlugin implements Listen
         if(group != null && !(group.getPlayerDesign().getColor().equalsIgnoreCase("-1")))
             event.setColor(group.getPlayerDesign().getColor());
     }
+
     @EventHandler
     public void onUpdate(BukkitPermissionPlayerUpdateEvent event){
         Bukkit.getScheduler().runTaskAsynchronously(this,()->{

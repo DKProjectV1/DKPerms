@@ -36,6 +36,7 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
         Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupCreateEvent(uuid,true));
         CommandTeam.forceUpdate();
     }
+
     @Override
     public void executePermissionGroupDelete(PermissionGroup group) {
         sendToBungeeCord(new PermissionDocument("group_delete").append("uuid",group.getUUID()));
@@ -43,6 +44,7 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
         CommandTeam.forceUpdate();
         for(Player players : Bukkit.getOnlinePlayers()) BukkitBootstrap.getInstance().updateDisplayName(players);
     }
+
     @Override
     public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data) {
         sendToBungeeCord(new PermissionDocument("update").append("type",type).append("uuid",uuid).append("data",data));
@@ -57,6 +59,7 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
         }
         CommandTeam.forceUpdate();
     }
+
     public void sendToBungeeCord(PermissionDocument dokument){
         if(Bukkit.getOnlineMode()) return;
         if(!Config.SYNCHRONISE_CHANNEL) return;
@@ -78,6 +81,7 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
             System.out.println(Messages.SYSTEM_PREFIX+"Updater: Error - "+exception.getMessage());
         }
     }
+
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] bytes) {
         if(!Config.SYNCHRONISE_CHANNEL) return;
@@ -87,22 +91,23 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
 
             Bukkit.getScheduler().runTaskAsynchronously(BukkitBootstrap.getInstance(),()->{
                 try{
-                    PermissionDocument docuemnt = PermissionDocument.get(in.readUTF());
-                    if(docuemnt.getName().equalsIgnoreCase("group_create")){
-                        UUID uuid = docuemnt.getObject("uuid",UUID.class);
+                    PermissionDocument document = PermissionDocument.get(in.readUTF());
+                    if(document == null) return;
+                    if(document.getName().equalsIgnoreCase("group_create")){
+                        UUID uuid = document.getObject("uuid",UUID.class);
                         PermissionUpdater.getInstance().onPermissionGroupCreate(uuid);
                         Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupCreateEvent(uuid,false));
-                    }else if(docuemnt.getName().equalsIgnoreCase("group_delete")){
-                        UUID uuid = docuemnt.getObject("uuid",UUID.class);
+                    }else if(document.getName().equalsIgnoreCase("group_delete")){
+                        UUID uuid = document.getObject("uuid",UUID.class);
                         final PermissionGroup group = PermissionGroupManager.getInstance().getGroup(uuid);
-                        PermissionUpdater.getInstance().onPermissionGroupDelete(docuemnt.getObject("uuid",UUID.class));
+                        PermissionUpdater.getInstance().onPermissionGroupDelete(document.getObject("uuid",UUID.class));
                         Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupDeleteEvent(group,false));
                         for(Player players : Bukkit.getOnlinePlayers()) BukkitBootstrap.getInstance().updateDisplayName(players);
-                    }else if(docuemnt.getName().equalsIgnoreCase("update")){
-                        Boolean online = false;
-                        UUID uuid = docuemnt.getObject("uuid",UUID.class);
-                        PermissionType type = docuemnt.getObject("type",PermissionType.class);
-                        PermissionUpdateData data = docuemnt.getObject("data",PermissionUpdateData.class);
+                    }else if(document.getName().equalsIgnoreCase("update")){
+                        boolean online = false;
+                        UUID uuid = document.getObject("uuid",UUID.class);
+                        PermissionType type = document.getObject("type",PermissionType.class);
+                        PermissionUpdateData data = document.getObject("data",PermissionUpdateData.class);
                         if(type == PermissionType.PLAYER && Bukkit.getPlayer(uuid) != null) online = true;
                         PermissionUpdater.getInstance().onPermissionUpdate(type,uuid,online);
                         if(type == PermissionType.PLAYER){
@@ -112,8 +117,8 @@ public class SpigotPluginMessageUpdateExecutor implements PermissionUpdateExecut
                             Bukkit.getPluginManager().callEvent(new BukkitPermissionGroupUpdateEvent(uuid,data,false));
                             for(Player players : Bukkit.getOnlinePlayers()) BukkitBootstrap.getInstance().updateDisplayName(players);
                         }
-                    }else if(docuemnt.getName().equalsIgnoreCase("server")){
-                        BukkitBootstrap.getInstance().setServerName(docuemnt.getString("server"));
+                    }else if(document.getName().equalsIgnoreCase("server")){
+                        BukkitBootstrap.getInstance().setServerName(document.getString("server"));
                     }else System.out.println(Messages.SYSTEM_PREFIX+"Updater: Invalid update message.");
                 }catch (Exception exception){
                     System.out.println(Messages.SYSTEM_PREFIX+"Updater: Error - "+exception.getMessage());

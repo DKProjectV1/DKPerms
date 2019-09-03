@@ -14,10 +14,11 @@ import net.md_5.bungee.api.CommandSender;
 
 public class CloudNetV2Extension {
 
-    public static Boolean isCloudSender(CommandSender sender){
+    public static boolean isCloudSender(CommandSender sender){
         return sender instanceof CloudPlayerCommandSender;
     }
-    public static Boolean hasPermission(CommandSender sender,String permission){
+
+    public static boolean hasPermission(CommandSender sender,String permission){
         if(sender instanceof CloudPlayerCommandSender){
             CloudPlayer player = ((CloudPlayerCommandSender)sender).getCloudPlayer();
             if(player != null){

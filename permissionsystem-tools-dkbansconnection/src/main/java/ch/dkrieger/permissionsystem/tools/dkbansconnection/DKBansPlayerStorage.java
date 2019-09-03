@@ -20,15 +20,18 @@ public class DKBansPlayerStorage implements PermissionPlayerStorage{
         if(player != null) return new PermissionPlayer(player.getID(),player.getName(),uuid);
         return null;
     }
+
     public PermissionPlayer getPermissionPlayer(String name) throws Exception {
         NetworkPlayer player = BanSystem.getInstance().getPlayerManager().getPlayer(name);
         if(player != null) return new PermissionPlayer(player.getID(),player.getName(),player.getUUID());
         return null;
     }
+
     public PermissionPlayer createPermissionPlayer(UUID uuid, String name) {
         return null;
     }
+
     public void updateName(UUID uuid, String name) {
-        return;
+        //Ignored
     }
 }

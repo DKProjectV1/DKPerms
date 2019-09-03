@@ -19,7 +19,7 @@ public class ProxiedPermissionPlayerUpdateEvent extends Event {
     private final PermissionUpdateData data;
     private final boolean onThisServer, online;
 
-    public ProxiedPermissionPlayerUpdateEvent(UUID uuid, PermissionUpdateData data, Boolean onThisServer, Boolean online) {
+    public ProxiedPermissionPlayerUpdateEvent(UUID uuid, PermissionUpdateData data, boolean onThisServer, boolean online) {
         this.uuid = uuid;
         this.data = data;
         this.onThisServer = onThisServer;
@@ -28,16 +28,19 @@ public class ProxiedPermissionPlayerUpdateEvent extends Event {
     public UUID getUUID() {
         return uuid;
     }
+
     public PermissionPlayer getPlayer() {
         return PermissionPlayerManager.getInstance().getPermissionPlayer(this.uuid);
     }
+
     public PermissionUpdateData getData(){
         return this.data;
     }
-    public Boolean isOnThisServer() {
+
+    public boolean isOnThisServer() {
         return onThisServer;
     }
-    public Boolean isOnline() {
+    public boolean isOnline() {
         return online;
     }
 }

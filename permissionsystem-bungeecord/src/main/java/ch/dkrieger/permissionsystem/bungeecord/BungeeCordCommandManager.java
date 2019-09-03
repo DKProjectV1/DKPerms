@@ -23,30 +23,36 @@ import java.util.UUID;
 
 public class BungeeCordCommandManager implements PermissionCommandManager{
 
-    private Collection<PermissionCommand> commands;
+    private final Collection<PermissionCommand> commands;
 
     public BungeeCordCommandManager() {
         this.commands = new LinkedHashSet<>();
     }
+
     public Collection<PermissionCommand> getCommands() {
         return this.commands;
     }
+
     public PermissionCommand getCommand(String name) {
+
         for(PermissionCommand command : this.commands) if(command.getName().equalsIgnoreCase(name)) return command;
         return null;
     }
+
     public void registerCommand(final PermissionCommand command) {
         BungeeCord.getInstance().getPluginManager().registerCommand(BungeeCordBootstrap.getInstance()
-                ,new BungeeCordPermissionCommand(command));
+                , new BungeeCordPermissionCommand(command));
     }
-    private class BungeeCordPermissionCommand extends Command implements TabExecutor {
 
-        private PermissionCommand command;
+    private static class BungeeCordPermissionCommand extends Command implements TabExecutor {
+
+        private final PermissionCommand command;
 
         public BungeeCordPermissionCommand(PermissionCommand command) {
             super(command.getName(),null,command.getAliases().toArray(new String[command.getAliases().size()]));
             this.command = command;
         }
+
         @Override
         public void execute(CommandSender sender, String[] args) {
             if(command.getPermission() == null || sender.hasPermission(command.getPermission())){
@@ -56,17 +62,16 @@ public class BungeeCordCommandManager implements PermissionCommandManager{
                 return;
             }
             sender.sendMessage(TextComponent.fromLegacyText(Messages.PREFIX+Messages.NOPERMISSIONS));
-            return;
         }
         @Override
         public Iterable<String> onTabComplete(CommandSender sender, String[] args) {
-            return this.command.tabcomplete(new BungeeCordPermissionCommandSender(sender),args);
+            return this.command.tabComplete(new BungeeCordPermissionCommandSender(sender),args);
         }
     }
 
-    private class BungeeCordPermissionCommandSender implements PermissionCommandSender {
+    private static class BungeeCordPermissionCommandSender implements PermissionCommandSender {
 
-        private CommandSender sender;
+        private final CommandSender sender;
 
         public BungeeCordPermissionCommandSender(CommandSender sender) {
             this.sender = sender;
@@ -81,7 +86,7 @@ public class BungeeCordCommandManager implements PermissionCommandManager{
             else return null;
         }
 
-        public Boolean hasPermission(String permission) {
+        public boolean hasPermission(String permission) {
             return sender.hasPermission(permission);
         }
 

@@ -44,7 +44,8 @@ import java.util.concurrent.TimeUnit;
 
 public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, PermissionTaskManager {
 
-    private static BukkitBootstrap instance;
+    private static BukkitBootstrap INSTANCE;
+
     private BukkitCommandManager commandManager;
     private PermissionUpdateExecutor updateExecutor;
     private String server;
@@ -55,7 +56,7 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
 
     @Override
     public void onLoad() {
-        instance = this;
+        INSTANCE = this;
 
         this.server = Bukkit.getServer().getName();
 
@@ -67,6 +68,7 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
         new PermissionSystem(this,this.updateExecutor,false);
         hook();
     }
+
     @Override
     public void onEnable() {
         //Hook into WorldEdit
@@ -74,6 +76,7 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
             System.out.println(Messages.SYSTEM_PREFIX+"WorldEdit found");
             new WorldEditPermissionResolver();
         }
+
         Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
         Bukkit.getScheduler().runTaskLater(this,()->{
             checkCloudNet();
@@ -119,28 +122,36 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
             }
         },8);
     }
+
     @Override
     public void onDisable() {
         PermissionSystem.getInstance().disable();
     }
+
     public String getPlatformName() {
         return "bukkit";
     }
+
     public String getServerVersion() {
         return Bukkit.getVersion();
     }
+
     public File getFolder() {
         return new File("plugins/DKPerms/");
     }
+
     public PermissionCommandManager getCommandManager() {
         return this.commandManager;
     }
+
     public PermissionTaskManager getTaskManager() {
         return this;
     }
+
     public String translateColorCodes(String value) {
         return ChatColor.translateAlternateColorCodes('&',value);
     }
+
     public String getServerName() {
         return server.toLowerCase();
     }
@@ -151,19 +162,23 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
 
     public void runTaskAsync(Runnable runnable) {
         if(isEnabled()) Bukkit.getScheduler().runTaskAsynchronously(this,runnable);
-        else this.waitingRunnables.add(new WaitingRunnable(runnable,0L,WaitingRunnableType.ASYNC));
+        else this.waitingRunnables.add(new WaitingRunnable(runnable, 0L, WaitingRunnableType.ASYNC));
     }
+
     public void runTaskLater(Runnable runnable, Long duration, TimeUnit unit) {
         if(isEnabled()) Bukkit.getScheduler().runTaskLater(this,runnable,unit.toSeconds(duration)*20);
-        else this.waitingRunnables.add(new WaitingRunnable(runnable,unit.toSeconds(duration)*20,WaitingRunnableType.LATER));
+        else this.waitingRunnables.add(new WaitingRunnable(runnable, unit.toSeconds(duration) * 20, WaitingRunnableType.LATER));
     }
+
     public void scheduleTask(Runnable runnable, Long repet, TimeUnit unit) {
         if(isEnabled()) Bukkit.getScheduler().runTaskTimer(this,runnable,0L,unit.toSeconds(repet)*20);
-        else this.waitingRunnables.add(new WaitingRunnable(runnable,unit.toSeconds(repet)*20,WaitingRunnableType.SCHEDULE));
+        else this.waitingRunnables.add(new WaitingRunnable(runnable, unit.toSeconds(repet) * 20, WaitingRunnableType.SCHEDULE));
     }
+
     public static BukkitBootstrap getInstance() {
-        return instance;
+        return INSTANCE;
     }
+
     public void updateDisplayName(UUID uuid){
         updateDisplayName(Bukkit.getPlayer(uuid), PermissionPlayerManager.getInstance().getPermissionPlayer(uuid));
     }
@@ -210,7 +225,7 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
         }
     }
 
-    private class WaitingRunnable {
+    private static class WaitingRunnable {
 
         private Runnable runnable;
         private Long ticks;
@@ -222,11 +237,13 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
             this.type = type;
         }
     }
+
     private enum WaitingRunnableType {
         ASYNC(),
         LATER(),
         SCHEDULE();
     }
+
     public void setServerName(String server) {
         this.server = server;
     }

@@ -32,6 +32,7 @@ public class CustomQuery extends Query{
                 i++;
             }
             pstatement.executeUpdate();
+            pstatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -17,19 +17,22 @@ public class ProxiedPermissionGroupUpdateEvent extends Event {
 
     private final UUID uuid;
     private final PermissionUpdateData data;
-    private final Boolean onThisServer;
+    private final boolean onThisServer;
 
     public ProxiedPermissionGroupUpdateEvent(UUID uuid, PermissionUpdateData data, boolean onThisServer) {
         this.uuid = uuid;
         this.data = data;
         this.onThisServer = onThisServer;
     }
+
     public PermissionGroup getGroup(){
         return PermissionGroupManager.getInstance().getGroup(this.uuid);
     }
+
     public PermissionUpdateData getData() {
         return this.data;
     }
+
     public boolean isOnThisServer() {
         return onThisServer;
     }

@@ -46,6 +46,7 @@ public class BungeeCordRankChangeCommandExtension extends Plugin implements List
             }
         }
     }
+
     private void executeCommands(List<String> commands, PermissionPlayer player,PermissionGroup group, PermissionUpdateData updateData){
         for(String command : commands){
             BungeeCord.getInstance().getPluginManager().dispatchCommand(BungeeCord.getInstance().getConsole()

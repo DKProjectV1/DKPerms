@@ -190,8 +190,9 @@ public class CommandRank extends PermissionCommand{
         }
         sender.sendMessage("");
     }
+
     @Override
-    public List<String> tabcomplete(PermissionCommandSender sender, String[] args) {
+    public List<String> tabComplete(PermissionCommandSender sender, String[] args) {
         return new LinkedList<>();
     }
 }
