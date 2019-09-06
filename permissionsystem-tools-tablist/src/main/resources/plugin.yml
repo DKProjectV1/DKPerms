@@ -1,9 +1,7 @@
 name: DKPermsTabListExtension
 author: Davide Wietlisbach
-description: 
 version: ${project.version}
 api-version: 1.13
 softdepend: [PlaceHolderAPI]
 
 main: ch.dkrieger.permissionsystem.bukkit.tools.tablist.TabListExtension
-commands:

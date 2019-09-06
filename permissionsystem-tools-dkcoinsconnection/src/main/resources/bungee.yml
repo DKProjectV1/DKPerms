@@ -1,8 +1,6 @@
 name: DKPermsDKCoinsConnection
 author: Davide Wietlisbach
-description: 
 version: ${project.version}
 depends: [DKPerms, DKCoins]
 
 main: ch.dkrieger.permissionsystem.tools.dkcoinsconnection.bungeecord.BungeeCordDKPermsDKCoinsConnection
-commands:

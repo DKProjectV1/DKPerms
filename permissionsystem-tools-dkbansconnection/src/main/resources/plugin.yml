@@ -1,9 +1,7 @@
 name: DKPermsDKBansConnection
 author: Davide Wietlisbach
-description: 
 version: ${project.version}
 api-version: 1.13
 depend: [DKPerms]
 
 main: ch.dkrieger.permissionsystem.tools.dkbansconnection.bukkit.BukkitDKPermsDKBansConnection
-commands:

@@ -1,9 +1,7 @@
 name: DKPermsDKCoinsConnection
 author: Davide Wietlisbach
-description: 
 version: ${project.version}
 api-version: 1.13
 depend: [DKPerms, DKCoins]
 
 main: ch.dkrieger.permissionsystem.tools.dkcoinsconnection.bukkit.BukkitDKPermsDKCoinsConnection
-commands:

@@ -131,12 +131,12 @@ public class Config extends SimpleConfig {
     public void registerDefaults() {
         addValue("advanced",this.advanced);
         addValue("storage.type","YAML");
-        addValue("storage.folder",getPlatform().getFolder()+"/datas/");
+        addValue("storage.folder",getPlatform().getFolder()+"\\data\\");
         addValue("storage.mysql.host","localhost");
         addValue("storage.mysql.port","3306");
         addValue("storage.mysql.user","root");
         addValue("storage.mysql.password","password");
-        addValue("storage.mysql.database","PermissionSystem");
+        addValue("storage.mysql.database","DKPerms");
         addValue("storage.mysql.maxConnections",10);
         addValue("storage.mysql.ssl",false);
 

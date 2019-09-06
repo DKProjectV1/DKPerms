@@ -1,6 +1,5 @@
 name: DKPermsDKBansConnection
 author: Davide Wietlisbach
-description: 
 version: ${project.version}
 depends: [DKPerms]
 

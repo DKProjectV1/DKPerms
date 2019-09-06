@@ -1,6 +1,5 @@
 name: DKPerms
 author: Davide Wietlisbach
-description: 
 version: ${project.version}
 
 main: ch.dkrieger.permissionsystem.bungeecord.BungeeCordBootstrap

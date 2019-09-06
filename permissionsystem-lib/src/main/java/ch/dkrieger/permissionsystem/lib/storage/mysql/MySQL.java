@@ -20,14 +20,14 @@ public class MySQL{
 
 	private HikariDataSource dataSource;
 
-	private String systemname, host, port, user, password, database;
+	private String systemName, host, port, user, password, database;
 
-	public MySQL(String systemname, String host,int port,String user,String password,String database){
-		this(systemname,host,String.valueOf(port),user,password,database);
+	public MySQL(String systemName, String host,int port,String user,String password,String database){
+		this(systemName,host,String.valueOf(port),user,password,database);
 	}
 
-	public MySQL(String systemname, String host,String port,String user,String password,String database){
-		this.systemname = systemname;
+	public MySQL(String systemName, String host,String port,String user,String password,String database){
+		this.systemName = systemName;
 		this.host = host;
 		this.port = port;
 		this.user = user;
@@ -46,20 +46,25 @@ public class MySQL{
 	public boolean connect(){
 		if(!isConnect()){
 			loadDriver();
+
 			System.out.println(Messages.SYSTEM_PREFIX+"connecting to MySQL server at "+this.host+":"+port);
 			HikariConfig configuration = new HikariConfig();
 			configuration.setJdbcUrl("jdbc:mysql://"+host+":"+port+"/"+database);
 			configuration.setUsername(user);
 			configuration.setPassword(password);
+			configuration.setPoolName(getSystemName());
 
-			if(Config.STORAGE_MYSQL_SSL){
-				configuration.addDataSourceProperty("ssl",true);
-				configuration.addDataSourceProperty("useSSL",true);
-			}
+			configuration.addDataSourceProperty("cachePrepStmts",true);
+			configuration.addDataSourceProperty("characterEncoding","utf-8");
+			configuration.addDataSourceProperty("useUnicode",true);
+			configuration.addDataSourceProperty("allowMultiQueries",true);
+
+			configuration.addDataSourceProperty("ssl",Config.STORAGE_MYSQL_SSL);
+			configuration.addDataSourceProperty("useSSL",Config.STORAGE_MYSQL_SSL);
 
 			configuration.setMaximumPoolSize(Config.STORAGE_MYSQL_MAX_CONNECTIONS);
-			this.dataSource = new HikariDataSource(configuration);
-			dataSource.setPoolName(getSystemName());
+
+					this.dataSource = new HikariDataSource(configuration);
 			System.out.println(Messages.SYSTEM_PREFIX+"successful connected to MySQL server at "+this.host+":"+port);
 			return true;
 		}
@@ -85,7 +90,8 @@ public class MySQL{
 		}
 		return null;
 	}
+
 	public String getSystemName(){
-		return this.systemname;
+		return this.systemName;
 	}
 }
