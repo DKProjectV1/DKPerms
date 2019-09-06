@@ -21,7 +21,7 @@ import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateExecutor;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
 import ch.dkrieger.permissionsystem.lib.utils.PermissionDocument;
-import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.event.PluginMessageEvent;
@@ -37,21 +37,21 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
     @Override
     public void executePermissionGroupCreate(UUID uuid) {
         sendToAllSpigotServers(new PermissionDocument("group_create").append("uuid",uuid));
-        BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupCreateEvent(uuid,true));
+        ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupCreateEvent(uuid,true));
         CommandTeam.forceUpdate();
     }
 
     @Override
     public void executePermissionGroupDelete(PermissionGroup group) {
         sendToAllSpigotServers(new PermissionDocument("group_delete").append("uuid",group.getUUID()));
-        BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
+        ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
         CommandTeam.forceUpdate();
     }
 
     @Override
     public void executePermissionUpdate(PermissionType type, UUID uuid, PermissionUpdateData data) {
         sendToAllSpigotServers(new PermissionDocument("update").append("type",type).append("uuid",uuid).append("data",data));
-        BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupUpdateEvent(uuid,data,true));
+        ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupUpdateEvent(uuid,data,true));
         CommandTeam.forceUpdate();
     }
 
@@ -62,7 +62,7 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
             ByteArrayInputStream b = new ByteArrayInputStream(event.getData());
             DataInputStream in = new DataInputStream(b);
 
-            BungeeCord.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(),()->{
+            ProxyServer.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(),()->{
                 try{
                     PermissionDocument document = PermissionDocument.get(in.readUTF());
 
@@ -70,25 +70,25 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
                         UUID uuid = document.getObject("uuid",UUID.class);
                         PermissionUpdater.getInstance().onPermissionGroupCreate(uuid);
                         sendToAllSpigotServers(document,((Server) event.getSender()).getInfo().getName());
-                        BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupCreateEvent(uuid,true));
+                        ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupCreateEvent(uuid,true));
                     }else if(document.getName().equalsIgnoreCase("group_delete")){
                         UUID uuid = document.getObject("uuid",UUID.class);
                         PermissionGroup group = PermissionGroupManager.getInstance().getGroup(uuid);
                         PermissionUpdater.getInstance().onPermissionGroupDelete(uuid);
                         sendToAllSpigotServers(document,((Server) event.getSender()).getInfo().getName());
-                        BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
+                        ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
                     }else if(document.getName().equalsIgnoreCase("update")){
                         boolean online = false;
                         UUID uuid = document.getObject("uuid",UUID.class);
                         PermissionType type = document.getObject("type",PermissionType.class);
                         PermissionUpdateData data = document.getObject("data",PermissionUpdateData.class);
-                        if(type == PermissionType.PLAYER && BungeeCord.getInstance().getPlayer(uuid) != null) online = true;
+                        if(type == PermissionType.PLAYER && ProxyServer.getInstance().getPlayer(uuid) != null) online = true;
                         PermissionUpdater.getInstance().onPermissionUpdate(type,uuid,online);
                         sendToAllSpigotServers(document,((Server) event.getSender()).getInfo().getName());
                         if(type == PermissionType.GROUP){
-                            BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupUpdateEvent(uuid,data,true));
+                            ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupUpdateEvent(uuid,data,true));
                         }else{
-                            BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionPlayerUpdateEvent(uuid,data,true,online));
+                            ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionPlayerUpdateEvent(uuid,data,true,online));
                         }
                     }else if(document.getName().equalsIgnoreCase("getserver")){
                         sendServer(((Server)event.getSender()).getInfo());
@@ -107,7 +107,7 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
 
     @Override
     public void run() {
-        for(ServerInfo server : BungeeCord.getInstance().getServers().values()) sendServer(server);
+        for(ServerInfo server : ProxyServer.getInstance().getServers().values()) sendServer(server);
     }
 
     private void sendToAllSpigotServers(PermissionDocument document){
@@ -115,7 +115,7 @@ public class BungeeCordPluginMessageUpdateExecutor implements PermissionUpdateEx
     }
 
     private void sendToAllSpigotServers(PermissionDocument document, String from){
-        for(ServerInfo server : BungeeCord.getInstance().getServers().values()){
+        for(ServerInfo server : ProxyServer.getInstance().getServers().values()){
             if(from != null && server.getName().equalsIgnoreCase(from)) return;
             sendToSpigotServer(server,document);
         }

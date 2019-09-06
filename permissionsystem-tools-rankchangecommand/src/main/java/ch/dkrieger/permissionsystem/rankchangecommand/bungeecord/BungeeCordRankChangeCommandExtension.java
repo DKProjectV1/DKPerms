@@ -14,7 +14,7 @@ import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateCause;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateOption;
 import ch.dkrieger.permissionsystem.rankchangecommand.RankChangeCommandConfig;
-import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
@@ -28,7 +28,7 @@ public class BungeeCordRankChangeCommandExtension extends Plugin implements List
 
     @Override
     public void onEnable() {
-        BungeeCord.getInstance().getPluginManager().registerListener(this,this);
+        ProxyServer.getInstance().getPluginManager().registerListener(this,this);
         config = new RankChangeCommandConfig();
     }
 
@@ -49,7 +49,7 @@ public class BungeeCordRankChangeCommandExtension extends Plugin implements List
 
     private void executeCommands(List<String> commands, PermissionPlayer player,PermissionGroup group, PermissionUpdateData updateData){
         for(String command : commands){
-            BungeeCord.getInstance().getPluginManager().dispatchCommand(BungeeCord.getInstance().getConsole()
+            ProxyServer.getInstance().getPluginManager().dispatchCommand(ProxyServer.getInstance().getConsole()
                     ,command.replace("[player-name]",player.getName()).replace("[player-uuid]",player.getUUID().toString())
                             .replace("[player-id]",String.valueOf(player.getID())).replace("[duration]",String.valueOf(updateData.getDuration()))
                             .replace("[rank]",group.getName()));

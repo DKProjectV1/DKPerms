@@ -14,7 +14,7 @@ import ch.dkrieger.permissionsystem.bungeecord.event.ProxiedPermissionPlayerUpda
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.tools.dkbansconnection.DKBansPlayerStorage;
-import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
@@ -25,12 +25,12 @@ public class BungeeCordDKPermsDKBansConnection extends Plugin implements Listene
 
     @Override
     public void onEnable() {
-        BungeeCord.getInstance().getScheduler().schedule(this,()->{
-            if(BungeeCord.getInstance().getPluginManager().getPlugin("DKPerms") == null){
+        ProxyServer.getInstance().getScheduler().schedule(this,()->{
+            if(ProxyServer.getInstance().getPluginManager().getPlugin("DKPerms") == null){
                 System.out.println("[DKPermsDKBansConnection] DKPerms not found");
                 return;
             }
-            if(BungeeCord.getInstance().getPluginManager().getPlugin("DKBans") == null){
+            if(ProxyServer.getInstance().getPluginManager().getPlugin("DKBans") == null){
                 System.out.println("[DKPermsDKBansConnection] DKBans not found");
                 return;
             }
@@ -51,7 +51,7 @@ public class BungeeCordDKPermsDKBansConnection extends Plugin implements Listene
 
     @EventHandler
     public void onUpdate(ProxiedPermissionPlayerUpdateEvent event){
-        BungeeCord.getInstance().getScheduler().runAsync(this,()->{
+        ProxyServer.getInstance().getScheduler().runAsync(this,()->{
             NetworkPlayer player = BanSystem.getInstance().getPlayerManager().getPlayer(event.getUUID());
             if(player != null) player.setColor(event.getPlayer().getColor());
         });

@@ -1,12 +1,6 @@
 package ch.dkrieger.permissionsystem.lib.utils;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
+import java.io.File;
 
 /*
  *

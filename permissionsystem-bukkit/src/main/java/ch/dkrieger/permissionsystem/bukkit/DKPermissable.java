@@ -4,7 +4,6 @@ import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.GeneralUtil;
-import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

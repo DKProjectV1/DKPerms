@@ -13,7 +13,7 @@ import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateData;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
 import de.dytanic.cloudnet.ext.bridge.bungee.event.BungeeChannelMessageReceiveEvent;
-import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
@@ -31,27 +31,27 @@ public class BungeeCordCloudNetV3UpdateExecutor implements Listener{
     public void onMessageReceive(BungeeChannelMessageReceiveEvent event){
         if(!Config.SYNCHRONISE_CHANNEL) return;
         if(event.getChannel().equalsIgnoreCase("dkperms")){
-            BungeeCord.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(),()->{
+            ProxyServer.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(),()->{
                 if(event.getMessage().equalsIgnoreCase("group_create")){
                     UUID uuid = event.getData().get("uuid",UUID.class);
                     PermissionUpdater.getInstance().onPermissionGroupCreate(uuid);
-                    BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupCreateEvent(uuid,true));
+                    ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupCreateEvent(uuid,true));
                 }else if(event.getMessage().equalsIgnoreCase("group_delete")){
                     UUID uuid = event.getData().get("uuid",UUID.class);
                     PermissionGroup group = PermissionGroupManager.getInstance().getGroup(uuid);
                     PermissionUpdater.getInstance().onPermissionGroupDelete(uuid);
-                    BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
+                    ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupDeleteEvent(group,true));
                 }else if(event.getMessage().equalsIgnoreCase("update")){
                     boolean online = false;
                     UUID uuid = event.getData().get("uuid",UUID.class);
                     PermissionUpdateData data = event.getData().get("data",PermissionUpdateData.class);
                     PermissionType type = event.getData().get("type",PermissionType.class);
-                    if(type == PermissionType.PLAYER && BungeeCord.getInstance().getPlayer(uuid) != null) online = true;
+                    if(type == PermissionType.PLAYER && ProxyServer.getInstance().getPlayer(uuid) != null) online = true;
                     PermissionUpdater.getInstance().onPermissionUpdate(type,uuid,online);
                     if(type == PermissionType.GROUP){
-                        BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupUpdateEvent(uuid,data,true));
+                        ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionGroupUpdateEvent(uuid,data,true));
                     }else{
-                        BungeeCord.getInstance().getPluginManager().callEvent(new ProxiedPermissionPlayerUpdateEvent(uuid,data,true,online));
+                        ProxyServer.getInstance().getPluginManager().callEvent(new ProxiedPermissionPlayerUpdateEvent(uuid,data,true,online));
                     }
                 }else System.out.println(Messages.SYSTEM_PREFIX+"Updater: Invalid update message.");
             });

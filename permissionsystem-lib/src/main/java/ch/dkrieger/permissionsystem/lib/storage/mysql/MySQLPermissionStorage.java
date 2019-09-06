@@ -5,7 +5,7 @@ package ch.dkrieger.permissionsystem.lib.storage.mysql;
  *  * Copyright (c) 2018 Davide Wietlisbach on 09.06.18 20:43
  *
  */
-import ch.dkrieger.permissionsystem.lib.PermissionSystem;
+
 import ch.dkrieger.permissionsystem.lib.PermissionType;
 import ch.dkrieger.permissionsystem.lib.permission.PermissionEntity;
 import ch.dkrieger.permissionsystem.lib.permission.PermissionStorage;

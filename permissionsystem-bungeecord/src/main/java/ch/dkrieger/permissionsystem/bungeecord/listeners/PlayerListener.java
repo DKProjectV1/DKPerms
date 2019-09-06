@@ -12,21 +12,22 @@ import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
-import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.event.PermissionCheckEvent;
 import net.md_5.bungee.api.plugin.Listener;
-import net.md_5.bungee.command.ConsoleCommandSender;
 import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
 
 public class PlayerListener implements Listener{
 
+    public static final String CONSOLE_COMMAND_SENDER_CLASS = "net.md_5.bungee.command.ConsoleCommandSender";
+
     @EventHandler(priority=80)
     public void onLogin(LoginEvent event){
-        if(BungeeCord.getInstance().getConfig().isOnlineMode() && !(event.getConnection().isOnlineMode())) return;
+        if(ProxyServer.getInstance().getConfig().isOnlineMode() && !(event.getConnection().isOnlineMode())) return;
         PermissionPlayer player = null;
         try{
             player = PermissionPlayerManager.getInstance().getPermissionPlayerSave(event.getConnection().getUniqueId());
@@ -45,8 +46,8 @@ public class PlayerListener implements Listener{
             player = PermissionPlayerManager.getInstance().createPermissionPlayer(event.getConnection().getUniqueId()
                     ,event.getConnection().getName());
         }else PermissionPlayerManager.getInstance().checkName(event.getConnection().getUniqueId(),event.getConnection().getName());
-        if(BungeeCord.getInstance().getPlayers().size() == 0){
-            BungeeCord.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(),()->{
+        if(ProxyServer.getInstance().getPlayers().size() == 0){
+            ProxyServer.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(),()->{
                 PermissionSystem.getInstance().syncGroups();
             });
         }
@@ -59,7 +60,7 @@ public class PlayerListener implements Listener{
                     .getPermissionPlayer(((ProxiedPlayer)event.getSender()).getUniqueId());
             if(player != null) event.setHasPermission(player.hasPermission(event.getPermission()));
             else event.setHasPermission(false);
-        }else if(event.getSender() instanceof ConsoleCommandSender) event.setHasPermission(true);
+        }else if(event.getSender().getClass().getName().equals(CONSOLE_COMMAND_SENDER_CLASS)) event.setHasPermission(true);
         else if(BungeeCordBootstrap.getInstance().isCloudNetV2() && CloudNetV2Extension.isCloudSender(event.getSender())){
             event.setHasPermission(CloudNetV2Extension.hasPermission(event.getSender(),event.getPermission()));
         }else PermissionSystem.getInstance().debug(PermissionSystem.PermissionInfoLevel.WARN,null,"Command sender "+event.getSender().getClass().toString()+" is not supported.");
