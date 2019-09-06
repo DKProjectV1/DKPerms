@@ -45,9 +45,9 @@
             <version>1.2.9</version>
         </dependency>
         <dependency>
-            <groupId>ch.dkrieger.permissionsystem.bukkit</groupId>
+            <groupId>ch.dkrieger.permissionsystem</groupId>
             <artifactId>permissionsystem-bukkit</artifactId>
-            <version>1.2.7</version>
+            <version>1.2.9</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
