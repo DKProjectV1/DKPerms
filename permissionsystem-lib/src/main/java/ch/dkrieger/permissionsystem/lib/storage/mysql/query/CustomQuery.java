@@ -13,8 +13,6 @@ import java.sql.SQLException;
 
 public class CustomQuery extends Query{
 
-    private PreparedStatement pstatement;
-
     public CustomQuery(Connection connection) {
         super(connection, "");
     }
@@ -25,7 +23,7 @@ public class CustomQuery extends Query{
     public void execute(String query) {
         this.query = query;
         try(Connection connection = this.connection) {
-            pstatement = connection.prepareStatement(query);
+            PreparedStatement pstatement = connection.prepareStatement(query);
             int i = 1;
             for (Object object : values) {
                 pstatement.setString(i, object.toString());
@@ -38,7 +36,7 @@ public class CustomQuery extends Query{
         }
     }
     public ResultSet executeAndGetResult(String query) throws SQLException{
-        pstatement = connection.prepareStatement(query);
+        PreparedStatement pstatement = connection.prepareStatement(query);
         int i = 1;
         for(Object object : values) {
             pstatement.setString(i, object.toString());
@@ -65,6 +63,6 @@ public class CustomQuery extends Query{
         }catch (Exception exception){}
     }
     public void close() throws SQLException{
-        if(pstatement != null)  pstatement.close();
+        getConnection().close();
     }
 }

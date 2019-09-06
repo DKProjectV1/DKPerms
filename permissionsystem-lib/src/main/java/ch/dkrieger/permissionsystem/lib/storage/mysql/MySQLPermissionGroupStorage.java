@@ -45,8 +45,8 @@ public class MySQLPermissionGroupStorage implements PermissionGroupStorage{
                             ,result.getString("color"))));
                 }
             }finally {
-                query.close();
                 result.close();
+                query.close();
             }
         }catch (SQLException e){
             e.printStackTrace();

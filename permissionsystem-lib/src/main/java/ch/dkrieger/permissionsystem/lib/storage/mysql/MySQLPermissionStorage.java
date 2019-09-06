@@ -23,8 +23,6 @@ import java.util.UUID;
 
 public class MySQLPermissionStorage implements PermissionStorage{
 
-    private int reconnect = 0;
-
     @Override
     public PermissionData getPermissions(PermissionType type, UUID uuid) {
         int count = 0;
@@ -85,8 +83,8 @@ public class MySQLPermissionStorage implements PermissionStorage{
                     }
                 }
             }finally {
-                query.close();
                 result.close();
+                query.close();
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -170,10 +168,6 @@ public class MySQLPermissionStorage implements PermissionStorage{
     }
     @Override
     public void onTimeOutDeleteTask() {
-        if(this.reconnect >= 36){
-            this.reconnect = 0;
-            PermissionSystem.getInstance().getMySQL().reconnect();
-        }else this.reconnect++;
         QueryBuilder query = new QueryBuilder();
         query.append(TableManager.getInstance().getPermissionTable().delete().whereLower("timeout",System.currentTimeMillis())
                 .whereHigher("timeout",0));

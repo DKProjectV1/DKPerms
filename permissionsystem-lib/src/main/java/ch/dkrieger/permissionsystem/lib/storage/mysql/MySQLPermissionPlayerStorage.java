@@ -29,8 +29,8 @@ public class MySQLPermissionPlayerStorage implements PermissionPlayerStorage{
             result.first();
             return getPermissionPlayer(result);
         }finally{
-            query.close();
             result.close();
+            query.close();
         }
     }
     @Override
@@ -43,13 +43,12 @@ public class MySQLPermissionPlayerStorage implements PermissionPlayerStorage{
             result.first();
             return getPermissionPlayer(result);
         }finally{
-            query.close();
             result.close();
+            query.close();
         }
     }
     private PermissionPlayer getPermissionPlayer(ResultSet result) throws SQLException{
-        return new PermissionPlayer(result.getInt("id"),result.getString("name")
-        ,UUID.fromString(result.getString("uuid")));
+        return new PermissionPlayer(result.getInt("id"),result.getString("name"),UUID.fromString(result.getString("uuid")));
     }
     @Override
     public PermissionPlayer createPermissionPlayer(UUID uuid, String name) {
@@ -73,8 +72,8 @@ public class MySQLPermissionPlayerStorage implements PermissionPlayerStorage{
                             .where("id",result.getInt("id")));
                 }
             }finally{
-                query.close();
                 result.close();
+                query.close();
             }
             builder.buildAndExecute();
         }catch (Exception exception){}

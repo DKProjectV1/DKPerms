@@ -16,7 +16,7 @@ import java.sql.SQLException;
  *
  */
 
-public class MySQL implements Runnable{
+public class MySQL{
 
 	private HikariDataSource dataSource;
 
@@ -52,20 +52,14 @@ public class MySQL implements Runnable{
 			configuration.setUsername(user);
 			configuration.setPassword(password);
 
-			//configuration.addDataSourceProperty("cachePrepStmts", true);
-			//configuration.addDataSourceProperty("prepStmtCacheSize", 250);
-			//configuration.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
-			//configuration.addDataSourceProperty("autoReconnect", true);
-			//configuration.addDataSourceProperty("allowMultiQueries", true);
-			//configuration.addDataSourceProperty("reconnectAtTxEnd", true);
-
 			if(Config.STORAGE_MYSQL_SSL){
 				configuration.addDataSourceProperty("ssl",true);
 				configuration.addDataSourceProperty("useSSL",true);
 			}
 
-			configuration.setMaximumPoolSize(10);
+			configuration.setMaximumPoolSize(Config.STORAGE_MYSQL_MAX_CONNECTIONS);
 			this.dataSource = new HikariDataSource(configuration);
+			dataSource.setPoolName(getSystemName());
 			System.out.println(Messages.SYSTEM_PREFIX+"successful connected to MySQL server at "+this.host+":"+port);
 			return true;
 		}
@@ -77,11 +71,6 @@ public class MySQL implements Runnable{
 			this.dataSource.close();
 			System.out.println(Messages.SYSTEM_PREFIX+"successful disconnected from MySQL server at "+this.host+":"+port);
 		}
-	}
-
-	public void reconnect(){
-		disconnect();
-		connect();
 	}
 
 	public boolean isConnect(){
@@ -98,10 +87,5 @@ public class MySQL implements Runnable{
 	}
 	public String getSystemName(){
 		return this.systemname;
-	}
-	@Override
-	public void run() {
-		disconnect();
-		connect();
 	}
 }

@@ -50,7 +50,7 @@ public class SelectQuery extends  Query{
     }
 
     public void close() throws SQLException {
-        if(connection != null) connection.close();
         if(pstatement != null)  pstatement.close();
+        if(connection != null) connection.close();
     }
 }
