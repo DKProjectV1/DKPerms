@@ -23,6 +23,6 @@ jobs:
         DST_REPO_NAME: repository
         DST_PATH: /test/
         GH_PAT: ${{ secrets.GH_PAT }}
-        SRC_PATH: ./home/runner/.m2/repository/
+        SRC_PATH: ../home/runner/.m2/repository/
         USERNAME: nutsbot
         EMAIL: andr3.storhaug+bot@gmail.com
