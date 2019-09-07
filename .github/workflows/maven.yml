@@ -15,7 +15,6 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn install --file pom.xml
-    - uses: actions/checkout@master
     - name: Copy to repository
       uses: andstor/copycat-action@v1.1.0
       env:
@@ -23,6 +22,7 @@ jobs:
         DST_OWNER: DevKrieger
         DST_REPO_NAME: DKPerms
         DST_PATH: /home/runner/.m2/repository/
+        GH_PAT: ${{ secrets.GH_PAT }}
         SRC_BRANCH: master
         SRC_PATH: /.
         USERNAME: nutsbot
