@@ -20,10 +20,10 @@ jobs:
       env:
         DST_BRANCH: master
         DST_OWNER: DevKrieger
-        DST_REPO_NAME: DKPerms
-        DST_PATH: /home/runner/.m2/repository/
+        DST_REPO_NAME: repository
+        DST_PATH: /test/
         GH_PAT: ${{ secrets.GH_PAT }}
         SRC_BRANCH: master
-        SRC_PATH: /.
+        SRC_PATH: /home/runner/.m2/repository/
         USERNAME: nutsbot
         EMAIL: andr3.storhaug+bot@gmail.com
