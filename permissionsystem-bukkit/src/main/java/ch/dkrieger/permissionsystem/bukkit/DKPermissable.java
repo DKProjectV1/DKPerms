@@ -66,12 +66,21 @@ public class DKPermissable extends PermissibleBase {
 
 	@Override
 	public boolean isPermissionSet(Permission perm){
-		return hasPermission(perm);
+		return isPermissionSet(perm.getName());
 	}
 
 	@Override
 	public boolean isPermissionSet(String permission) {
-		return hasPermission(permission);
+		PermissionPlayer permissionplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(this.uuid);
+		if(permissionplayer == null) return false;
+		String world = null;
+
+		Player bukkitPlayer = Bukkit.getPlayer(this.uuid);
+		if(bukkitPlayer != null){
+			World bukkitWorld = bukkitPlayer.getWorld();
+			if(bukkitWorld != null) world = bukkitWorld.getName();
+		}
+		return permissionplayer.isPermissionSet(permission,BukkitBootstrap.getInstance().getServerName(),world);
 	}
 
 	@Override

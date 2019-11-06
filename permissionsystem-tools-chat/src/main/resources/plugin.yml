@@ -4,5 +4,5 @@ version: ${project.version}
 depend: [DKPerms]
 api-version: 1.13
 
-main: ch.dkrieger.permissionsystem.bukkit.tools.chat.ChatExtension
+main: ch.dkrieger.permissionsystem.tools.chat.bukkit.BukkitChatExtension
 

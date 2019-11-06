@@ -8,6 +8,8 @@ package ch.dkrieger.permissionsystem.lib.player;
 
 public class PlayerDesign {
 
+    public static PlayerDesign EMPTY = new PlayerDesign("","","","");
+
     private String prefix, suffix, display, color;
 
     public PlayerDesign(String prefix, String suffix, String display, String color) {

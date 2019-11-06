@@ -13,8 +13,8 @@ import java.sql.SQLException;
 
 public class CustomQuery extends Query{
 
-    public CustomQuery(Connection connection) {
-        super(connection, "");
+    public CustomQuery() {
+        super(null);
     }
 
     public void execute(){
@@ -22,7 +22,7 @@ public class CustomQuery extends Query{
     }
     public void execute(String query) {
         this.query = query;
-        try(Connection connection = this.connection) {
+        try(Connection connection = getConnection()) {
             PreparedStatement pstatement = connection.prepareStatement(query);
             int i = 1;
             for (Object object : values) {
@@ -35,33 +35,26 @@ public class CustomQuery extends Query{
             e.printStackTrace();
         }
     }
-    public ResultSet executeAndGetResult(String query) throws SQLException{
-        PreparedStatement pstatement = connection.prepareStatement(query);
-        int i = 1;
-        for(Object object : values) {
-            pstatement.setString(i, object.toString());
-            i++;
-        }
-        ResultSet result = pstatement.executeQuery();
-        return result;
-    }
+
     public void executeSave(String query) throws SQLException{
         this.query = query;
-        PreparedStatement pstatement;
-        pstatement = connection.prepareStatement(query);
-        int i = 1;
-        for (Object object : values) {
-            pstatement.setString(i, object.toString());
-            i++;
+        try(Connection connection = getConnection()){
+            PreparedStatement statement = connection.prepareStatement(query);
+            int i = 1;
+            for (Object object : values) {
+                statement.setString(i, object.toString());
+                i++;
+            }
+            statement.executeUpdate();
+            statement.close();
         }
-        pstatement.executeUpdate();
-        pstatement.close();
-        connection.close();
     }
+
     public void executeWithOutError(String query){
         try{ executeSave(query);
-        }catch (Exception exception){}
+        }catch (Exception ignored){}
     }
+
     public void close() throws SQLException{
         getConnection().close();
     }

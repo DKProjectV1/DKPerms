@@ -14,9 +14,10 @@ import java.sql.SQLException;
 public class SelectQuery extends  Query{
 
     private PreparedStatement pstatement;
+    private Connection connection;
 
-    public SelectQuery(Connection connection, String query) {
-        super(connection, query);
+    public SelectQuery(String query) {
+        super( query);
     }
 
     public SelectQuery where(String key, Object value) {
@@ -40,6 +41,7 @@ public class SelectQuery extends  Query{
     }
 
     public ResultSet execute() throws SQLException{
+        connection = getConnection();
         pstatement = connection.prepareStatement(query);
         int i = 1;
         for (Object object : values) {

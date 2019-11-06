@@ -1,5 +1,7 @@
 package ch.dkrieger.permissionsystem.lib.storage.mysql.query;
 
+import ch.dkrieger.permissionsystem.lib.PermissionSystem;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -43,7 +45,7 @@ public class QueryBuilder {
 
     public void execute(){
         if(queries.size() <= 0) return;
-        try(Connection connection = queries.get(0).getConnection()) {
+        try(Connection connection = PermissionSystem.getInstance().getMySQL().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             int i = 1;
             for(Query query : this.queries){

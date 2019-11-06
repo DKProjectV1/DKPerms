@@ -59,6 +59,13 @@ public class PlaceHolderAPIHook {
                     PermissionGroup group = PermissionGroupManager.getInstance().getHighestDefaultGroup();
                     if(group != null) return group.getPlayerDesign().getColor()+group.getName();
                 }
+            }else if(identifier.equalsIgnoreCase("rank_expiry")){
+                PermissionPlayer permissionplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId());
+                if(permissionplayer != null){
+                    PermissionGroupEntity group = permissionplayer.getHighestGroupEntity();
+                    if(group != null) return group.getRemainingFormatted();
+                }
+                return Messages.PLACEHOLDER_EXPIRY_NEVER;
             }else if(identifier.equalsIgnoreCase("ranks")){
                 PermissionPlayer permissionplayer = PermissionPlayerManager.getInstance().getPermissionPlayer(player.getUniqueId());
                 List<PermissionGroup> groups;

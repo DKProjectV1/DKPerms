@@ -13,8 +13,8 @@ import java.sql.SQLException;
 
 public class InsertQuery extends Query{
 
-    public InsertQuery(Connection connection, String query) {
-        super(connection, query);
+    public InsertQuery(String query) {
+        super( query);
     }
 
     public InsertQuery insert(String insert) {
@@ -33,7 +33,7 @@ public class InsertQuery extends Query{
     }
 
     public void execute(){
-        try(Connection connection = this.connection) {
+        try(Connection connection = getConnection()) {
             PreparedStatement pstatement = connection.prepareStatement(query);
             int i = 1;
             for (Object object : values) {
@@ -48,7 +48,7 @@ public class InsertQuery extends Query{
     }
 
     public Object executeAndGetKey(){
-        try(Connection connection = this.connection) {
+        try(Connection connection = getConnection()) {
             PreparedStatement pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 1;
             for(Object object : values) {
@@ -69,7 +69,7 @@ public class InsertQuery extends Query{
     }
 
     public int executeAndGetKeyInInt(){
-        try(Connection connection = this.connection) {
+        try(Connection connection = getConnection()) {
             PreparedStatement pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 1;
             for(Object object : values) {

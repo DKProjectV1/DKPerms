@@ -1,10 +1,4 @@
-package ch.dkrieger.permissionsystem.bukkit.tools.chat;
-
-/*
- *
- *  * Copyright (c) 2018 Davide Wietlisbach on 09.07.18 17:46
- *
- */
+package ch.dkrieger.permissionsystem.tools.chat.bukkit;
 
 import ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
@@ -18,7 +12,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ChatExtension extends JavaPlugin implements Listener{
+/*
+ *
+ *  * Copyright (c) 2018 Davide Wietlisbach on 20.09.19, 19:41
+ *
+ */
+
+public class BukkitChatExtension extends JavaPlugin implements Listener{
 
     private String format;
 

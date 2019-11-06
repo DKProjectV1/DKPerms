@@ -33,7 +33,7 @@ public class PermissionImportManager {
     }
 
     public PermissionImport getImport(String name){
-        PermissionImport imp = this.imports.get(name);
+        PermissionImport imp = this.imports.get(name.toLowerCase());
         if(imp != null && imp.isAvailable()) return imp;
         return null;
     }

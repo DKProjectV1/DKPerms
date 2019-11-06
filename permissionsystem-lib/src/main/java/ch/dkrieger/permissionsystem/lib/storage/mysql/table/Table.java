@@ -24,15 +24,15 @@ public class Table {
     }
 
     public CreateQuery create(){
-        return new CreateQuery(mysql.getConnection(),"CREATE TABLE IF NOT EXISTS `"+this.name+"` (");
+        return new CreateQuery("CREATE TABLE IF NOT EXISTS `"+this.name+"` (");
     }
 
     public InsertQuery insert(){
-        return new InsertQuery(mysql.getConnection(),"INSERT INTO `"+this.name+"` (");
+        return new InsertQuery("INSERT INTO `"+this.name+"` (");
     }
 
     public UpdateQuery update(){
-        return new UpdateQuery(mysql.getConnection(),"UPDATE `"+this.name+"` SET");
+        return new UpdateQuery("UPDATE `"+this.name+"` SET");
     }
 
     public SelectQuery select(){
@@ -40,14 +40,14 @@ public class Table {
     }
 
     public SelectQuery select(String selection){
-        return new SelectQuery(mysql.getConnection(), "SELECT "+selection+" FROM `"+this.name+"`");
+        return new SelectQuery( "SELECT "+selection+" FROM `"+this.name+"`");
     }
 
     public DeleteQuery delete(){
-        return new DeleteQuery(mysql.getConnection(), "DELETE FROM `"+this.name+"`");
+        return new DeleteQuery( "DELETE FROM `"+this.name+"`");
     }
 
     public CustomQuery query(){
-        return new CustomQuery(mysql.getConnection());
+        return new CustomQuery();
     }
 }

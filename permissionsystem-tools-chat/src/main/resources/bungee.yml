@@ -1,0 +1,6 @@
+name: DKPermsChatExtension
+author: Davide Wietlisbach
+version: ${project.version}
+depends: [DKPerms]
+
+main: ch.dkrieger.permissionsystem.tools.chat.bungeecord.BungeeCordChatExtension

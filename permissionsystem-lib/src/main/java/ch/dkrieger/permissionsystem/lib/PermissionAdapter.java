@@ -168,6 +168,32 @@ public class PermissionAdapter {
         return has;
     }
 
+    public boolean isPermissionSet(String permission){
+        return isPermissionSet(permission,null,null);
+    }
+
+    public boolean isPermissionSet(String permission, String server){
+        return isPermissionSet(permission,server,null);
+    }
+
+    public boolean isPermissionSet(String permission, String server, String world){
+        permission = permission.toLowerCase();
+        if(server != null) server = server.toLowerCase();
+        if(world != null) world = world.toLowerCase();
+
+        Iterator<PermissionEntity> iterator = getAllPermissions(server,world).iterator();
+        PermissionEntity permissions;
+        while(iterator.hasNext() && (permissions=iterator.next()) != null){
+            if(!permissions.hasTimeOut()){
+                String perm = permissions.getPermission();
+                if(perm.startsWith("-")) perm = perm.replaceFirst("-","");
+                if(perm.equalsIgnoreCase(permission)) return true;
+            }
+        }
+        return false;
+    }
+
+
     public boolean isInGroup(String group){
         return isInGroup(PermissionGroupManager.getInstance().getGroup(group));
     }

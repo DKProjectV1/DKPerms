@@ -25,7 +25,6 @@ public class MySQLPermissionStorage implements PermissionStorage{
 
     @Override
     public PermissionData getPermissions(PermissionType type, UUID uuid) {
-        int count = 0;
         PermissionData data = new PermissionData();
         try {
             SelectQuery query = TableManager.getInstance().getPermissionTable().select().where("permissiontype",type)
@@ -34,7 +33,6 @@ public class MySQLPermissionStorage implements PermissionStorage{
             if(result == null) return data;
             try {
                 while(result.next()){
-                    count++;
                     if(result.getString("type").equalsIgnoreCase("global")){
                         if(result.getString("world").equalsIgnoreCase("-1")){
                             data.getPermissions().add(new PermissionEntity(result.getLong("timeout")

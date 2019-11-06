@@ -181,6 +181,9 @@ public class MessageConfig extends SimpleConfig{
         Messages.TEAM_LIST_FOOTER = get("team.list.footer");
         Messages.TEAM_LIST_FORMAT_GROUP = get("team.list.format.group");
         Messages.TEAM_LIST_FORMAT_PLAYER = get("team.list.format.player");
+
+        Messages.PLACEHOLDER_EXPIRY_NEVER = get("placeholder.expiry.never");
+        Messages.PLACEHOLDER_EXPIRY_TEMPORARY = get("placeholder.expiry.temporary");
     }
 
     @Override
@@ -417,6 +420,9 @@ public class MessageConfig extends SimpleConfig{
         addValue("team.list.footer","");
         addValue("team.list.format.group","&8» &7[color][name] &8| &7[description]");
         addValue("team.list.format.player"," &8- &7[color][player]");
+
+        addValue("placeholder.expiry.never","&cNever");
+        addValue("placeholder.expiry.temporary","&c[time] &7[unit]");
     }
 
     public String get(String path){

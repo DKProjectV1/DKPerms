@@ -22,6 +22,7 @@ public class Messages {
     public static String ERROR;
     public static String NOPERMISSIONS;
 
+    public static String UNIT_PERMANENT;
     public static String UNIT_SECOND_SINGULAR;
     public static String UNIT_SECOND_PLURAL;
     public static String UNIT_MINUTE_SINGULAR;
@@ -179,6 +180,9 @@ public class Messages {
     public static String TEAM_LIST_FOOTER;
     public static String TEAM_LIST_FORMAT_GROUP;
     public static String TEAM_LIST_FORMAT_PLAYER;
+
+    public static String PLACEHOLDER_EXPIRY_NEVER;
+    public static String PLACEHOLDER_EXPIRY_TEMPORARY;
 
     public static String getMessage(Long duration, TimeUnit unit){
         if(unit == TimeUnit.SECONDS){

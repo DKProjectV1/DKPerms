@@ -56,7 +56,7 @@ public class PermissionGroupManager {
     public PermissionGroup getHighestDefaultGroup(){
         Map<Integer,PermissionGroup> grouplist = new TreeMap<>();
         for(PermissionGroup group : this.groups) if(group.isDefault()) grouplist.put(group.getPriority(),group);
-        for(Integer priority : grouplist.keySet()) return grouplist.get(priority);
+        for(int priority : grouplist.keySet()) return grouplist.get(priority);
         return null;
     }
 

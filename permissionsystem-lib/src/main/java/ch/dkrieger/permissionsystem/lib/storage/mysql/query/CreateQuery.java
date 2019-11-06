@@ -12,8 +12,8 @@ import java.sql.Statement;
 
 public class CreateQuery extends Query {
 
-    public CreateQuery(Connection connection, String query){
-        super(connection, query);
+    public CreateQuery(String query){
+        super( query);
         firstvalue = true;
     }
 
@@ -25,7 +25,7 @@ public class CreateQuery extends Query {
     }
 
     public void execute(){
-        try(Connection connection = this.connection) {
+        try(Connection connection = getConnection()) {
             Statement statement = connection.createStatement();
             statement.execute(query);
             statement.close();

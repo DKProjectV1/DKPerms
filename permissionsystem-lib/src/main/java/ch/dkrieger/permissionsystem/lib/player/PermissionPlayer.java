@@ -42,6 +42,12 @@ public class PermissionPlayer extends PermissionAdapter {
         }else return groups.get(0);
     }
 
+    public PermissionGroupEntity getHighestGroupEntity(){
+        List<PermissionGroupEntity> groups = getSortedGroupEntities();
+        if(groups != null && groups.size() > 0) return groups.get(0);
+        return null;
+    }
+
     public int getJoinPower(){
         int joinPower = 0;
         for(PermissionGroupEntity entity : this.groups){
@@ -56,7 +62,9 @@ public class PermissionPlayer extends PermissionAdapter {
     public PlayerDesign getPlayerDesign(){
         PermissionGroup group = getHighestGroup();
         if(group != null) return group.getPlayerDesign();
-        return PermissionGroupManager.getInstance().getHighestDefaultGroup().getPlayerDesign();
+        PermissionGroup defaultGroup =  PermissionGroupManager.getInstance().getHighestDefaultGroup();
+        if(defaultGroup != null) return defaultGroup.getPlayerDesign();
+        return PlayerDesign.EMPTY;
     }
 
     public void setName(String name){

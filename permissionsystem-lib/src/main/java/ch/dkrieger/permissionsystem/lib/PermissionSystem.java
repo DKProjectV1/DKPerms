@@ -69,6 +69,7 @@ public class PermissionSystem {
 
         System.out.println(Messages.SYSTEM_PREFIX+"plugin is starting");
         System.out.println(Messages.SYSTEM_PREFIX+"PermissionSystem "+this.version+" by Davide Wietlisbach");
+        System.out.println(Messages.SYSTEM_PREFIX+"Licensed to "+TestSpigotMcLicensing.USER+" | "+TestSpigotMcLicensing.DOWNLOAD);
 
         systemBootstrap(updateexecutor,advanced);
 

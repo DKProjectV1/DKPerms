@@ -76,6 +76,6 @@ public class MySQLPermissionPlayerStorage implements PermissionPlayerStorage{
                 query.close();
             }
             builder.buildAndExecute();
-        }catch (Exception exception){}
+        }catch (Exception ignored){}
     }
 }

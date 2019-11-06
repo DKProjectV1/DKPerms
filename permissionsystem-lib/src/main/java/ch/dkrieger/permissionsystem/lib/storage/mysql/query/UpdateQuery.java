@@ -12,8 +12,8 @@ import java.sql.SQLException;
 
 public class UpdateQuery extends Query {
 
-    public UpdateQuery(Connection connection, String query) {
-        super(connection, query);
+    public UpdateQuery(String query) {
+        super( query);
     }
 
     public UpdateQuery set(String field, Object value) {
@@ -34,7 +34,7 @@ public class UpdateQuery extends Query {
     }
 
     public void execute() {
-        try(Connection connection = this.connection) {
+        try(Connection connection = getConnection()) {
             PreparedStatement pstatement = connection.prepareStatement(query);
             int i = 1;
             for(Object object : values) {

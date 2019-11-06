@@ -12,8 +12,8 @@ import java.sql.SQLException;
 
 public class DeleteQuery extends Query {
 
-    public DeleteQuery(Connection connection, String query) {
-        super(connection, query);
+    public DeleteQuery(String query) {
+        super( query);
         this.firstvalue = true;
     }
 
@@ -54,7 +54,7 @@ public class DeleteQuery extends Query {
     }
 
     public void execute() {
-        try(Connection connection = this.connection) {
+        try(Connection connection = getConnection()) {
             PreparedStatement pstatement = connection.prepareStatement(query);
             int i = 1;
             for (Object object : values) {
