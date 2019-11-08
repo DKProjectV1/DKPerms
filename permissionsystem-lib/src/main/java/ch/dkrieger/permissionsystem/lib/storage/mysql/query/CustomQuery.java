@@ -2,7 +2,6 @@ package ch.dkrieger.permissionsystem.lib.storage.mysql.query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /*
@@ -20,6 +19,7 @@ public class CustomQuery extends Query{
     public void execute(){
         throw new UnsupportedOperationException("Not allowed in custom query");
     }
+
     public void execute(String query) {
         this.query = query;
         try(Connection connection = getConnection()) {

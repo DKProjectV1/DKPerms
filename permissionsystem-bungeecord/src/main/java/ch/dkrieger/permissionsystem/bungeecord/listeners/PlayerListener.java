@@ -8,6 +8,7 @@ package ch.dkrieger.permissionsystem.bungeecord.listeners;
 
 import ch.dkrieger.permissionsystem.bungeecord.BungeeCordBootstrap;
 import ch.dkrieger.permissionsystem.bungeecord.CloudNetV2Extension;
+import ch.dkrieger.permissionsystem.bungeecord.CloudNetV3Extension;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
@@ -63,6 +64,8 @@ public class PlayerListener implements Listener{
         }else if(event.getSender().getClass().getName().equals(CONSOLE_COMMAND_SENDER_CLASS)) event.setHasPermission(true);
         else if(BungeeCordBootstrap.getInstance().isCloudNetV2() && CloudNetV2Extension.isCloudSender(event.getSender())){
             event.setHasPermission(CloudNetV2Extension.hasPermission(event.getSender(),event.getPermission()));
+        }else if(BungeeCordBootstrap.getInstance().isCloudNetV3() && CloudNetV3Extension.isCloudSender(event.getSender())){
+            event.setHasPermission(CloudNetV3Extension.hasPermission(event.getSender(),event.getPermission()));
         }else PermissionSystem.getInstance().debug(PermissionSystem.PermissionInfoLevel.WARN,null,"Command sender "+event.getSender().getClass().toString()+" is not supported.");
     }
 }
