@@ -14,4 +14,15 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn package --file pom.xml
+      run: mvn compile -PmavenBuild
+    - name: Copy to repository
+      uses: andstor/copycat-action@v1.1.0
+      env:
+        DST_BRANCH: master
+        DST_OWNER: DevKrieger
+        DST_REPO_NAME: repository
+        DST_PATH: /test/
+        GH_PAT: ${{ secrets.GH_PAT }}
+        SRC_PATH: repository/
+        USERNAME: nutsbot
+        EMAIL: andr3.storhaug+bot@gmail.com

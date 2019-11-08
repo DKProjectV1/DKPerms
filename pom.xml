@@ -34,6 +34,14 @@
             </resource>
         </resources>
     </build>
+    <profiles>
+      <profile>
+        <id>mavenBuild</id>
+        <build>
+            <directory>repository</directory>
+        </build>
+      </profile>
+    </profiles>
 
     <properties>
         <timestamp>${maven.build.timestamp}</timestamp>
