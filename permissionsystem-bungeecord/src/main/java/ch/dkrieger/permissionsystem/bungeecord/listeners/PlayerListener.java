@@ -18,6 +18,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.event.PermissionCheckEvent;
+import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
@@ -52,6 +53,15 @@ public class PlayerListener implements Listener{
                 PermissionSystem.getInstance().syncGroups();
             });
         }
+    }
+
+    @EventHandler
+    public void onPostLogin(PostLoginEvent event) {
+        ProxyServer.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(), ()-> {
+            if(event.getPlayer().hasPermission("dkperms.admin") && PermissionSystem.getInstance().getUpdateChecker().hasNewVersion()) {
+                event.getPlayer().sendMessage(TextComponent.fromLegacyText(Messages.PREFIX + "§7New version available §e" + PermissionSystem.getInstance().getUpdateChecker().getLatestVersionString()));
+            }
+        });
     }
 
     @EventHandler(priority= EventPriority.HIGHEST)

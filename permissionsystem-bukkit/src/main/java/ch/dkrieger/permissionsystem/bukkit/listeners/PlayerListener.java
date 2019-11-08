@@ -12,10 +12,12 @@ import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.lang.reflect.Field;
@@ -58,6 +60,15 @@ public class PlayerListener implements Listener{
         Bukkit.getScheduler().runTaskLater(BukkitBootstrap.getInstance(),()->{
             BukkitBootstrap.getInstance().updateDisplayName(event.getPlayer());
         },6);
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        Bukkit.getScheduler().runTaskAsynchronously(BukkitBootstrap.getInstance(), ()-> {
+            if(event.getPlayer().hasPermission("dkperms.admin") && PermissionSystem.getInstance().getUpdateChecker().hasNewVersion()) {
+                event.getPlayer().sendMessage(Messages.PREFIX + "§7New version available §e" + PermissionSystem.getInstance().getUpdateChecker().getLatestVersionString());
+            }
+        });
     }
 
     public static Class<?> reflectCraftClazz(String suffix){

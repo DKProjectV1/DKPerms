@@ -28,7 +28,9 @@ import ch.dkrieger.permissionsystem.lib.storage.yaml.YamlPermissionStorage;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdateExecutor;
 import ch.dkrieger.permissionsystem.lib.updater.PermissionUpdater;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
+import ch.dkrieger.permissionsystem.lib.utils.UpdateChecker;
 
+import java.net.MalformedURLException;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -53,6 +55,7 @@ public class PermissionSystem {
     private PermissionStorage permissionStorage;
     private PermissionEntityStorage entityStorage;
     private MySQL mysql;
+    private UpdateChecker updateChecker;
 
     public PermissionSystem(DKPermsPlatform platform, PermissionUpdateExecutor updateexecutor, boolean advanced) {
         INSTANCE = this;
@@ -70,6 +73,15 @@ public class PermissionSystem {
         System.out.println(Messages.SYSTEM_PREFIX+"plugin is starting");
         System.out.println(Messages.SYSTEM_PREFIX+"PermissionSystem "+this.version+" by Davide Wietlisbach");
         System.out.println(Messages.SYSTEM_PREFIX+"Licensed to "+TestSpigotMcLicensing.USER+" | "+TestSpigotMcLicensing.DOWNLOAD);
+
+        try {
+            this.updateChecker = new UpdateChecker(58810);
+            if(this.updateChecker.hasNewVersion()) {
+                System.out.println(Messages.SYSTEM_PREFIX + "New version available: " + this.updateChecker.getLatestVersionString());
+            }
+        } catch (MalformedURLException ignored) {
+            System.out.println(Messages.SYSTEM_PREFIX + "Can't check newest version.");
+        }
 
         systemBootstrap(updateexecutor,advanced);
 
@@ -173,6 +185,10 @@ public class PermissionSystem {
 
     public String getVersion() {
         return version;
+    }
+
+    public UpdateChecker getUpdateChecker() {
+        return updateChecker;
     }
 
     public DKPermsPlatform getPlatform() {
