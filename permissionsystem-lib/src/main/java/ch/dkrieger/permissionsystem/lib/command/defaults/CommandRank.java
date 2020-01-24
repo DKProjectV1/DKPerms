@@ -93,7 +93,6 @@ public class CommandRank extends PermissionCommand{
                                     return;
                                 }
                             }else{
-                                System.out.print("sender null");
                                 sender.sendMessage(Messages.PREFIX+Messages.RANK_NOPERMISSION_FOR_PLAYER
                                         .replace("[player]",player.getColor()+player.getName()));
                                 return;

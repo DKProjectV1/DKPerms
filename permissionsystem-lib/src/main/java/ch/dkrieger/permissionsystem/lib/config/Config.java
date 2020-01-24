@@ -46,6 +46,7 @@ public class Config extends SimpleConfig {
 
     public static char SERVERGROUP_SPLIT;
 
+    public static boolean PLAYER_ADD_DEFAULT_GROUPS_ON_REGISTER;
     public static boolean PLAYER_DISPLAYNAME_ENABLED;
     public static String PLAYER_DISPLAYNAME_FORMAT;
 
@@ -108,6 +109,8 @@ public class Config extends SimpleConfig {
         }catch (Exception exception){
             DEBUG_LEVEL = PermissionSystem.PermissionDebugLevel.NORMAL;
         }
+
+        PLAYER_ADD_DEFAULT_GROUPS_ON_REGISTER = getBooleanValue("player.addDefaultGroupsOnRegister");
         PLAYER_DISPLAYNAME_ENABLED = getBooleanValue("player.displayname.enabled");
         PLAYER_DISPLAYNAME_FORMAT = getStringValue("player.displayname.format");
 
@@ -154,6 +157,7 @@ public class Config extends SimpleConfig {
         addValue("debug.enabled",true);
         addValue("debug.level","normal");
 
+        addValue("player.addDefaultGroupsOnRegister",false);
         addValue("player.displayname.enabled",true);
         addValue("player.displayname.format","[color][player]");
 

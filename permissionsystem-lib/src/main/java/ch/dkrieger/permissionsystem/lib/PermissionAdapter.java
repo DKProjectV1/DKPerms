@@ -405,7 +405,7 @@ public class PermissionAdapter {
     }
 
     public void setGroup(PermissionGroup group,Long duration,TimeUnit unit){
-        Long timeout = -1L;
+        long timeout = -1L;
         if(duration != null && duration > 0 && unit != null) timeout = System.currentTimeMillis()+unit.toMillis(duration);
         this.groups.clear();
         this.groups.add(new PermissionGroupEntity(timeout,group.getUUID()));
@@ -419,7 +419,7 @@ public class PermissionAdapter {
     }
 
     public void addGroup(PermissionGroup group,Long duration,TimeUnit unit){
-        Long timeout = -1L;
+        long timeout = -1L;
         if(duration != null && duration > 0 && unit != null) timeout = System.currentTimeMillis()+unit.toMillis(duration);
         this.groups.add(new PermissionGroupEntity(timeout,group.getUUID()));
         PermissionEntityProvider.getInstance().getStorage().addEntity(this.type,this.uuid,group.getUUID(),timeout);
@@ -428,7 +428,7 @@ public class PermissionAdapter {
     }
 
     public void removeGroup(PermissionGroup group){
-        for(PermissionGroupEntity entity : new ArrayList<>(this.groups)) if(entity.getGroupUUID().equals(group.getUUID())) this.groups.remove(entity);
+        this.groups.removeIf(entity -> entity.getGroupUUID().equals(group.getUUID()));
         PermissionEntityProvider.getInstance().getStorage().removeEntity(this.type,this.uuid,group.getUUID());
         PermissionUpdater.getInstance().getExecutor().executePermissionUpdate(this.type,this.uuid
                 ,PermissionUpdateData.removeGroup(group));

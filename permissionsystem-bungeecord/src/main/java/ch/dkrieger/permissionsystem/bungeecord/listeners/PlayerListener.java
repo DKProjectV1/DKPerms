@@ -10,6 +10,9 @@ import ch.dkrieger.permissionsystem.bungeecord.BungeeCordBootstrap;
 import ch.dkrieger.permissionsystem.bungeecord.CloudNetV2Extension;
 import ch.dkrieger.permissionsystem.bungeecord.CloudNetV3Extension;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
+import ch.dkrieger.permissionsystem.lib.config.Config;
+import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
+import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
@@ -47,6 +50,14 @@ public class PlayerListener implements Listener{
         if(player == null){
             player = PermissionPlayerManager.getInstance().createPermissionPlayer(event.getConnection().getUniqueId()
                     ,event.getConnection().getName());
+            if(Config.PLAYER_ADD_DEFAULT_GROUPS_ON_REGISTER){
+                PermissionPlayer finalPlayer = player;
+                ProxyServer.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(),()->{
+                    for (PermissionGroup group : PermissionGroupManager.getInstance().getDefaultGroups()) {
+                        finalPlayer.addGroup(group);
+                    }
+                });
+            }
         }else PermissionPlayerManager.getInstance().checkName(event.getConnection().getUniqueId(),event.getConnection().getName());
         if(ProxyServer.getInstance().getPlayers().size() == 0){
             ProxyServer.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(),()->{

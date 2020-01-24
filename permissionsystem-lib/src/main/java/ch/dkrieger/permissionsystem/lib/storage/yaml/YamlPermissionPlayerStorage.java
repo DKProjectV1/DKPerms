@@ -31,7 +31,8 @@ public class YamlPermissionPlayerStorage extends SimpleConfig implements Permiss
 
     @Override
     public PermissionPlayer getPermissionPlayer(UUID uuid) throws Exception {
-        if(getStringValue("players."+uuid+".name") != null){
+        String name = getStringValue("players."+uuid+".name");
+        if(name != null && name.length() > 0){
             return new PermissionPlayer(getIntValue("players."+uuid+".id"),getStringValue("players."+uuid+".name"),uuid);
         }
         return null;
@@ -40,9 +41,10 @@ public class YamlPermissionPlayerStorage extends SimpleConfig implements Permiss
     @Override
     public PermissionPlayer getPermissionPlayer(String name) throws Exception {
         try{
-            if(getStringValue("nameplayers."+name.toLowerCase()) != null)
-                return getPermissionPlayer(UUID.fromString(getStringValue("nameplayers."+name.toLowerCase())));
-        }catch (Exception exception){}
+            String id = getStringValue("nameplayers."+name.toLowerCase());
+            if(id != null && id.length() > 0)
+                return getPermissionPlayer(UUID.fromString(id));
+        }catch (Exception ignored){}
         return null;
     }
 

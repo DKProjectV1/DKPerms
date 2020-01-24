@@ -9,10 +9,12 @@ package ch.dkrieger.permissionsystem.bukkit.listeners;
 import ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap;
 import ch.dkrieger.permissionsystem.bukkit.DKPermissable;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
+import ch.dkrieger.permissionsystem.lib.config.Config;
+import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
+import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -41,6 +43,14 @@ public class PlayerListener implements Listener{
         }
         if(player == null){
             player = PermissionPlayerManager.getInstance().createPermissionPlayer(event.getPlayer().getUniqueId(),event.getPlayer().getName());
+            if(Config.PLAYER_ADD_DEFAULT_GROUPS_ON_REGISTER){
+                PermissionPlayer finalPlayer = player;
+                Bukkit.getScheduler().runTaskAsynchronously(BukkitBootstrap.getInstance(),()->{
+                    for (PermissionGroup group : PermissionGroupManager.getInstance().getDefaultGroups()) {
+                        finalPlayer.addGroup(group);
+                    }
+                });
+            }
         }else PermissionPlayerManager.getInstance().checkName(event.getPlayer().getUniqueId(),event.getPlayer().getName());
         try {
             Class<?> clazz = reflectCraftClazz(".entity.CraftHumanEntity");
