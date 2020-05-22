@@ -21,4 +21,12 @@ public interface PermissionCommandSender {
     void sendMessage(String message);
 
     void sendMessage(TextComponent component);
+
+    default boolean isConsole(){
+        return getUUID() == null;
+    }
+
+    default boolean isPlayer(){
+        return getUUID() != null;
+    }
 }

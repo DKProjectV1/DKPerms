@@ -103,7 +103,7 @@ public class BukkitBootstrap extends JavaPlugin implements DKPermsPlatform, Perm
                         field = clazz.getDeclaredField("perm");
                     }else field = Class.forName("net.glowstone.entity.GlowHumanEntity").getDeclaredField("permissions");
                     field.setAccessible(true);
-                    field.set(player,new DKPermissable(player));
+                    field.set(player,new DKPermissible(player));
                 }catch (Exception exception) {
                     exception.printStackTrace();
                 }

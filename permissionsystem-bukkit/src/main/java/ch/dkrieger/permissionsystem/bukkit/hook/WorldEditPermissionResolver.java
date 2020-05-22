@@ -9,6 +9,7 @@ package ch.dkrieger.permissionsystem.bukkit.hook;
 import ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap;
 import ch.dkrieger.permissionsystem.bukkit.utils.Reflection;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
+import ch.dkrieger.permissionsystem.lib.group.PermissionGroupEntity;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
@@ -16,6 +17,7 @@ import com.sk89q.wepif.PermissionsResolver;
 import com.sk89q.wepif.PermissionsResolverManager;
 import org.bukkit.OfflinePlayer;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class WorldEditPermissionResolver implements PermissionsResolver {
@@ -24,6 +26,7 @@ public class WorldEditPermissionResolver implements PermissionsResolver {
         try {
             Reflection.setField(PermissionsResolverManager.getInstance(),"permissionResolver",this);
         } catch (Exception exception) {
+            exception.printStackTrace();
             System.out.println("Could not hook into WorldEdit.");
         }
     }
@@ -76,9 +79,15 @@ public class WorldEditPermissionResolver implements PermissionsResolver {
 
     @Override
     public String[] getGroups(String name) {
-        List<PermissionGroup> groups = PermissionGroupManager.getInstance().getGroups();
+        PermissionPlayer player = getPlayer(name);
+        if(player == null) return new String[]{};
+
+        List<PermissionGroupEntity> groups = player.getGroups();
         String[] names = new String[groups.size()];
-        for(int i = 0;i<groups.size();i++) names[i] = groups.get(i).getName();
+        for(int i = 0;i<groups.size();i++){
+            PermissionGroupEntity entity = groups.get(i);
+            if(!entity.hasTimeOut()) names[i] = entity.getGroup().getName();
+        }
         return names;
     }
 

@@ -167,12 +167,21 @@ public class Reflection {
         }
         return null;
     }
-    //set a simple Filed cretaed by Davide Wietlisbach
+    //set a simple Filed created by Davide Wietlisbach
     public static void setField(Object change, String name, Object to) throws Exception {
-        Field field = change.getClass().getDeclaredField(name);
-        field.setAccessible(true);
-        field.set(change,to);
-        field.setAccessible(false);
+        Class<?> clazz = change.getClass();
+        while (clazz != null) {
+            try {
+                Field field = clazz.getDeclaredField(name);
+                field.setAccessible(true);
+                field.set(change, to);
+                return;
+            } catch (NoSuchFieldException e) {
+                clazz = clazz.getSuperclass();
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
+        }
     }
     public static <T> FieldAccessor<T> getField(Class<?> target, String name, Class<T> fieldType) {
         return getField(target, name, fieldType, 0);

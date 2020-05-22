@@ -7,7 +7,7 @@ package ch.dkrieger.permissionsystem.bukkit.listeners;
  */
 
 import ch.dkrieger.permissionsystem.bukkit.BukkitBootstrap;
-import ch.dkrieger.permissionsystem.bukkit.DKPermissable;
+import ch.dkrieger.permissionsystem.bukkit.DKPermissible;
 import ch.dkrieger.permissionsystem.lib.PermissionSystem;
 import ch.dkrieger.permissionsystem.lib.config.Config;
 import ch.dkrieger.permissionsystem.lib.group.PermissionGroup;
@@ -58,7 +58,7 @@ public class PlayerListener implements Listener{
             if(clazz != null) field = clazz.getDeclaredField("perm");
             else field = Class.forName("net.glowstone.entity.GlowHumanEntity").getDeclaredField("permissions");
             field.setAccessible(true);
-            field.set(event.getPlayer(),new DKPermissable(event.getPlayer()));
+            field.set(event.getPlayer(),new DKPermissible(event.getPlayer()));
         }catch (Exception exception) {
             exception.printStackTrace();
         }
