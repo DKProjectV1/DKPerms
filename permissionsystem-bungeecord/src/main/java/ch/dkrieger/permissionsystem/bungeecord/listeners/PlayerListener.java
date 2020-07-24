@@ -33,6 +33,7 @@ public class PlayerListener implements Listener{
     @EventHandler(priority=80)
     public void onLogin(LoginEvent event){
         if(ProxyServer.getInstance().getConfig().isOnlineMode() && !(event.getConnection().isOnlineMode())) return;
+        if(event.isCancelled()) return;
         PermissionPlayer player = null;
         try{
             player = PermissionPlayerManager.getInstance().getPermissionPlayerSave(event.getConnection().getUniqueId());

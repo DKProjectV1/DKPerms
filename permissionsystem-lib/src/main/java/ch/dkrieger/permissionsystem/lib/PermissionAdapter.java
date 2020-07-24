@@ -200,7 +200,9 @@ public class PermissionAdapter {
 
 
     public boolean isInGroup(PermissionGroup group){
-        for(PermissionGroup groups : getSortedGroups()) if(groups.getUUID().equals(group)) return true;
+        for(PermissionGroup groups : getSortedGroups()){
+            if(groups.getUUID().equals(group.getUUID())) return true;
+        }
         return false;
     }
 
