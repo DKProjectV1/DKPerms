@@ -17,6 +17,7 @@ import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.LoginEvent;
@@ -70,8 +71,18 @@ public class PlayerListener implements Listener{
     @EventHandler
     public void onPostLogin(PostLoginEvent event) {
         ProxyServer.getInstance().getScheduler().runAsync(BungeeCordBootstrap.getInstance(), ()-> {
-            if(event.getPlayer().hasPermission("dkperms.admin") && PermissionSystem.getInstance().getUpdateChecker().hasNewVersion()) {
-                event.getPlayer().sendMessage(TextComponent.fromLegacyText(Messages.PREFIX + "§7New version available §e" + PermissionSystem.getInstance().getUpdateChecker().getLatestVersionString()));
+            if(event.getPlayer().hasPermission("dkperms.admin")) {
+                if(PermissionSystem.getInstance().getUpdateChecker().hasNewVersion()){
+                    event.getPlayer().sendMessage(TextComponent.fromLegacyText(Messages.PREFIX + "§7New version available §e" + PermissionSystem.getInstance().getUpdateChecker().getLatestVersionString()));
+                }
+                BaseComponent[] messages = PermissionSystem.getInstance().getUpdateChecker().getEndOfLifeMessage();
+                if(messages != null){
+                    event.getPlayer().sendMessage(Messages.PREFIX+" §7------------------------");
+                    for (BaseComponent message : messages) {
+                        event.getPlayer().sendMessage(message);
+                    }
+                    event.getPlayer().sendMessage(Messages.PREFIX+" §7------------------------");
+                }
             }
         });
     }

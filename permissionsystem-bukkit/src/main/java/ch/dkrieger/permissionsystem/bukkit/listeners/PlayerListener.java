@@ -15,6 +15,7 @@ import ch.dkrieger.permissionsystem.lib.group.PermissionGroupManager;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayer;
 import ch.dkrieger.permissionsystem.lib.player.PermissionPlayerManager;
 import ch.dkrieger.permissionsystem.lib.utils.Messages;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -75,8 +76,18 @@ public class PlayerListener implements Listener{
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Bukkit.getScheduler().runTaskAsynchronously(BukkitBootstrap.getInstance(), ()-> {
-            if(event.getPlayer().hasPermission("dkperms.admin") && PermissionSystem.getInstance().getUpdateChecker().hasNewVersion()) {
-                event.getPlayer().sendMessage(Messages.PREFIX + "§7New version available §e" + PermissionSystem.getInstance().getUpdateChecker().getLatestVersionString());
+            if(event.getPlayer().hasPermission("dkperms.admin")) {
+                if(PermissionSystem.getInstance().getUpdateChecker().hasNewVersion()){
+                    event.getPlayer().sendMessage(Messages.PREFIX + "§7New version available §e" + PermissionSystem.getInstance().getUpdateChecker().getLatestVersionString());
+                }
+                BaseComponent[] messages = PermissionSystem.getInstance().getUpdateChecker().getEndOfLifeMessage();
+                if(messages != null){
+                    event.getPlayer().sendMessage(Messages.PREFIX+" §7------------------------");
+                    for (BaseComponent message : messages) {
+                        event.getPlayer().sendMessage(message.toLegacyText());
+                    }
+                    event.getPlayer().sendMessage(Messages.PREFIX+" §7------------------------");
+                }
             }
         });
     }
