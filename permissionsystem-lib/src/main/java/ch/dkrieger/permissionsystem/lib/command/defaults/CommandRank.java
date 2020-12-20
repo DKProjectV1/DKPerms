@@ -86,7 +86,6 @@ public class CommandRank extends PermissionCommand{
                             PermissionPlayer permsender = PermissionPlayerManager.getInstance().getPermissionPlayer(sender.getUUID());
                             if(permsender != null){
                                 PermissionGroup permgroup = permsender.getHighestGroup();
-                                System.out.print(pgroup.getPriority()+" | "+permgroup.getPriority());
                                 if(pgroup.getPriority() < permgroup.getPriority()){
                                     sender.sendMessage(Messages.PREFIX+Messages.RANK_NOPERMISSION_FOR_PLAYER
                                             .replace("[player]",player.getColor()+player.getName()));

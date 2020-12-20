@@ -206,15 +206,9 @@ public class DKPermissible extends PermissibleBase {
 	public void recalculatePermissions() {
 		if(permissions == null) return;
 		clearPermissions();
-		//Bukkit.getServer().getPluginManager().subscribeToDefaultPerms(isOp(), parent);
 
 		for (PermissionAttachment attachment : attachments) {
 			calculateChildPermissions(attachment.getPermissions(), false, attachment);
-		}
-
-		System.out.println("Permissions:");
-		for (Map.Entry<String, PermissionAttachmentInfo> entry : permissions.entrySet()) {
-			System.out.println(entry.getKey()+" | "+entry.getValue());
 		}
 
 	}

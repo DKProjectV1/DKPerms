@@ -22,7 +22,7 @@ import static ch.dkrieger.permissionsystem.bukkit.utils.Reflection.*;
 
 public class TabListStyle {
 
-	private static Map<Player, LinkedList<String>> alreadyinuse = new LinkedHashMap<>();
+	private static Map<Player, LinkedList<String>> alreadyInUse = new LinkedHashMap<>();
 
 	public static void setStyle(String prefix,String suffix,String priority,Player player,Player receiver) {
         setStyle(prefix,suffix,priority,player.getName(),receiver);
@@ -71,9 +71,12 @@ public class TabListStyle {
                     setField(packet,"d",component.newInstance(suffix));
 
                     String color = "GRAY";
-                    if(prefix.length() >= 2 && prefix.charAt(prefix.length()-2) == '§'){
-                        ChatColor chatColor = ChatColor.getByChar(prefix.charAt(prefix.length()-1));
-                        if(chatColor != null) color = chatColor.name().toUpperCase();
+                    if(prefix.length() >= 2){
+                        char before = prefix.charAt(prefix.length() - 2);
+                        if((before == '§' || before == '&')){
+                            ChatColor chatColor = ChatColor.getByChar(prefix.charAt(prefix.length()-1));
+                            if(chatColor != null) color = chatColor.name().toUpperCase();
+                        }
                     }
                     setField(packet,"g",getMinecraftClass("EnumChatFormat").getField(color).get(null));
                 }
@@ -106,10 +109,10 @@ public class TabListStyle {
 
 	private static String getFreeString(Player player,String priority){
 	    String value = priority+ GeneralUtil.getRandomString(10);
-		if(alreadyinuse.containsKey(player)) while(alreadyinuse.get(player).contains(value)) value = GeneralUtil.getRandomString(10);
-		else alreadyinuse.put(player, new LinkedList<>());
+		if(alreadyInUse.containsKey(player)) while(alreadyInUse.get(player).contains(value)) value = GeneralUtil.getRandomString(10);
+		else alreadyInUse.put(player, new LinkedList<>());
         if(value.length() > 16) value = value.substring(0,16);
-        alreadyinuse.get(player).add(value);
+        alreadyInUse.get(player).add(value);
 		return value;
 	}
 }

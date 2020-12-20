@@ -1,6 +1,7 @@
 package ch.dkrieger.permissionsystem.tools.dkcoinsconnection.bungeecord;
 
 import ch.dkrieger.coinsystem.bungeecord.event.ProxiedCoinPlayerColorSetEvent;
+import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.core.player.CoinPlayerManager;
 import ch.dkrieger.permissionsystem.bungeecord.event.ProxiedPermissionPlayerUpdateEvent;
@@ -41,7 +42,7 @@ public class BungeeCordDKPermsDKCoinsConnection extends Plugin implements Listen
     @EventHandler
     public void onColorSet(ProxiedCoinPlayerColorSetEvent event){
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUUID());
-        PermissionGroup group = null;
+        PermissionGroup group;
         if(player != null) group = player.getHighestGroup();
         else group = PermissionGroupManager.getInstance().getHighestDefaultGroup();
         if(group != null && !(group.getPlayerDesign().getColor().equalsIgnoreCase("-1")))
@@ -51,7 +52,7 @@ public class BungeeCordDKPermsDKCoinsConnection extends Plugin implements Listen
     @EventHandler
     public void onUpdate(ProxiedPermissionPlayerUpdateEvent event){
         BungeeCord.getInstance().getScheduler().runAsync(this,()->{
-            CoinPlayer player = CoinPlayerManager.getInstance().getPlayer(event.getUUID());
+            CoinPlayer player = CoinSystem.getInstance().getPlayerManager().getPlayer(event.getUUID());
             if(player != null) player.setColor(event.getPlayer().getColor());
         });
     }

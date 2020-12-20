@@ -79,10 +79,9 @@ public class CommandPermission extends PermissionCommand {
                             .replace("[name]",group.getName());
                     if(sender.isPlayer()){
                         TextComponent text = new TextComponent(TextComponent.fromLegacyText(message));
-                        if(sender.isPlayer()){
-                            text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/perms group "+group.getName()));
-                            text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder(Messages.PERMISSION_GROUP_LIST_HOVER).create()));
-                        }
+                        text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/perms group "+group.getName()));
+                        text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder(Messages.PERMISSION_GROUP_LIST_HOVER).create()));
+                        sender.sendMessage(text);
                     }else{
                         sender.sendMessage(message);
                     }
@@ -459,10 +458,8 @@ public class CommandPermission extends PermissionCommand {
                                                 .replace("[name]",entity.getGroup().getName());
                                         if(sender.isPlayer()){
                                             TextComponent text = new TextComponent(TextComponent.fromLegacyText(message));
-                                            if(sender.isPlayer()){
-                                                text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/perms group "+entity.getGroup().getName()));
-                                                text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder(Messages.PERMISSION_GROUP_LIST_HOVER).create()));
-                                            }
+                                            text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/perms group "+entity.getGroup().getName()));
+                                            text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder(Messages.PERMISSION_GROUP_LIST_HOVER).create()));
                                             sender.sendMessage(text);
                                         }else{
                                             sender.sendMessage(message);

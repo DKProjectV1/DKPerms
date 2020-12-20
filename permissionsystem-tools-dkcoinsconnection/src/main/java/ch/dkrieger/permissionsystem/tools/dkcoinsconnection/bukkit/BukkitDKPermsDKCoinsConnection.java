@@ -1,5 +1,7 @@
 package ch.dkrieger.permissionsystem.tools.dkcoinsconnection.bukkit;
 
+import ch.dkrieger.coinsystem.core.CoinSystem;
+import ch.dkrieger.coinsystem.core.DKCoinsPlatform;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.core.player.CoinPlayerManager;
 import ch.dkrieger.coinsystem.spigot.event.BukkitCoinPlayerColorSetEvent;
@@ -39,7 +41,7 @@ public class BukkitDKPermsDKCoinsConnection extends JavaPlugin implements Listen
     @EventHandler
     public void onColorSet(BukkitCoinPlayerColorSetEvent event){
         PermissionPlayer player = PermissionPlayerManager.getInstance().getPermissionPlayer(event.getPlayer().getUUID());
-        PermissionGroup group = null;
+        PermissionGroup group;
         if(player != null) group = player.getHighestGroup();
         else group = PermissionGroupManager.getInstance().getHighestDefaultGroup();
         if(group != null && !(group.getPlayerDesign().getColor().equalsIgnoreCase("-1")))
@@ -49,7 +51,7 @@ public class BukkitDKPermsDKCoinsConnection extends JavaPlugin implements Listen
     @EventHandler
     public void onUpdate(BukkitPermissionPlayerUpdateEvent event){
         Bukkit.getScheduler().runTaskAsynchronously(this,()->{
-            CoinPlayer player = CoinPlayerManager.getInstance().getPlayer(event.getUUID());
+            CoinPlayer player = CoinSystem.getInstance().getPlayerManager().getPlayer(event.getUUID());
             if(player != null) player.setColor(event.getPlayer().getColor());
         });
     }
